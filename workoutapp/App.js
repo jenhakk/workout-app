@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Button } from '@rneui/base';
+import { Button, Text } from '@rneui/base';
 
 const App = () => {
   const AwesomeButton = () => <Button title="Welcome" />;
@@ -11,6 +11,7 @@ const App = () => {
       <AwesomeButton />
 
       <Button title='Smile!' />
+      <Text>Halloo</Text>
     </View>
   );
 };
