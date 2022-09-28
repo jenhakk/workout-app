@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@rneui/base": "^4.0.0-rc.6",
+    "@rneui/themed": "^4.0.0-rc.6"
+  }
+}
