@@ -13,9 +13,9 @@ const App=()=>{
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Start">
-        <Stack.Screen name="ViewStart" component={ViewStart} />
-        <Stack.Screen name="ViewMeasAdd" component={ViewMeasAdd} />
-        <Stack.Screen name="ViewPerson" component={ViewPerson} />
+        <Stack.Screen name="Home" component={ViewStart} />
+        <Stack.Screen name="Add measurements" component={ViewMeasAdd} />
+        <Stack.Screen name="Profile" component={ViewPerson} />
       </Stack.Navigator>
     </NavigationContainer>
   );
