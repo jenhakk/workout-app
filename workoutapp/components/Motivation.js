@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Image } from "react-native";
+import { View } from "react-native";
 import { Card, Text, } from "@rneui/themed";
 
 
@@ -26,7 +26,7 @@ function Motivation() {
             <Card>
                 <Card.Title>Todays quote:</Card.Title>
                 <Card.Divider />
-                {list.map((q, a) => {
+                {list.map((q) => {
                     return (
                         <View key={q}>
                             <Text>{q.q} -{q.a}</Text>
