@@ -20,67 +20,94 @@ const ViewMeasAdd = (props) => {
   };
 
   return (
-    <View style={styles.measContainer}>
-      <View style={styles.measWrapLists}>
-        <FlatList
-          data={meas}
-          keyExtractor={keyHandler}
-          renderItem={item => {
-            return (
-              <View>
-                <Text style={styles.measLabels}>
-                  {item.index + 1}. {item.item}:
-                </Text>
-              </View>
-            );
-          }}
-        />
+    <View style={styles.measContainerAll}>
+      <Text style={styles.measHeader}>Fill in your measurements:</Text>
+
+      <View style={styles.measContainerList}>
+        <View style={styles.measWrapLists}>
+          <FlatList
+            data={meas}
+            keyExtractor={keyHandler}
+            renderItem={item => {
+              return (
+                <View>
+                  <Text style={styles.measLabels}>
+                    {item.item}:
+                  </Text>
+                </View>
+              );
+            }}
+          />
+        </View>
+        <View style={styles.wrapMeasLists}>
+          <FlatList
+            data={meas}
+            keyExtractor={keyHandler}
+            renderItem={item => {
+              return (
+                <View>
+                  <Input
+                    inputContainerStyle={styles.measInput}
+                    inputStyle={styles.measInputText}
+                    placeholder={item.item}
+                  />
+                </View>
+              );
+            }}
+          />
+        </View>
       </View>
-      <View style={styles.wrapMeasLists}>
-        <FlatList
-          data={meas}
-          keyExtractor={keyHandler}
-          renderItem={item => {
-            return (
-              <View>
-                <Input
-                  inputContainerStyle={styles.measInput}
-                  inputStyle={styles.measInputText}
-                  placeholder={item.item}
-                />
-              </View>
-            );
-          }}
-        />
-      </View>
+      <Button buttonStyle={styles.measButton} title = 'ADD MEASUREMENTS'></Button>
       <NavButtons params={props}/>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  measContainer: {
-    marginVertical: 40,
-    width: '80%',
-    flexDirection: 'row',
+  measContainerAll: {
+    width: '85%',
     alignSelf: 'center',
+    marginVertical: 60,
+    paddingVertical: 40,
+    paddingHorizontal: 30,
+    borderRadius: 30,
+    backgroundColor: '#e0e0e0',
+
+  },
+  measHeader: {
+    textAlign: 'center',
+    marginBottom: 40,
+    fontSize: 20,
+    fontWeight: 'normal',
+  },
+  measContainerList: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 20,
   },
   measWrapLists: {
     flexDirection: 'column',
   },
   measLabels: {
-    color: 'grey',
+    color: 'black',
     fontSize: 16,
     fontWeight: 'normal',
     paddingBottom: 40,
   },
   measInput: {
-    width: 100,
+    width: 60,
     height: 35,
   },
   measInputText: {
+    textAlign: 'right',
     fontSize: 16,
+    paddingRight: 10,
+    borderBottomColor: 'black',
+  },
+  measButton: {
+    width: '78%',
+    alignSelf: 'center',
+    borderRadius: 5,
   },
 });
 
