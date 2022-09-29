@@ -26,7 +26,7 @@ const NavButtons = ({params}) => {
         type="material-community"
         color="rgba(92, 99,216, 1)"
         size={40}
-        // onPress={() => params.navigation.navigate('')}
+        onPress={() => params.navigation.navigate('ViewPerson')}
       />
     </View>
   );

@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Button, Text } from '@rneui/base';
 import ViewStart from './views/ViewStart';
 import ViewMeasAdd from './views/ViewMeasAdd';
+import ViewPerson from './views/ViewPerson';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -14,7 +15,7 @@ const App=()=>{
       <Stack.Navigator initialRouteName="Start">
         <Stack.Screen name="ViewStart" component={ViewStart} />
         <Stack.Screen name="ViewMeasAdd" component={ViewMeasAdd} />
-      
+        <Stack.Screen name="ViewPerson" component={ViewPerson} />
       </Stack.Navigator>
     </NavigationContainer>
   );
