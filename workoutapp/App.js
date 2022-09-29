@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Button, Text } from '@rneui/base';
 import Motivation from './components/Motivation';
+import ViewStart from './views/ViewStart';
 
 const App = () => {
   const AwesomeButton = () => <Button title="Welcome" />;
@@ -9,10 +10,11 @@ const App = () => {
 
   return (
     <View>
-      <AwesomeButton />
+      {/* <AwesomeButton />
       <Motivation />
       <Button title='Smile!' />
-      <Text>Halloo</Text>
+      <Text>Halloo</Text> */}
+      <ViewStart />
     </View>
   );
 };
