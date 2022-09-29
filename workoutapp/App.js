@@ -1,26 +1,33 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Button, Text } from '@rneui/base';
-import Motivation from './components/Motivation';
 import ViewStart from './views/ViewStart';
 import ViewMeasAdd from './views/ViewMeasAdd';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const App = () => {
-  const AwesomeButton = () => <Button title="Welcome" />;
+const Stack = createNativeStackNavigator();
 
-
+const App=()=>{
   return (
-    <View>
-      {/* <AwesomeButton />
-      <Motivation />
-      <Button title='Smile!' />
-      <Text>Halloo</Text> */}
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Start">
+        <Stack.Screen name="ViewStart" component={ViewStart} />
+        <Stack.Screen name="ViewMeasAdd" component={ViewMeasAdd} />
       
-      
-      <ViewStart />
-      {/* <ViewMeasAdd /> */}
-    </View>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
+}
+    // <View>
+    //   {/* <AwesomeButton />
+    //   <Motivation />
+    //   <Button title='Smile!' />
+    //   <Text>Halloo</Text> */}
+      
+      
+    //   <ViewStart />
+    //   {/* <ViewMeasAdd /> */}
+    // </View>
 
 export default App;
