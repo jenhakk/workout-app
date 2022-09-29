@@ -12,31 +12,33 @@ const ViewStart = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.top}>
-        <Text>Hello {user}!</Text>
-        <Text>Today is 29.9.2022</Text>
-      </View>
-
       <View style={styles.motivation}>
         <Motivation />
       </View>
+      <View style={styles.top}>
+        <Text style={styles.hello}>Hello {user}!</Text>
+        <Text style={styles.date}>Today is 29.9.2022</Text>
+      </View>
+
+      
       <View style={styles.buttonContainer}>
         <View style={styles.buttongroup}>
           <Button
             title={<CustomTitleWorkout />}
-            buttonStyle={styles.button}></Button>
+            buttonStyle={styles.button1}></Button>
           <Button
+            
             title={<CustomTitleAddMeas />}
-            buttonStyle={styles.button}
-            onPress={()=> {props.navigation.navigate('ViewMeasAdd')}}></Button>
+            buttonStyle={styles.button2}
+            onPress={()=> {props.navigation.navigate('Add measurements')}}></Button>
         </View>
         <View style={styles.buttongroup}>
           <Button
             title={<CustomTitleWorkoutHistory />}
-            buttonStyle={styles.button}></Button>
+            buttonStyle={styles.button3}></Button>
           <Button
             title={<CustomTitleMeasHistory />}
-            buttonStyle={styles.button}></Button>
+            buttonStyle={styles.button4}></Button>
         </View>
         <NavButtons params={props}/>
       </View>
@@ -141,26 +143,64 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  hello:{
+    fontSize:20,
+    paddingTop:10,
+    color:'rgba(92, 99,216, 1)'
+  },
+  date:{
+    fontSize: 15,
+    color:'rgba(92, 99,216, 1)'
+  },
   motivation: {
-    flex: 3,
-    paddingLeft: 30,
-    paddingRight: 30,
+    flex: 2,
+    justifyContent:'flex-start',
+    paddingLeft: 20,
+    paddingRight: 20,
+   
+ 
   },
 
   buttonContainer: {
-    flex: 5,
+    flex: 3,
+
   },
   buttongroup: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
-  button: {
-    width: 130,
+  
+  button1: {
+    width: 150,
     height: 130,
-    backgroundColor: 'rgba(92, 99,216, 1)',
+    backgroundColor: '#4C40E6',
     borderColor: 'transparent',
     borderRadius: 20,
-    margin: 20,
+    margin: 5,
+  },
+  button2: {
+    width: 150,
+    height: 130,
+    backgroundColor: '#7640E6',
+    borderColor: 'transparent',
+    borderRadius: 20,
+    margin: 5,
+  },
+  button3: {
+    width: 150,
+    height: 130,
+    backgroundColor: '#9F40E6',
+    borderColor: 'transparent',
+    borderRadius: 20,
+    margin: 5,
+  },
+  button4: {
+    width: 150,
+    height: 130,
+    backgroundColor: '#C940E6',
+    borderColor: 'transparent',
+    borderRadius: 20,
+    margin: 5,
   },
 });
 

@@ -18,7 +18,7 @@ const NavButtons = ({params}) => {
         type="material-community"
         color="rgba(92, 99,216, 1)"
         size={40}
-        onPress={() => params.navigation.navigate('ViewStart')}
+        onPress={() => params.navigation.navigate('Home')}
       />
 
       <Icon
@@ -26,7 +26,7 @@ const NavButtons = ({params}) => {
         type="material-community"
         color="rgba(92, 99,216, 1)"
         size={40}
-        onPress={() => params.navigation.navigate('ViewPerson')}
+        onPress={() => params.navigation.navigate('Profile')}
       />
     </View>
   );
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'space-around',
+    
   },
 });
 export default NavButtons;

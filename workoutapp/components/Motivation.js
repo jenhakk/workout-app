@@ -23,13 +23,14 @@ function Motivation() {
     }, [])
     return (
         <View>
-            <Card>
-                <Card.Title>Todays quote:</Card.Title>
-                <Card.Divider />
+            <Card containerStyle={{backgroundColor: '#C1ACFB', borderRadius:7}}>
+                <Card.Title style={{fontSize:22, color:'white', fontWeight:'500'}}>Todays quote:</Card.Title>
+                <Card.Divider width={1} color='white'/>
                 {list.map((q) => {
                     return (
                         <View key={q}>
-                            <Text>{q.q} -{q.a}</Text>
+                            <Text style={{fontSize:20, textAlign:'center', paddingLeft:20, paddingRight:20, color:'white'}}>"{q.q}" </Text>
+                            <Text style={{fontSize:15, paddingLeft:15, fontStyle:'italic', color:'white'}}>- {q.a}</Text>
                         </View>
                     );
                 })}
