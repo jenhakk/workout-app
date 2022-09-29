@@ -3,8 +3,11 @@ import {View, StyleSheet} from 'react-native';
 import {Button, Text} from '@rneui/base';
 import {Icon} from '@rneui/themed';
 import Motivation from '../components/Motivation';
+import NavButtons from '../components/NavButtons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const ViewStart = () => {
+const ViewStart = (props) => {
   var user = 'Pertti';
 
   return (
@@ -24,7 +27,8 @@ const ViewStart = () => {
             buttonStyle={styles.button}></Button>
           <Button
             title={<CustomTitleAddMeas />}
-            buttonStyle={styles.button}></Button>
+            buttonStyle={styles.button}
+            onPress={()=> {props.navigation.navigate('ViewMeasAdd')}}></Button>
         </View>
         <View style={styles.buttongroup}>
           <Button
@@ -34,6 +38,7 @@ const ViewStart = () => {
             title={<CustomTitleMeasHistory />}
             buttonStyle={styles.button}></Button>
         </View>
+        <NavButtons params={props}/>
       </View>
     </View>
   );

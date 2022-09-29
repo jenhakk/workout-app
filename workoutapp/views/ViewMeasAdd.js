@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
 import {Button, Text, Input} from '@rneui/base';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import NavButtons from '../components/NavButtons';
 
-const ViewMeasAdd = () => {
+const ViewMeasAdd = (props) => {
   const [meas, setMeas] = useState([
     'Weight',
     'Chest',
@@ -55,6 +58,7 @@ const ViewMeasAdd = () => {
         </View>
       </View>
       <Button buttonStyle={styles.measButton} title = 'ADD MEASUREMENTS'></Button>
+      <NavButtons params={props}/>
     </View>
   );
 };
