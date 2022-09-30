@@ -4,6 +4,7 @@ import {Button, Text, Input} from '@rneui/base';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NavButtons from '../components/NavButtons';
+import MeasLabels from '../components/MeasLabels';
 
 const ViewMeasAdd = props => {
   // for measurement inputs
@@ -13,16 +14,6 @@ const ViewMeasAdd = props => {
   const [waist, setWaist] = useState('');
   const [hip, setHip] = useState('');
   const [thigh, setThigh] = useState('');
-
-  // for measurement labels
-  const [measLabels, setLabels] = useState([
-    'Weight',
-    'Chest',
-    'Bicep',
-    'Waist',
-    'Hip',
-    'Thigh',
-  ]);
 
   // handling data from inputs
   const handleWeight = event => {
@@ -36,12 +27,15 @@ const ViewMeasAdd = props => {
   const handleBicep = event => {
     setBicep(event);
   };
+
   const handleWaist = event => {
     setWaist(event);
   };
+
   const handleHip = event => {
     setHip(event);
   };
+
   const handleThigh = event => {
     setThigh(event);
   };
@@ -68,29 +62,23 @@ const ViewMeasAdd = props => {
   //   setThigh('');
   // };
 
-  const keyHandler = (item, index) => {
-    return index.toString();
-  };
-
   return (
-    <View style={{flex: 1}}>
+    // wraps everything, is there for bottom navbar
+    <View style={{flex: 1, backgroundColor: 'white'}}>
+
+      {/* wraps whole form */}
       <View style={styles.measContainerAll}>
         <Text style={styles.measHeader}>Fill in your measurements:</Text>
 
+        {/* wraps input area (labels and inputs) */}
         <View style={styles.measContainerList}>
+          
+          {/* wraps labels */}
           <View style={styles.measWrapLists}>
-            <FlatList
-              data={measLabels}
-              keyExtractor={keyHandler}
-              renderItem={(item, index) => {
-                return (
-                  <View>
-                    <Text style={styles.measLabels}>{item.item}:</Text>
-                  </View>
-                );
-              }}
-            />
+            <MeasLabels />
           </View>
+
+          {/* wraps inputs */}
           <View style={styles.measWrapLists}>
             <Input
               inputContainerStyle={styles.measInput}
@@ -136,7 +124,11 @@ const ViewMeasAdd = props => {
             />
           </View>
         </View>
-        <Button buttonStyle={styles.measButton} title="ADD MEASUREMENTS" />
+        <Button
+          buttonStyle={styles.measButton}
+          title="ADD MEASUREMENTS"
+          onPress={() => {props.navigation.navigate('Your measurements');}}
+        />
       </View>
       <NavButtons params={props} />
     </View>
@@ -147,11 +139,11 @@ const styles = StyleSheet.create({
   measContainerAll: {
     width: '85%',
     alignSelf: 'center',
-    marginVertical: 35,
-    paddingVertical: 30,
+    marginVertical: 40,
+    paddingVertical: 25,
     paddingHorizontal: 30,
     borderRadius: 30,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#ebebeb',
   },
   measHeader: {
     textAlign: 'center',
@@ -166,12 +158,6 @@ const styles = StyleSheet.create({
   },
   measWrapLists: {
     flexDirection: 'column',
-  },
-  measLabels: {
-    color: 'black',
-    fontSize: 16,
-    fontWeight: 'normal',
-    paddingBottom: 40,
   },
   measInput: {
     width: 65,

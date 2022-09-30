@@ -38,7 +38,8 @@ const ViewStart = (props) => {
             buttonStyle={styles.button3}></Button>
           <Button
             title={<CustomTitleMeasHistory />}
-            buttonStyle={styles.button4}></Button>
+            buttonStyle={styles.button4}
+            onPress={()=> {props.navigation.navigate('All recorded measurements')}}></Button>
         </View>
         <NavButtons params={props}/>
       </View>
