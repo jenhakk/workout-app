@@ -25,7 +25,8 @@ const ViewStart = (props) => {
         <View style={styles.buttongroup}>
           <Button
             title={<CustomTitleWorkout />}
-            buttonStyle={styles.button1}></Button>
+            buttonStyle={styles.button1}
+            onPress={()=> {props.navigation.navigate('Add Exercises')}}></Button>
           <Button
             
             title={<CustomTitleAddMeas />}
