@@ -4,6 +4,7 @@ import { Button, Text } from '@rneui/base';
 import ViewStart from './views/ViewStart';
 import ViewMeasAdd from './views/ViewMeasAdd';
 import ViewPerson from './views/ViewPerson';
+import ViewExercises from './views/ViewExercises';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -14,6 +15,7 @@ const App=()=>{
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Start">
         <Stack.Screen name="Home" component={ViewStart} />
+        <Stack.Screen name="Add Exercises" component={ViewExercises} />
         <Stack.Screen name="Add measurements" component={ViewMeasAdd} />
         <Stack.Screen name="Profile" component={ViewPerson} />
       </Stack.Navigator>
