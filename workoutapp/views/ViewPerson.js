@@ -5,7 +5,7 @@ import NavButtons from '../components/NavButtons';
 import PersonCard from '../components/PersonCard';
 
 const ViewPerson = (props) => {
-    const [person] = useState([{ 'Firstname': 'Pirkko', 'Lastname': 'Rönkkö', 'Location': 'Kempele', 'Slogan': 'Life is my opportunity', 'Picture': 'null' }]);
+    const [person] = useState([{ 'Firstname': 'Pertti', 'Lastname': 'Rönkkö', 'Location': 'Kempele', 'Slogan': 'Life is my opportunity', 'Picture': 'null' }]);
 
 
     return (
