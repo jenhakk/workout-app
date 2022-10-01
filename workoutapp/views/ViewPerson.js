@@ -5,13 +5,8 @@ import NavButtons from '../components/NavButtons';
 import PersonCard from '../components/PersonCard';
 
 const ViewPerson = (props) => {
-    const [rPerson, setRPerson] = useState("");
     const [person, setPerson] = useState([{ 'Firstname': 'Pertti', 'Lastname': 'Rönkkö', 'Location': 'Kempele', 'Slogan': 'Life is my opportunity', 'Picture': 'null' }]);
 
-    const settingPerson=()=>{
-        setRPerson(person);
-        {props.navigation.navigate('Edit profile', {person: person})}
-    }
     return (
         <View style={styles.container}>
             <View style={styles.card}>
@@ -22,7 +17,7 @@ const ViewPerson = (props) => {
                 <Button
                 buttonStyle={styles.button}
                 title='EDIT YOUR PROFILE'
-                onPress={()=> settingPerson()}></Button>
+                onPress={()=> {props.navigation.navigate('Edit profile', {person: person})}}></Button>
             </View>
             <View style={styles.buttonContainer}>
                 <NavButtons params={props} />
