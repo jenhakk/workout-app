@@ -10,13 +10,17 @@ const ViewEditProfile = (props) => {
     const [person, setPerson] = useState(props.route.params == undefined ? "" : props.route.params.person);
     console.log(person);
 
-
-
-    const personInputHandler = (enteredText) => {
+    const firstnameInputHandler = (enteredText) => {
         setPerson(enteredText);
-        //console.log(person);
-        console.log("Person Firstname " + person[0].Firstname);
-        console.log("Person Lastname " + person[0].Lastname)
+    }
+    const lastnameInputHandler = (enteredText) => {
+        setPerson(enteredText);
+    }
+    const locationInputHandler = (enteredText) => {
+        setPerson(enteredText);
+    }
+    const sloganInputHandler = (enteredText) => {
+        setPerson(enteredText);
     }
 
 
@@ -40,34 +44,32 @@ const ViewEditProfile = (props) => {
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Firstname..."
-                            onChangeText={personInputHandler}
+                            onChangeText={firstnameInputHandler}
                             value={person[0].Firstname}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Lastname..."
-                            onChangeText={personInputHandler}
+                            onChangeText={lastnameInputHandler}
                             value={person[0].Lastname}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Location..."
-                            onChangeText={personInputHandler}
+                            onChangeText={locationInputHandler}
                             value={person[0].Location}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Slogan..."
-                            onChangeText={personInputHandler}
+                            onChangeText={sloganInputHandler}
                             value={person[0].Slogan}
                         />
                     </View>
-
-                </View>
-                
+                </View>         
             </View>
             <Button
                     buttonStyle={styles.button}
@@ -95,7 +97,6 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         marginBottom: 10,
-
     },
     personHeader: {
         textAlign: 'center',
