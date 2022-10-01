@@ -7,8 +7,8 @@ const PersonCard = (props) => {
 
     return (
         <>
-            <Card>
-                <Card.Title>Your Profile</Card.Title>
+            <Card containerStyle={{backgroundColor: '#C1ACFB', borderRadius:7}}>
+                <Card.Title style={{fontSize:20}}>Your Profile</Card.Title>
                 <Card.Divider />
                 <View style={styles.user}>
                     <Image
@@ -35,15 +35,15 @@ const PersonCard = (props) => {
 
 const styles = StyleSheet.create({
     image: {
-        width: 80,
-        height: 80,
-        marginRight: 10,
+        width: 100,
+        height: 100,
+        marginBottom: 10,
     },
     fonts: {
-        marginBottom: 8,
+        marginBottom: 30,
+        fontSize: 18,
     },
     details: {
-
         marginTop: 10,
         flexDirection: 'column',
         alignItems: 'center',

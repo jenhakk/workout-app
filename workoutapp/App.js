@@ -6,6 +6,7 @@ import ViewMeasAdd from './views/ViewMeasAdd';
 import ViewMeasSummary from './views/ViewMeasSummary';
 import ViewMeasHistory from './views/ViewMeasHistory';
 import ViewPerson from './views/ViewPerson';
+import ViewEditProfile from './views/ViewEditProfile';
 import ViewExercises from './views/ViewExercises';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -22,6 +23,7 @@ const App=()=>{
         <Stack.Screen name="Your measurements" component={ViewMeasSummary} />
         <Stack.Screen name="All recorded measurements" component={ViewMeasHistory} />
         <Stack.Screen name="Profile" component={ViewPerson} />
+        <Stack.Screen name="Edit profile" component={ViewEditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
