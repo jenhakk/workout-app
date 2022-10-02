@@ -14,16 +14,16 @@ const PersonCard = (props) => {
                     <Image
                         style={styles.image}
                         resizeMode="cover"
-                        source={{ uri: 'https://www.drodd.com/images11/meme-faces14.png', }}
+                        source={{ uri: 'https://freedesignfile.com/upload/2016/11/Young-handsome-man-HD-picture-02.jpg', }}
                     />
                 </View>
                 {props.person.map((person, i) => {
                     return (
                         <View key={i} style={styles.details}>
 
-                            <Text style={styles.fonts}>Name: {person.Firstname} {person.Lastname}</Text>
-                            <Text style={styles.fonts}>Location: {person.Location}</Text>
-                            <Text style={styles.fonts}>Slogan: "{person.Slogan}"</Text>
+                            <Text style={styles.fonts}>Name: {person.firstname} {person.lastname}</Text>
+                            <Text style={styles.fonts}>Location: {person.location}</Text>
+                            <Text style={styles.fonts}>Slogan: "{person.slogan}"</Text>
                         </View>
                     );
                 })}
@@ -36,7 +36,7 @@ const PersonCard = (props) => {
 const styles = StyleSheet.create({
     image: {
         width: 100,
-        height: 100,
+        height: 120,
         marginBottom: 10,
     },
     fonts: {
