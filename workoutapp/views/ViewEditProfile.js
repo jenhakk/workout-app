@@ -32,7 +32,7 @@ const ViewEditProfile = (props) => {
                     <Image
                         style={styles.image}
                         resizeMode="cover"
-                        source={{ uri: 'https://www.drodd.com/images11/meme-faces14.png', }}
+                        source={{ uri: 'https://freedesignfile.com/upload/2016/11/Young-handsome-man-HD-picture-02.jpg', }}
                     />
                 </View>
                 <View style={styles.personContainerList}>
@@ -45,28 +45,28 @@ const ViewEditProfile = (props) => {
                             inputStyle={styles.textStyle}
                             placeholder="Firstname..."
                             onChangeText={firstnameInputHandler}
-                            value={person[0].Firstname}
+                            value={person[0].firstname}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Lastname..."
                             onChangeText={lastnameInputHandler}
-                            value={person[0].Lastname}
+                            value={person[0].lastname}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Location..."
                             onChangeText={locationInputHandler}
-                            value={person[0].Location}
+                            value={person[0].location}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Slogan..."
                             onChangeText={sloganInputHandler}
-                            value={person[0].Slogan}
+                            value={person[0].slogan}
                         />
                     </View>
                 </View>         
