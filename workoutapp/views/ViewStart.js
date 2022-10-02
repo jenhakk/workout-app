@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ImageBackground} from 'react-native';
 import {Button, Text} from '@rneui/base';
 import {Icon} from '@rneui/themed';
 import Motivation from '../components/Motivation';
@@ -10,18 +10,28 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const ViewStart = (props) => {
   var user = 'Pertti';
 
+  const image = require('../assets/imageback.png');
+
   return (
     <View style={styles.container}>
+      
+       <View style={styles.top}>
+       <ImageBackground source={require('../assets/imageback.png')} resizeMode="cover" style={styles.image}>
+        {/* <Text style={styles.hello}>Hello {user}!</Text>
+        <Text style={styles.date}>Today is 29.9.2022</Text> */}
+     
       <View style={styles.motivation}>
+     
         <Motivation />
+        
       </View>
-      <View style={styles.top}>
-        <Text style={styles.hello}>Hello {user}!</Text>
-        <Text style={styles.date}>Today is 29.9.2022</Text>
+      </ImageBackground>
       </View>
 
       
       <View style={styles.buttonContainer}>
+        
+        {/* <Text style={{paddingLeft:15, fontSize:16, textAlign:'center'}}>Choose action:</Text> */}
         <View style={styles.buttongroup}>
           <Button
             title={<CustomTitleWorkout />}
@@ -45,6 +55,7 @@ const ViewStart = (props) => {
         </View>
         <NavButtons params={props}/>
       </View>
+     
     </View>
   );
 };
@@ -140,10 +151,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: 'white',
+   
+  },
+  image: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignSelf:'center',
+    height:'90%',
+
   },
   top: {
-    flex: 1,
+    flex: 2,
     alignItems: 'center',
+   
   },
 
   hello:{
@@ -160,6 +180,7 @@ const styles = StyleSheet.create({
     justifyContent:'flex-start',
     paddingLeft: 20,
     paddingRight: 20,
+    paddingTop:30
    
  
   },
@@ -175,7 +196,7 @@ const styles = StyleSheet.create({
   
   button1: {
     width: 150,
-    height: 130,
+    height: 170,
     backgroundColor: '#4C40E6',
     borderColor: 'transparent',
     borderRadius: 20,
@@ -183,7 +204,7 @@ const styles = StyleSheet.create({
   },
   button2: {
     width: 150,
-    height: 130,
+    height: 170,
     backgroundColor: '#7640E6',
     borderColor: 'transparent',
     borderRadius: 20,
@@ -191,7 +212,7 @@ const styles = StyleSheet.create({
   },
   button3: {
     width: 150,
-    height: 130,
+    height: 170,
     backgroundColor: '#9F40E6',
     borderColor: 'transparent',
     borderRadius: 20,
@@ -199,7 +220,7 @@ const styles = StyleSheet.create({
   },
   button4: {
     width: 150,
-    height: 130,
+    height: 170,
     backgroundColor: '#C940E6',
     borderColor: 'transparent',
     borderRadius: 20,
