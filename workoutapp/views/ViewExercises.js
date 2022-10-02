@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, FlatList, Image} from 'react-native';
 import {Card, Text, ListItem, Avatar} from '@rneui/themed';
 
@@ -6,45 +6,37 @@ import {Card, Text, ListItem, Avatar} from '@rneui/themed';
 const ViexExercises = props => {
   const [exerciseList, setExercise] = useState([
     {id:1, name: 'Biceps curl', avatar_url: require('../assets/bicepturn.png'),checked:false},
-    {id:2, name: 'Weight lift', avatar_url: require('../assets/weightlift.png'),check:false}
+    {id:2, name: 'Weight lift', avatar_url: require('../assets/weightlift.png'),checked:false}
   ]);
 
   keyExtractor = (item, index) => index.toString();
 
-  const [check, setChecked] = useState(false);
+  const [check, setChecked] = useState(true);
   const [id, setId] = useState(0);
+  const [exerciseToUpdate, updateExercise] =useState();
 
 
-  const chooseExercise = (id, checked) => {
-    // console.log(exerciseList[id].name);
-    // console.log(exerciseList[id].checked);
-    setChecked(true);
-    console.log(check);
-    // setExercise(exerciseList[id].checked = check);
+  const updateItem = (index) => {
+    setId(index);
+    updateExercise(exerciseList[index]);
+    exerciseList[id].checked = !exerciseList[id].checked;
+    setExercise(exerciseList);
     console.log(exerciseList[id].checked);
-   
   }
 
-  const setCheckedTrue = () => {
-    setChecked(!check);
-    console.log(check);
-  }
-
-  renderItem = ({item}) => (
+  renderItem = ({item, index}) => (
     <ListItem bottomDivider>
       <Avatar
         source={item.avatar_url}
       />
       <ListItem.Content>
         <ListItem.Title>{item.name}</ListItem.Title>
-        <ListItem.Subtitle>{item.subtitle}</ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.CheckBox 
-      checked={check}
+      checked={item.checked}
       uncheckedColor='#F00'
       checkedColor='#0F0'
-    //   onPress={() => chooseExercise(item.id, item.checked)}
-    onPress={() => setCheckedTrue()}
+      onPress={() => updateItem(index)}
       />
     </ListItem>
   );
