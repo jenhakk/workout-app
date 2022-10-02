@@ -11,17 +11,21 @@ const ViexExercises = props => {
 
   keyExtractor = (item, index) => index.toString();
 
-  const [check, setChecked] = useState(true);
+  const [checked, setChecked] = useState([]);
   const [id, setId] = useState(0);
   const [exerciseToUpdate, updateExercise] =useState();
 
 
   const updateItem = (index) => {
+    console.log(index);
     setId(index);
     updateExercise(exerciseList[index]);
     exerciseList[id].checked = !exerciseList[id].checked;
     setExercise(exerciseList);
     console.log(exerciseList[id].checked);
+    setChecked(!checked);
+    setId(0);
+    
   }
 
   renderItem = ({item, index}) => (
@@ -36,8 +40,20 @@ const ViexExercises = props => {
       checked={item.checked}
       uncheckedColor='#F00'
       checkedColor='#0F0'
-      onPress={() => updateItem(index)}
-      />
+  
+      onPress={() => {updateItem(index),item.checked}}
+    //   onPress={() => {
+    //     const newIds = [...checked];
+    //     const index = newIds.indexOf(item.id);
+    //     if (index > -1) {
+    //       newIds.splice(index, 1); 
+    //     } else {
+    //       newIds.push(item.id)
+    //     }
+    //     setChecked(newIds)
+    // }}
+   />
+
     </ListItem>
   );
 
@@ -49,6 +65,7 @@ const ViexExercises = props => {
       keyExtractor={keyExtractor}
       data={exerciseList}
       renderItem={renderItem}
+      extraData={checked}
     />
       </View>
     </View>
