@@ -7,6 +7,7 @@ const PersonLabels = () => {
   const [labels, setLabels] = useState([
     'Firstname',
     'Lastname',
+    'Height',
     'Location',
     'Slogan',
   ]);

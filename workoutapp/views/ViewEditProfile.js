@@ -6,22 +6,75 @@ import { Input } from '@rneui/themed';
 import PersonLabels from '../components/PersonLabels';
 
 const ViewEditProfile = (props) => {
+    const LOCAL_ADDRESS = "http://10.0.2.2:8080";
+    const SERVICE_ADDRESS = LOCAL_ADDRESS;
 
     const [person, setPerson] = useState(props.route.params == undefined ? "" : props.route.params.person);
-    console.log(person);
+    const [firstname, setFirstname] = useState("");
+    const [height,setHeight] =useState();
+    const [lastname, setLastname] = useState("");
+    const [location, setLocation] = useState("")
+    const [slogan, setSlogan] =useState("");
+    
+
+    useEffect(()=>{
+    setFirstname(person[0].firstname);
+    setLastname(person[0].lastname);
+    setLocation(person[0].location);
+    setHeight(person[0].height);
+    setSlogan(person[0].slogan); 
+    }, [])
 
     const firstnameInputHandler = (enteredText) => {
-        setPerson(enteredText);
+        setFirstname(enteredText);
+        console.log(firstname);
     }
     const lastnameInputHandler = (enteredText) => {
-        setPerson(enteredText);
+        setLastname(enteredText);
+    }
+    const heightInputHandler = (enteredText) => {
+        let numbered = Number(enteredText);
+        setHeight(numbered);
     }
     const locationInputHandler = (enteredText) => {
-        setPerson(enteredText);
+        setLocation(enteredText);
     }
     const sloganInputHandler = (enteredText) => {
-        setPerson(enteredText);
+        setSlogan(enteredText);
     }
+
+    const updatePersonList=()=>{
+        person[0].firstname=firstname.trim();
+        person[0].lastname=lastname.trim();
+        person[0].location=location.trim();
+        person[0].height=height;
+        person[0].slogan=slogan.trim();
+        updatePerson();
+    }
+
+    const updatePerson=async()=>{
+        let json=JSON.stringify({"personid":person[0].personid, "firstname":person[0].firstname,"lastname":person[0].lastname, "height":person[0].height,"location":person[0].location,"picture":person[0].picture});
+        console.log(json);
+        try{
+            let homma=JSON.stringify({"personid":person[0].personid, "firstname":person[0].firstname,"lastname":person[0].lastname, "height":person[0].height,"location":person[0].location,"picture":person[0].picture});
+            console.log(homma);
+            console.log("ollaanko täällä?");
+          let response=await fetch(SERVICE_ADDRESS+"/rest/workoutservice/updateperson/1",
+          {
+            method:'PUT',
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body:JSON.stringify({"personid":person[0].personid, "firstname":person[0].firstname,"lastname":person[0].lastname, "height":Number(person[0].height),"location":person[0].location,"picture":person[0].picture})
+          });
+          
+          let json=await response.json();
+          setPerson(json);
+        }
+        catch(error){
+          console.log(error);
+        }
+      }
 
 
     return (
@@ -32,7 +85,7 @@ const ViewEditProfile = (props) => {
                     <Image
                         style={styles.image}
                         resizeMode="cover"
-                        source={{ uri: 'https://freedesignfile.com/upload/2016/11/Young-handsome-man-HD-picture-02.jpg', }}
+                        source={require('../assets/picture.png' )}
                     />
                 </View>
                 <View style={styles.personContainerList}>
@@ -45,28 +98,35 @@ const ViewEditProfile = (props) => {
                             inputStyle={styles.textStyle}
                             placeholder="Firstname..."
                             onChangeText={firstnameInputHandler}
-                            value={person[0].firstname}
+                            value={firstname}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Lastname..."
                             onChangeText={lastnameInputHandler}
-                            value={person[0].lastname}
+                            value={lastname}
+                        />
+                        <Input
+                            inputContainerStyle={styles.inputStyle}
+                            inputStyle={styles.textStyle}
+                            placeholder="Height..."
+                            onChangeText={heightInputHandler}
+                            value={''+height}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Location..."
                             onChangeText={locationInputHandler}
-                            value={person[0].location}
+                            value={location}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Slogan..."
                             onChangeText={sloganInputHandler}
-                            value={person[0].slogan}
+                            value={slogan}
                         />
                     </View>
                 </View>         
@@ -74,7 +134,7 @@ const ViewEditProfile = (props) => {
             <Button
                     buttonStyle={styles.button}
                     title='SAVE CHANGES'
-                    onPress={() => settingPerson()}></Button>
+                    onPress={() => updatePersonList()}></Button>
             <View style={styles.buttonContainer}>
                 <NavButtons params={props} />
             </View>

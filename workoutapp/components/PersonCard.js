@@ -14,7 +14,7 @@ const PersonCard = (props) => {
                     <Image
                         style={styles.image}
                         resizeMode="cover"
-                        source={{ uri: 'https://freedesignfile.com/upload/2016/11/Young-handsome-man-HD-picture-02.jpg', }}
+                        source={require('../assets/picture.png' )}
                     />
                 </View>
                 {props.person.map((person, i) => {
@@ -22,6 +22,7 @@ const PersonCard = (props) => {
                         <View key={i} style={styles.details}>
 
                             <Text style={styles.fonts}>Name: {person.firstname} {person.lastname}</Text>
+                            <Text style={styles.fonts}>Height: {person.height}</Text>
                             <Text style={styles.fonts}>Location: {person.location}</Text>
                             <Text style={styles.fonts}>Slogan: "{person.slogan}"</Text>
                         </View>
