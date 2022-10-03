@@ -11,10 +11,10 @@ const ViewPerson = (props) => {
     const [person, setPerson] = useState([]);
 
     useEffect(() => {
-        if (isLoading){
-        fetchPerson();
-    setLoading(false);    
-    }
+        if (isLoading) {
+            fetchPerson();
+            setLoading(false);
+        }
     }, [])
 
 
@@ -22,30 +22,34 @@ const ViewPerson = (props) => {
         try {
             let response = await fetch(SERVICE_ADDRESS + "/rest/workoutservice/readperson");
             let json = await response.json();
-            
+
             setPerson(json);
             console.log(json, ' ', person);
         }
         catch (error) {
             console.log(error);
         }
-    } 
+    }
 
 
 
     return (
         <View style={styles.container}>
-            
+
             <View style={styles.card}>
 
                 <PersonCard person={person} />
             </View>
             <View style={styles.buttoncont}>
-                <Button
+                {/* <Button
                     buttonStyle={styles.button}
                     title='EDIT YOUR PROFILE'
-                    onPress={() => { props.navigation.navigate('Edit profile', { person: person }) }}></Button>
-            
+                    onPress={() => { props.navigation.navigate('Edit profile', { person: person }) }}></Button> */}
+                    <Button
+                    buttonStyle={styles.button}
+                    title='CHECK YOUR MEASUREMENTS'
+                    onPress={() => { props.navigation.navigate('All recorded measurements', { person: person }) }}></Button>
+
             </View>
             <View style={styles.buttonContainer}>
                 <NavButtons params={props} />
@@ -79,7 +83,6 @@ const styles = StyleSheet.create({
 
     },
     buttonContainer: {
-
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },

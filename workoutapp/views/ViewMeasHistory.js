@@ -9,7 +9,10 @@ import {CardDivider} from '@rneui/base/dist/Card/Card.Divider';
 
 const ViewMeasHistory = props => {
   const [visible, setVisible] = React.useState(true);
-  
+
+  //This is for getting person data from viewperson
+  const [person, setPerson] = useState(props.route.params == undefined ? "" : props.route.params.person);
+  console.log("PERSON in meashistory ",person[0].personid);
   return (
     // wraps everything, is there for bottom navbar
     <View style={{flex: 1, backgroundColor: 'white'}}>
