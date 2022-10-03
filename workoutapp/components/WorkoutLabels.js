@@ -25,13 +25,13 @@ const WorkoutLabels = () => {
     // wraps everything, is there for bottom navbar
     <>
       {/* wraps whole page */}
-      <View style={styles.measContainerAll}>
+      <View style={styles.containerAll}>
         {/* wraps whole chart (chart headers and array) */}
         <View>
-          <View style={styles.measListContainer}>
+          <View style={styles.listContainer}>
             <View>
               <Text> </Text>
-              <View style={styles.measListLabels}>
+              <View style={styles.listLabels}>
                 <Text style={{marginBottom:15}}>set 1</Text>
                 <Text style={{marginBottom:15}}>set 2</Text>
                 <Text style={{marginBottom:15}}>set 3</Text>
@@ -39,7 +39,7 @@ const WorkoutLabels = () => {
             </View>
             <View>
               <Text>Weights</Text>
-              <View style={styles.measList}>
+              <View style={styles.list}>
               <Input inputContainerStyle={styles.inputStyle} inputStyle={{fontSize: 12, marginTop: 8}} placeholder="wei..." /> 
                 <Input inputContainerStyle={styles.inputStyle} inputStyle={{fontSize: 12,marginTop: 8}} placeholder="wei..." /> 
                 <Input inputContainerStyle={styles.inputStyle} inputStyle={{fontSize: 12,marginTop: 8}} placeholder="wei..." /> 
@@ -48,7 +48,7 @@ const WorkoutLabels = () => {
 
             <View>
               <Text>Reps</Text>
-              <View style={styles.measList}>
+              <View style={styles.list}>
                 <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="rep..." />
                 <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="rep..." />
                 <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="rep..." />
@@ -57,7 +57,7 @@ const WorkoutLabels = () => {
 
             <View>
               <Text>Duration</Text>
-              <View style={styles.measList}>
+              <View style={styles.list}>
                 <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="dur..." />
                 <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="dur..." />
                 <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="dur..." />
@@ -72,25 +72,25 @@ const WorkoutLabels = () => {
 };
 
 const styles = StyleSheet.create({
-  measContainerAll: {
+  containerAll: {
     width: '100%',
     alignSelf: 'center',
     height: '60%',
     marginTop: 20,
     backgroundColor: 'grey',
   },
-  measListContainer: {
+  listContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
     backgroundColor: 'lightgreen',
   },
-  measListLabels: {
+  listLabels: {
     flexDirection: 'column',
     paddingVertical: 3,
     paddingHorizontal: 10,
     backgroundColor: 'pink',
   },
-  measList: {
+  list: {
     flexDirection: 'column',
     padding: 4,
     borderWidth: 1,
