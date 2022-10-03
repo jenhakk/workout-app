@@ -37,14 +37,13 @@ const ViewPerson = (props) => {
         <View style={styles.container}>
 
             <View style={styles.card}>
-
                 <PersonCard person={person} />
             </View>
             <View style={styles.buttoncont}>
-                {/* <Button
+                    <Button
                     buttonStyle={styles.button}
                     title='EDIT YOUR PROFILE'
-                    onPress={() => { props.navigation.navigate('Edit profile', { person: person }) }}></Button> */}
+                    onPress={() => { props.navigation.navigate('Edit profile', { person: person }) }}></Button>
                     <Button
                     buttonStyle={styles.button}
                     title='CHECK YOUR MEASUREMENTS'
@@ -67,20 +66,20 @@ const styles = StyleSheet.create({
     },
     buttoncont: {
         flex: 1,
+        flexDirection: 'row',
+        
     },
     button: {
+        marginRight:5,
         marginTop: 40,
         backgroundColor: '#9F40E6',
-        marginBottom: 20,
+        marginBottom: 10,
         borderRadius: 20,
-        width: 200,
+        width: 150,
         height: 70,
-
-
     },
     card: {
-        marginTop: 40,
-
+        marginTop: 20,
     },
     buttonContainer: {
         flexDirection: 'row',

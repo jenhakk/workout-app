@@ -11,18 +11,18 @@ const ViewEditProfile = (props) => {
 
     const [person, setPerson] = useState(props.route.params == undefined ? "" : props.route.params.person);
     const [firstname, setFirstname] = useState("");
-    const [height,setHeight] =useState();
+    const [height, setHeight] = useState("");
     const [lastname, setLastname] = useState("");
     const [location, setLocation] = useState("")
-    const [slogan, setSlogan] =useState("");
-    
+    const [slogan, setSlogan] = useState("");
 
-    useEffect(()=>{
-    setFirstname(person[0].firstname);
-    setLastname(person[0].lastname);
-    setLocation(person[0].location);
-    setHeight(person[0].height);
-    setSlogan(person[0].slogan); 
+
+    useEffect(() => {
+        setFirstname(person[0].firstname);
+        setLastname(person[0].lastname);
+        setLocation(person[0].location);
+        setHeight(person[0].height);
+        setSlogan(person[0].slogan);
     }, [])
 
     const firstnameInputHandler = (enteredText) => {
@@ -33,8 +33,7 @@ const ViewEditProfile = (props) => {
         setLastname(enteredText);
     }
     const heightInputHandler = (enteredText) => {
-        let numbered = Number(enteredText);
-        setHeight(numbered);
+        setHeight(enteredText);
     }
     const locationInputHandler = (enteredText) => {
         setLocation(enteredText);
@@ -43,49 +42,46 @@ const ViewEditProfile = (props) => {
         setSlogan(enteredText);
     }
 
-    const updatePersonList=()=>{
-        person[0].firstname=firstname.trim();
-        person[0].lastname=lastname.trim();
-        person[0].location=location.trim();
-        person[0].height=height;
-        person[0].slogan=slogan.trim();
+    const updatePersonList = () => {
+        person[0].firstname = firstname.trim();
+        person[0].lastname = lastname.trim();
+        person[0].location = location.trim();
+        person[0].height = Number(height);
+        person[0].slogan = slogan.trim();
         updatePerson();
     }
 
-    const updatePerson=async()=>{
-        let json=JSON.stringify({"personid":person[0].personid, "firstname":person[0].firstname,"lastname":person[0].lastname, "height":person[0].height,"location":person[0].location,"picture":person[0].picture});
-        console.log(json);
-        try{
-            let homma=JSON.stringify({"personid":person[0].personid, "firstname":person[0].firstname,"lastname":person[0].lastname, "height":person[0].height,"location":person[0].location,"picture":person[0].picture});
-            console.log(homma);
-            console.log("ollaanko täällä?");
-          let response=await fetch(SERVICE_ADDRESS+"/rest/workoutservice/updateperson/1",
-          {
-            method:'PUT',
-            headers:{
-              'Content-Type':'application/json'
-            },
-            body:JSON.stringify({"personid":person[0].personid, "firstname":person[0].firstname,"lastname":person[0].lastname, "height":Number(person[0].height),"location":person[0].location,"picture":person[0].picture})
-          });
-          
-          let json=await response.json();
-          setPerson(json);
+    const updatePerson = async () => {
+
+        try {
+            let response =
+                await fetch(SERVICE_ADDRESS + "/rest/workoutservice/updateperson",
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ "personid": person[0].personid, "firstname": person[0].firstname, "lastname": person[0].lastname,"slogan": person[0].slogan, "height": person[0].height, "location": person[0].location, "picture": person[0].picture })
+                    });
+
+            let json = await response.json();
+            setPerson(json);
         }
-        catch(error){
-          console.log(error);
+        catch (error) {
+            console.log(error);
         }
-      }
+    }
 
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={styles.PersonContainer}>
                 <Text style={styles.personHeader}>Edit your profile</Text>
-                <View style={{marginBottom:20}}>
+                <View style={{ marginBottom: 20 }}>
                     <Image
                         style={styles.image}
                         resizeMode="cover"
-                        source={require('../assets/picture.png' )}
+                        source={require('../assets/picture.png')}
                     />
                 </View>
                 <View style={styles.personContainerList}>
@@ -112,7 +108,7 @@ const ViewEditProfile = (props) => {
                             inputStyle={styles.textStyle}
                             placeholder="Height..."
                             onChangeText={heightInputHandler}
-                            value={''+height}
+                            value={'' + height}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
@@ -129,12 +125,12 @@ const ViewEditProfile = (props) => {
                             value={slogan}
                         />
                     </View>
-                </View>         
+                </View>
             </View>
             <Button
-                    buttonStyle={styles.button}
-                    title='SAVE CHANGES'
-                    onPress={() => updatePersonList()}></Button>
+                buttonStyle={styles.button}
+                title='SAVE CHANGES'
+                onPress={() => updatePersonList()}></Button>
             <View style={styles.buttonContainer}>
                 <NavButtons params={props} />
             </View>
