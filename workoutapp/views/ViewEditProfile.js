@@ -70,7 +70,10 @@ const ViewEditProfile = (props) => {
         catch (error) {
             console.log(error);
         }
+        
     }
+
+
 
 
     return (
@@ -130,7 +133,7 @@ const ViewEditProfile = (props) => {
             <Button
                 buttonStyle={styles.button}
                 title='SAVE CHANGES'
-                onPress={() => updatePersonList()}></Button>
+                onPress={() => { {props.navigation.navigate('Profile', { person: person })}; {updatePersonList()}}}></Button>
             <View style={styles.buttonContainer}>
                 <NavButtons params={props} />
             </View>
