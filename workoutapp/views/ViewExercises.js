@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Card, Text, ListItem, Avatar, Image, Button} from '@rneui/themed';
 import NavButtons from '../components/NavButtons';
+import {Dialog} from '@rneui/base';
 
 const ViexExercises = props => {
   const [exerciseList, setExercise] = useState([
@@ -20,6 +21,10 @@ const ViexExercises = props => {
   const SERVICE_ADDRESS = LOCAL_ADDRESS;
   const [isLoading, setLoading] = useState(true);
   const imageurl = 'http://10.0.2.2:8080/images/';
+  const [checked, setChecked] = useState();
+  const [id, setId] = useState(-1);
+  const [exerciseToUpdate, updateExercise] = useState();
+  const [visibility, setVisibility] = useState(false);
 
   useEffect(() => {
     if (isLoading) {
@@ -44,34 +49,31 @@ const ViexExercises = props => {
   };
 
   const saveExercisesToDb = async () => {
-    console.log("tulostellaan listaa",exerciseList);
-    console.log("ja taas",exerciseList.toString());
-
     try {
       let response = await fetch(
         SERVICE_ADDRESS + '/rest/workoutservice/updateexercises',
         {
-          method:'PUT',
-          headers:{
-            'Content-Type':'application/json'
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
           },
-          body:JSON.stringify(exerciseList)
-        });
-        let json = await response.json();
-        console.log(json);
-    }
-    catch (error) {
+          body: JSON.stringify(exerciseList),
+        },
+      );
+      let json = await response.json();
+      console.log(json);
+    } catch (error) {
       console.log(error);
-  }
-  }
+    } finally {
+      toggleDialog();
+    }
+  };
+
+  const toggleDialog = () => {
+    setVisibility(!visibility);
+  };
 
   keyExtractor = (item, index) => index.toString();
-
-  const [checked, setChecked] = useState();
-  const [id, setId] = useState(-1);
-  const [exerciseToUpdate, updateExercise] = useState();
-  const uri = require;
-  const [visibility, setVisibility] = useState(false);
 
   const updateItem = index => {
     console.log(index);
@@ -142,6 +144,24 @@ const ViexExercises = props => {
         source={require('../assets/imageback.png')}
         resizeMode="cover"
         style={styles.image}>
+        <Dialog isVisible={visibility} onBackdropPress={toggleDialog} overlayStyle={{backgroundColor:'#C940E6', height:200, borderRadius:20}}>
+          <Dialog.Title titleStyle={{color: 'white', fontSize:30, textAlign:'center' }}title="Have a great workout!" />
+          <Dialog.Actions>
+            
+            <Dialog.Button
+              buttonStyle={{backgroundColor:'#9F40E6', borderRadius:5,margin:10}}
+              titleStyle={{color:'white', fontSize:20}}
+              title="Wait.."
+              onPress={() => toggleDialog()}
+            />
+            <Dialog.Button
+              buttonStyle={{backgroundColor:'#9F40E6', borderRadius:5, margin:10, marginRight:25}}
+              titleStyle={{color:'white', fontSize:20, fontWeight:'700'}}
+              title="LET'S GO!"
+              onPress={() => {props.navigation.navigate('During workout')}}
+            />
+          </Dialog.Actions>
+        </Dialog>
         <View style={styles.flatlist}>
           <Text
             style={{
@@ -159,16 +179,20 @@ const ViexExercises = props => {
             data={exerciseList}
             renderItem={renderItem}
             ListFooterComponent={() => (
-              <Button buttonStyle={styles.button} title="START WORKOUT" onPress={()=>{saveExercisesToDb()}} />
+              <Button
+                buttonStyle={styles.button}
+                title="START WORKOUT"
+                onPress={() => {
+                  saveExercisesToDb();
+                }}
+              />
             )}
           />
         </View>
       </ImageBackground>
-      <View style={styles.bottom}
-      >
-        <NavButtons params={props}/>
+      <View style={styles.bottom}>
+        <NavButtons params={props} />
       </View>
-      
     </View>
   );
 };
@@ -196,18 +220,16 @@ const styles = StyleSheet.create({
   listitem: {
     padding: 5,
     marginTop: 5,
-    
   },
   content: {
     padding: 25,
-    
   },
   avatar: {
     resizeMode: 'contain',
   },
-  bottom:{
-    height:50
-  }
+  bottom: {
+    height: 50,
+  },
 });
 
 export default ViexExercises;
