@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         height: 60,
     },
     card: {
-        marginBottom: 50,
+        marginBottom: 40,
     },
     buttonContainer: {
         flexDirection: 'row',
