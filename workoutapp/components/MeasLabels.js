@@ -7,9 +7,9 @@ const MeasLabels = () => {
   const [labels, setLabels] = useState([
     'Weight',
     'Chest',
-    'Bicep',
     'Waist',
     'Hip',
+    'Bicep',
     'Thigh',
   ]);
 

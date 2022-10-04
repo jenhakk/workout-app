@@ -7,13 +7,19 @@ import NavButtons from '../components/NavButtons';
 import MeasLabels from '../components/MeasLabels';
 
 const ViewMeasAdd = props => {
+  // for person data
+  const [person, setPerson] = useState(
+    props.route.params == undefined ? '' : props.route.params.person,
+  );
+
   // for measurement inputs
   const [weight, setWeight] = useState('');
   const [chest, setChest] = useState('');
-  const [bicep, setBicep] = useState('');
   const [waist, setWaist] = useState('');
   const [hip, setHip] = useState('');
+  const [bicep, setBicep] = useState('');
   const [thigh, setThigh] = useState('');
+  const [measList, addMeas] = useState([]);
 
   // handling data from inputs
   const handleWeight = event => {
@@ -24,10 +30,6 @@ const ViewMeasAdd = props => {
     setChest(event);
   };
 
-  const handleBicep = event => {
-    setBicep(event);
-  };
-
   const handleWaist = event => {
     setWaist(event);
   };
@@ -36,43 +38,66 @@ const ViewMeasAdd = props => {
     setHip(event);
   };
 
+  const handleBicep = event => {
+    setBicep(event);
+  };
+
   const handleThigh = event => {
     setThigh(event);
   };
 
-  // for later usage
   // const addMeasToList = () => {
-  //   setMeas(meas => [
-  //     ...meas,
-  //     {
-  //       id: 1,
-  //       weight: weight,
-  //       chest: chest,
-  //       bicep: bicep,
-  //       waist: waist,
-  //       hip: hip,
-  //       thigh: thigh,
-  //     },
-  //   ]);
-  //   setWeight('');
-  //   setChest('');
-  //   setBicep('');
-  //   setWaist('');
-  //   setHip('');
-  //   setThigh('');
+  //   addMeas(measList => [...measList, {"weight": weight, "chest": chest, "waist": waist, "hip": hip, "bicep": bicep, "thigh": thigh, "date": "5.10.2022", "personid": person[0].personid},]);
   // };
+
+  const postMeas = async () => {
+    try {
+      let response = await fetch(
+        'http://10.0.2.2:8080/rest/workoutservice/addmeas',
+        {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            weight: Number(weight),
+            chest: Number(chest),
+            waist: Number(waist),
+            hip: Number(hip),
+            bicep: Number(bicep),
+            thigh: Number(thigh),
+            date: '3.10.2022',
+            personid: person[0].personid,
+          }),
+        },
+      );
+
+      let responseData = await response.json();
+      //await addMeas(measList => [...measList, responseData]);
+
+      // responseData is set in the array, so it's possible to handle it as such.
+      var list = [responseData];
+
+      // now that response we got from database is in the list, it is in two arrays, like so [[{}]]. 
+      // To get the very last (or the most recent) row from the database, we'll remove everything else. Note that pop() removes everything than the last item.
+      var arr = list.pop();
+      var lastMeas = arr.pop();
+      
+      props.navigation.navigate('Your measurements', {meas: lastMeas});
+      
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     // wraps everything, is there for bottom navbar
     <View style={{flex: 1, backgroundColor: 'white'}}>
-
       {/* wraps whole form */}
       <View style={styles.measContainerAll}>
         <Text style={styles.measHeader}>Fill in your measurements:</Text>
 
         {/* wraps input area (labels and inputs) */}
         <View style={styles.measContainerList}>
-          
           {/* wraps labels */}
           <View style={styles.measWrapLists}>
             <MeasLabels />
@@ -97,13 +122,6 @@ const ViewMeasAdd = props => {
             <Input
               inputContainerStyle={styles.measInput}
               inputStyle={styles.measInputText}
-              value={'' + bicep}
-              onChangeText={handleBicep}
-              placeholder="Bicep"
-            />
-            <Input
-              inputContainerStyle={styles.measInput}
-              inputStyle={styles.measInputText}
               value={'' + waist}
               onChangeText={handleWaist}
               placeholder="Waist"
@@ -118,6 +136,13 @@ const ViewMeasAdd = props => {
             <Input
               inputContainerStyle={styles.measInput}
               inputStyle={styles.measInputText}
+              value={'' + bicep}
+              onChangeText={handleBicep}
+              placeholder="Bicep"
+            />
+            <Input
+              inputContainerStyle={styles.measInput}
+              inputStyle={styles.measInputText}
               value={'' + thigh}
               onChangeText={handleThigh}
               placeholder="Thigh"
@@ -127,7 +152,11 @@ const ViewMeasAdd = props => {
         <Button
           buttonStyle={styles.measButton}
           title="ADD MEASUREMENTS"
-          onPress={() => {props.navigation.navigate('Your measurements');}}
+          onPress={() => {
+            {
+              postMeas();
+            }
+          }}
         />
       </View>
       <NavButtons params={props} />
