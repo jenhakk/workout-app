@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { Card, Text } from "@rneui/themed";
 import {Icon} from '@rneui/themed';
+import {getCurrentDate} from '../components/Date.js';
 
 
 function getQuote() {
@@ -24,6 +25,8 @@ function Motivation() {
     }, [])
     return (
         <View>
+            {/* Date */}
+            <Text style={{color:'white', fontSize:18, textAlign:'center', fontWeight:'700'}}>{getCurrentDate()}</Text>
             <Card containerStyle={{backgroundColor: '#F3F0FC', borderRadius:7}}>
                 {/* <Card.Title style={{fontSize:16, color:'black', fontWeight:'700'}}>Todays quote:</Card.Title> */}
                 {/* <Card.Divider width={1} color='white'/> */}
