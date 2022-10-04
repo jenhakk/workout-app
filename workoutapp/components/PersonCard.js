@@ -1,34 +1,41 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, FlatList } from 'react-native';
 import { Text, Card } from '@rneui/base';
 
 
 const PersonCard = (props) => {
+    const imageurl = 'http://10.0.2.2:8080/images/profile/';
+    keyExtractor = (item, index) => index.toString();
+    const renderItem=({item,index})=>{
+       
 
+        let path= imageurl+item.picture;
+        
+        return (
+            <Card containerStyle={{ backgroundColor: '#C1ACFB', borderRadius: 7 }}>
+                <Card.Title style={{ fontSize: 20 }}>Your Profile</Card.Title>
+                <Card.Divider />
+                        <View style={styles.user}>
+                            <Image
+                                style={styles.image}
+                                resizeMode="cover"
+                                source={{ uri: path }}
+                            />
+                            <Text style={styles.fonts}>Name: {item.firstname} {item.lastname}</Text>
+                            <Text style={styles.fonts}>Height: {item.height}</Text>
+                            <Text style={styles.fonts}>Location: {item.location}</Text>
+                            <Text style={styles.fonts}>Slogan: "{item.slogan}"</Text>
+                        </View>
+            </Card>
+        )
+    }
     return (
         <>
-            <Card containerStyle={{backgroundColor: '#C1ACFB', borderRadius:7}}>
-                <Card.Title style={{fontSize:20}}>Your Profile</Card.Title>
-                <Card.Divider />
-                <View style={styles.user}>
-                    <Image
-                        style={styles.image}
-                        resizeMode="cover"
-                        source={require('../assets/picture.png' )}
-                    />
-                </View>
-                {props.person.map((person, i) => {
-                    return (
-                        <View key={i} style={styles.details}>
-
-                            <Text style={styles.fonts}>Name: {person.firstname} {person.lastname}</Text>
-                            <Text style={styles.fonts}>Height: {person.height}</Text>
-                            <Text style={styles.fonts}>Location: {person.location}</Text>
-                            <Text style={styles.fonts}>Slogan: "{person.slogan}"</Text>
-                        </View>
-                    );
-                })}
-            </Card>
+        <FlatList
+            keyExtractor={keyExtractor}
+            data={props.person}
+            renderItem={renderItem}
+          />   
         </>
     )
 
@@ -36,9 +43,9 @@ const PersonCard = (props) => {
 
 const styles = StyleSheet.create({
     image: {
-        width: 100,
+        width: 120,
         height: 120,
-        marginBottom: 10,
+        marginBottom: 15,
     },
     fonts: {
         marginBottom: 30,
@@ -50,7 +57,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     user: {
-        marginTop: 10,
         alignItems: 'center',
         flexDirection: 'column',
         marginBottom: 6,
