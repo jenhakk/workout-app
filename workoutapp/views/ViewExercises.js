@@ -43,9 +43,31 @@ const ViexExercises = props => {
     console.log('mikä tämä on', exerciseList);
   };
 
+  const saveExercisesToDb = async () => {
+    console.log("tulostellaan listaa",exerciseList);
+    console.log("ja taas",exerciseList.toString());
+
+    try {
+      let response = await fetch(
+        SERVICE_ADDRESS + '/rest/workoutservice/updateexercises',
+        {
+          method:'PUT',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify(exerciseList)
+        });
+        let json = await response.json();
+        console.log(json);
+    }
+    catch (error) {
+      console.log(error);
+  }
+  }
+
   keyExtractor = (item, index) => index.toString();
 
-  const [checked, setChecked] = useState([]);
+  const [checked, setChecked] = useState();
   const [id, setId] = useState(-1);
   const [exerciseToUpdate, updateExercise] = useState();
   const uri = require;
@@ -137,7 +159,7 @@ const ViexExercises = props => {
             data={exerciseList}
             renderItem={renderItem}
             ListFooterComponent={() => (
-              <Button buttonStyle={styles.button} title="START WORKOUT" />
+              <Button buttonStyle={styles.button} title="START WORKOUT" onPress={()=>{saveExercisesToDb()}} />
             )}
           />
         </View>
