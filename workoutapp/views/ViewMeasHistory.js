@@ -15,6 +15,7 @@ const ViewMeasHistory = props => {
   const [person, setPerson] = useState(
     props.route.params == undefined ? '' : props.route.params.person,
   );
+
   console.log('PERSON in meashistory ', person[0].personid);
 
   const [measListValues, setValues] = useState([1, 22, 34, 555, 2, 98]);
@@ -26,6 +27,10 @@ const ViewMeasHistory = props => {
     'Hip',
     'Thigh',
   ]);
+
+//   useEffect(() => {
+//     setPerson(person[0].personid);
+// }, [])
 
   const keyHandler = (item, index) => {
     return index.toString();
@@ -98,6 +103,7 @@ const ViewMeasHistory = props => {
         icon={{name: 'add', color: 'white'}}
         color="#7640E6"
         style={styles.measFAB}
+        onPress={() => { props.navigation.navigate('Add measurements', { person: person })}}
       />
       <NavButtons params={props} />
     </View>
