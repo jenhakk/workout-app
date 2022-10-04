@@ -7,7 +7,8 @@ import {
   Modal,
   TouchableOpacity,
 } from 'react-native';
-import {Card, Text, ListItem, Avatar, Image} from '@rneui/themed';
+import {Card, Text, ListItem, Avatar, Image, Button} from '@rneui/themed';
+import NavButtons from '../components/NavButtons';
 
 const ViexExercises = props => {
   const [exerciseList, setExercise] = useState([
@@ -120,14 +121,32 @@ const ViexExercises = props => {
         resizeMode="cover"
         style={styles.image}>
         <View style={styles.flatlist}>
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 18,
+              textAlign: 'center',
+              fontWeight: '500',
+              marginTop: 10,
+              marginBottom: 7,
+            }}>
+            Choose exercises you want to add to your workout
+          </Text>
           <FlatList
             keyExtractor={keyExtractor}
             data={exerciseList}
             renderItem={renderItem}
-            extraData={checked}
+            ListFooterComponent={() => (
+              <Button buttonStyle={styles.button} title="START WORKOUT" />
+            )}
           />
         </View>
       </ImageBackground>
+      <View style={styles.bottom}
+      >
+        <NavButtons params={props}/>
+      </View>
+      
     </View>
   );
 };
@@ -140,17 +159,33 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
   },
-  flatlist: {},
+  button: {
+    marginTop: 5,
+    backgroundColor: '#9F40E6',
+    marginBottom: 20,
+    borderRadius: 20,
+    width: 200,
+    height: 60,
+    alignSelf: 'center',
+  },
+  flatlist: {
+    flex: 8,
+  },
   listitem: {
     padding: 5,
     marginTop: 5,
+    
   },
   content: {
     padding: 25,
+    
   },
   avatar: {
     resizeMode: 'contain',
   },
+  bottom:{
+    height:50
+  }
 });
 
 export default ViexExercises;
