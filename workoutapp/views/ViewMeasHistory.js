@@ -13,6 +13,7 @@ import NavButtons from '../components/NavButtons';
 import MeasLabels from '../components/MeasLabels';
 import {CardDivider} from '@rneui/base/dist/Card/Card.Divider';
 import {TabItem} from '@rneui/base/dist/Tab/Tab.Item';
+import {getCurrentDate} from '../components/Date.js';
 
 const ViewMeasHistory = props => {
   // --- STATES AND VARIABLES ---
@@ -114,6 +115,7 @@ const ViewMeasHistory = props => {
         {/* wraps header */}
         <View>
           <Text style={styles.measHeader}>View your latest measurements</Text>
+          <Text style={styles.measDate}>{getCurrentDate()}</Text>
         </View>
 
         {/* wraps whole chart (chart headers and array) */}
@@ -189,8 +191,14 @@ const styles = StyleSheet.create({
   measHeader: {
     textAlign: 'center',
     marginTop: 15,
-    marginBottom: 30,
+    marginBottom: 20,
     fontSize: 20,
+    fontWeight: 'normal',
+  },
+  measDate: {
+    textAlign: 'center',
+    marginBottom: 30,
+    fontSize: 18,
     fontWeight: 'normal',
   },
   measLabels: {
