@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
-import { Card, Text, Input } from '@rneui/themed';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, FlatList} from 'react-native';
+import {Card, Text, Input} from '@rneui/themed';
 import NavButtons from './NavButtons';
 
 const WorkoutLabels = () => {
   // for measurement labels
-  const [labels, setLabels] = useState([
-    'set 1',
-    'set 2',
-    'set 3',
-  ]);
+  const [labels, setLabels] = useState(['set 1', 'set 2', 'set 3']);
   const keyHandler = (item, index) => {
     return index.toString();
   };
@@ -26,81 +22,82 @@ const WorkoutLabels = () => {
     <>
       {/* wraps whole page */}
       <View style={styles.containerAll}>
-        {/* wraps whole chart (chart headers and array) */}
-        <View>
-          <View style={styles.listContainer}>
-            <View>
-              <Text> </Text>
-              <View style={styles.listLabels}>
-                <Text style={{marginBottom:15}}>set 1</Text>
-                <Text style={{marginBottom:15}}>set 2</Text>
-                <Text style={{marginBottom:15}}>set 3</Text>
-              </View>
-            </View>
-            <View>
-              <Text>Weights</Text>
-              <View style={styles.list}>
-              <Input inputContainerStyle={styles.inputStyle} inputStyle={{fontSize: 12, marginTop: 8}} placeholder="wei..." /> 
-                <Input inputContainerStyle={styles.inputStyle} inputStyle={{fontSize: 12,marginTop: 8}} placeholder="wei..." /> 
-                <Input inputContainerStyle={styles.inputStyle} inputStyle={{fontSize: 12,marginTop: 8}} placeholder="wei..." /> 
-              </View>
+        
+        {/* Taulukon otsikot */}
+        <View style={{width: '100%'}}>
+          <View style={{flexDirection: 'row', paddingLeft: 40}}>
+            <Text style={{paddingLeft: 20, paddingRight: 25}}>Repeats</Text>
+            <Text style={{paddingRight: 25}}>Weights</Text>
+            <Text style={{paddingRight: 20}}>Duration</Text>
+          </View>
+        </View>
+
+        {/* Yhden liikkeen taulukko */}
+        <View style={styles.listContainer}>
+          <View style={{flexDirection: 'column', width: '50%'}}>
+            {/* Yksi rivi */}
+            <View style={{width: '60%', flexDirection: 'row'}}>
+              {/* Setti */}
+              <Text style={{paddingTop: 20, marginRight: 15}}>set 1</Text>
+              {/* Inputit toistoille, painoille ja kestolle */}
+              <Input
+                inputContainerStyle={{flexDirection: 'row', width: 50}}
+                inputStyle={{fontSize: 12}}
+              />
+              <Input
+                inputContainerStyle={{flexDirection: 'row', width: 50}}
+                inputStyle={{fontSize: 12}}
+              />
+              <Input
+                inputContainerStyle={{flexDirection: 'row', width: 50}}
+                inputStyle={{fontSize: 12}}
+              />
             </View>
 
-            <View>
-              <Text>Reps</Text>
-              <View style={styles.list}>
-                <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="rep..." />
-                <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="rep..." />
-                <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="rep..." />
-              </View>
+            {/* Uusi rivi ilman otsikoita */}
+            <View style={{width: '60%', flexDirection: 'row'}}>
+              <Text style={{paddingTop: 20, marginRight: 15}}>set 2</Text>
+              <Input
+                inputContainerStyle={{flexDirection: 'row', width: 50}}
+                inputStyle={{fontSize: 12}}
+              />
+              <Input
+                inputContainerStyle={{flexDirection: 'row', width: 50}}
+                inputStyle={{fontSize: 12}}
+              />
+              <Input
+                inputContainerStyle={{flexDirection: 'row', width: 50}}
+                inputStyle={{fontSize: 12}}
+              />
             </View>
 
-            <View>
-              <Text>Duration</Text>
-              <View style={styles.list}>
-                <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="dur..." />
-                <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="dur..." />
-                <Input inputContainerStyle={styles.inputStyle} style={{ fontSize: 12,marginTop: 8 }} placeholder="dur..." />
-              </View>
+            {/* Uusi rivi ilman otsikoita*/}
+            <View style={{width: '60%', flexDirection: 'row'}}>
+              <Text style={{paddingTop: 20, marginRight: 15}}>set 3</Text>
+              <Input
+                inputContainerStyle={{flexDirection: 'row', width: 50}}
+                inputStyle={{fontSize: 12}}
+              />
+              <Input
+                inputContainerStyle={{flexDirection: 'row', width: 50}}
+                inputStyle={{fontSize: 12}}
+              />
+              <Input
+                inputContainerStyle={{flexDirection: 'row', width: 50}}
+                inputStyle={{fontSize: 12}}
+              />
             </View>
           </View>
         </View>
       </View>
-
     </>
   );
 };
 
 const styles = StyleSheet.create({
   containerAll: {
-    width: '100%',
-    alignSelf: 'center',
-    height: '60%',
-    marginTop: 20,
-    backgroundColor: 'grey',
+    width: '50%',
   },
-  listContainer: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-    backgroundColor: 'lightgreen',
-  },
-  listLabels: {
-    flexDirection: 'column',
-    paddingVertical: 3,
-    paddingHorizontal: 10,
-    backgroundColor: 'pink',
-  },
-  list: {
-    flexDirection: 'column',
-    padding: 4,
-    borderWidth: 1,
-    backgroundColor: 'lightblue',
-  },
-  inputStyle: {
-    width: 40,
-    height: 8,
-    borderBottomWidth:0,
-  }
 });
 
 export default WorkoutLabels;

@@ -12,6 +12,8 @@ const ViewStart = (props) => {
 
   const image = require('../assets/imageback.png');
 
+
+
   return (
     <View style={styles.container}>
       
