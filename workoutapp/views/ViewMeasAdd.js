@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NavButtons from '../components/NavButtons';
 import MeasLabels from '../components/MeasLabels';
+import {getCurrentDate} from '../components/Date.js';
 
 const ViewMeasAdd = props => {
   // for person data
@@ -19,6 +20,7 @@ const ViewMeasAdd = props => {
   const [hip, setHip] = useState('');
   const [bicep, setBicep] = useState('');
   const [thigh, setThigh] = useState('');
+  const [date, setDate] = useState('');
   const [measList, addMeas] = useState([]);
 
   // handling data from inputs
@@ -50,6 +52,7 @@ const ViewMeasAdd = props => {
   //   addMeas(measList => [...measList, {"weight": weight, "chest": chest, "waist": waist, "hip": hip, "bicep": bicep, "thigh": thigh, "date": "5.10.2022", "personid": person[0].personid},]);
   // };
 
+  // posting data to database and returning the current measurements here for later usage
   const postMeas = async () => {
     try {
       let response = await fetch(
@@ -64,7 +67,7 @@ const ViewMeasAdd = props => {
             hip: Number(hip),
             bicep: Number(bicep),
             thigh: Number(thigh),
-            date: '3.10.2022',
+            date: date,
             personid: person[0].personid,
           }),
         },
@@ -77,16 +80,21 @@ const ViewMeasAdd = props => {
       var list = [responseData];
 
       // now that response we got from database is in the list, it is in two arrays, like so [[{}]]. 
-      // To get the very last (or the most recent) row from the database, we'll remove everything else. Note that pop() removes everything than the last item.
+      // to get the very last (or the most recent) row from the database, we'll remove everything else. Note that pop() removes everything than the last item.
       var arr = list.pop();
       var lastMeas = arr.pop();
       
+      // forwarding added measurements to summary view
       props.navigation.navigate('Your measurements', {meas: lastMeas});
-      
 
     } catch (error) {
       console.log(error);
     }
+  };
+
+  // setting current date to state, so it can be applied to database
+  const setDateToState = () => {
+    setDate(getCurrentDate());
   };
 
   return (
@@ -95,6 +103,7 @@ const ViewMeasAdd = props => {
       {/* wraps whole form */}
       <View style={styles.measContainerAll}>
         <Text style={styles.measHeader}>Fill in your measurements:</Text>
+        <Text style={styles.measDate}>{getCurrentDate()}</Text>
 
         {/* wraps input area (labels and inputs) */}
         <View style={styles.measContainerList}>
@@ -154,6 +163,9 @@ const ViewMeasAdd = props => {
           title="ADD MEASUREMENTS"
           onPress={() => {
             {
+              setDateToState();
+            }
+            {
               postMeas();
             }
           }}
@@ -168,16 +180,22 @@ const styles = StyleSheet.create({
   measContainerAll: {
     width: '85%',
     alignSelf: 'center',
-    marginVertical: 40,
-    paddingVertical: 25,
+    marginVertical: 30,
+    paddingVertical: 18,
     paddingHorizontal: 30,
     borderRadius: 30,
     backgroundColor: '#ebebeb',
   },
   measHeader: {
     textAlign: 'center',
-    marginBottom: 40,
+    marginBottom: 20,
     fontSize: 20,
+    fontWeight: 'normal',
+  },
+  measDate: {
+    textAlign: 'center',
+    marginBottom: 30,
+    fontSize: 18,
     fontWeight: 'normal',
   },
   measContainerList: {

@@ -5,12 +5,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NavButtons from '../components/NavButtons';
 import MeasLabels from '../components/MeasLabels';
+import {getCurrentDate} from '../components/Date.js';
 
 const ViewMeasSummary = props => {
+  // received measurements
   const [meas, setMeas] = useState(
     props.route.params == undefined ? '' : props.route.params.meas,
   );
 
+  // for individual measurement placements
   const [weight, setWeight] = useState();
   const [chest, setChest] = useState();
   const [waist, setWaist] = useState();
@@ -18,6 +21,7 @@ const ViewMeasSummary = props => {
   const [bicep, setBicep] = useState();
   const [thigh, setThigh] = useState();
 
+  // places received measurements immeadiately to states after page has rendered
   useEffect(() => {
     setWeight(meas.weight);
     setChest(meas.chest);
@@ -33,6 +37,7 @@ const ViewMeasSummary = props => {
       {/* wraps whole form */}
       <View style={styles.measContainerAll}>
         <Text style={styles.measHeader}>Measurements:</Text>
+        <Text style={styles.measDate}>{getCurrentDate()}</Text>
 
         {/* wraps input area (labels and inputs) */}
         <View style={styles.measContainerList}>
@@ -67,16 +72,22 @@ const styles = StyleSheet.create({
   measContainerAll: {
     width: '85%',
     alignSelf: 'center',
-    marginVertical: 40,
-    paddingVertical: 30,
+    marginVertical: 30,
+    paddingVertical: 18,
     paddingHorizontal: 45,
     borderRadius: 30,
     backgroundColor: '#ebebeb',
   },
   measHeader: {
     textAlign: 'center',
-    marginBottom: 40,
+    marginBottom: 20,
     fontSize: 20,
+    fontWeight: 'normal',
+  },
+  measDate: {
+    textAlign: 'center',
+    marginBottom: 30,
+    fontSize: 18,
     fontWeight: 'normal',
   },
   measContainerList: {
