@@ -38,7 +38,7 @@ const WorkoutLabels = () => {
             {/* Yksi rivi */}
             <View style={{width: '60%', flexDirection: 'row'}}>
               {/* Setti */}
-              <Text style={{paddingTop: 20, marginRight: 15}}>set 1</Text>
+              <Text style={{paddingTop: 20, marginRight: 15, fontSize:15}}>set 1</Text>
               {/* Inputit toistoille, painoille ja kestolle */}
               <Input
                 inputContainerStyle={{flexDirection: 'row', width: 50}}
@@ -56,7 +56,7 @@ const WorkoutLabels = () => {
 
             {/* Uusi rivi ilman otsikoita */}
             <View style={{width: '60%', flexDirection: 'row'}}>
-              <Text style={{paddingTop: 20, marginRight: 15}}>set 2</Text>
+              <Text style={{paddingTop: 20, marginRight: 15, fontSize:15}}>set 2</Text>
               <Input
                 inputContainerStyle={{flexDirection: 'row', width: 50}}
                 inputStyle={{fontSize: 12}}
@@ -73,7 +73,7 @@ const WorkoutLabels = () => {
 
             {/* Uusi rivi ilman otsikoita*/}
             <View style={{width: '60%', flexDirection: 'row'}}>
-              <Text style={{paddingTop: 20, marginRight: 15}}>set 3</Text>
+              <Text style={{paddingTop: 20, marginRight: 15, fontSize:15}}>set 3</Text>
               <Input
                 inputContainerStyle={{flexDirection: 'row', width: 50}}
                 inputStyle={{fontSize: 12}}
@@ -90,12 +90,24 @@ const WorkoutLabels = () => {
           </View>
         </View>
       </View>
-    </>
-  );
+    
+    );
+  };
+  
+  return(
+  
+    <FlatList style={{backgroundColor:'white', height:'50%'}}>
+      keyExtractor={keyExtractor}
+      data={exerciseList}
+      renderItem={renderItem}
+    </FlatList>
+
+  )
 };
 
 const styles = StyleSheet.create({
   containerAll: {
+    flex:1,
     width: '50%',
   },
 });
