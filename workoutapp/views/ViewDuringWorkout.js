@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, ImageBackground } from 'react-native';
 import { Card, Text, Input, Button } from '@rneui/themed';
 import NavButtons from '../components/NavButtons';
 import { getCurrentDate } from '../components/Date.js';
@@ -33,9 +33,9 @@ const ViewDuringWorkout = (props) => {
     const LOCAL_ADDRESS = 'http://10.0.2.2:8080';
     const SERVICE_ADDRESS = LOCAL_ADDRESS;
     const [isLoading, setLoading] = useState(true);
-
+    
     const addSerieToList = () => {
-        console.log("pääseekö ", Number(reps1));
+        console.log("pääseekö ", Number(reps1), "workoutid ", workoutId, "exerId ", exerId);
         setWorkouts(workoutList => [...workoutList, { 'reps': Number(reps1), 'weights': Number(weights1), 'duration': Number(duration1), 'workoutid': workoutId, 'exerciseid': exerId }]);
         console.log("workoutList", workoutList);
         addNewWorkoutExercise();
@@ -181,7 +181,7 @@ const ViewDuringWorkout = (props) => {
             <View style={{ marginBottom: 20, backgroundColor: 'white', borderRadius: 15 }}>
                 {/* wraps whole page */}
                 <View style={styles.containerAll}>
-                    <Text style={{ fontSize: 18, padding: 10, paddingLeft: 15 }}>{item.movename}</Text>
+                    <Text style={{ fontSize: 18, padding: 10, paddingLeft: 20, color:'#6533F9'}}>{item.movename}</Text>
                     {/* Taulukon otsikot */}
                     <View style={{ width: '100%' }}>
                         <View style={{ flexDirection: 'row', paddingLeft: 40 }}>
@@ -192,8 +192,8 @@ const ViewDuringWorkout = (props) => {
                     </View>
 
                     {/* Yhden liikkeen taulukko */}
-                    <View style={styles.listContainer}>
-                        <View style={{ flexDirection: 'column', width: '50%' }}>
+                    <View>
+                        <View style={{ flexDirection: 'column', width: '45%' }}>
                             {/* Yksi rivi */}
                             <View style={{ width: '60%', flexDirection: 'row' }}>
                                 {/* Setti */}
@@ -265,7 +265,11 @@ const ViewDuringWorkout = (props) => {
 
     return (
         <View style={styles.container}>
-            <Text style={{ fontSize: 22, paddingTop: 10, paddingBottom: 15 }}>Fill your workout</Text>
+             <ImageBackground
+          source={require('../assets/imageback.png')}
+          resizeMode="cover"
+          style={styles.image}>
+            <Text style={{ fontSize: 22, paddingTop: 10, paddingBottom: 15, textAlign:'center', color:'white' }}>Fill your workout</Text>
             <View style={styles.flatlist}>
                 <FlatList style={{ height: '50%', marginBottom: 20 }}
                     keyExtractor={keyExtractor}
@@ -274,7 +278,7 @@ const ViewDuringWorkout = (props) => {
                     ListFooterComponent={() => (
                         <Button
                             buttonStyle={styles.button}
-                            title="START WORKOUT"
+                            title="FINISH WORKOUT"
                             onPress={() => {
                                 addSerieToList();
                             }}
@@ -285,6 +289,7 @@ const ViewDuringWorkout = (props) => {
             <View style={styles.bottom}>
                 <NavButtons params={props} />
             </View>
+            </ImageBackground>
         </View>
     )
 };
@@ -293,29 +298,34 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        
 
     },
     flatlist: {
-        height: '80%',
-        marginBottom: 20
+        height: '90%',
+        marginBottom: 20,
+        paddingLeft:20,
+        paddingRight:20
+   
     },
 
     containerAll: {
         flex: 1,
-        width: '80%',
-        marginBottom: 20
+        width: '100%',
+        marginBottom: 20,
+        
     },
     button: {
         marginTop: 5,
         backgroundColor: '#9F40E6',
-        marginBottom: 20,
+        marginBottom: 25,
         borderRadius: 20,
         width: 200,
         height: 60,
         alignSelf: 'center',
     },
     bottom: {
-        height: 50,
+       
         flexDirection: 'row'
     },
 });
