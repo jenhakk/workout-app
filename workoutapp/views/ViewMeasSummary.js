@@ -42,7 +42,7 @@ const ViewMeasSummary = props => {
           </View>
           {/* wraps measurement values in text components */}
           <View style={styles.measWrapLists}>
-            <Text style={styles.measValues}>{weight} cm</Text>
+            <Text style={styles.measValues}>{weight} kg</Text>
             <Text style={styles.measValues}>{chest} cm</Text>
             <Text style={styles.measValues}>{waist} cm</Text>
             <Text style={styles.measValues}>{hip} cm</Text>
