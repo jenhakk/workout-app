@@ -35,7 +35,8 @@ const ViewDuringWorkout = (props) => {
   const [isLoading, setLoading] = useState(true);
   
   const addSerieToList = () => {
-    setWorkouts(workoutList => [...workoutList, {Number(reps1), Number(weights1), Number(duration1),workoutId,exerId}]);
+    console.log("pääseekö ", Number(reps1));
+    setWorkouts(workoutList => [...workoutList, Number(reps1)+Number(weights1)+Number(duration1)+workoutId+exerId]);
     console.log("workoutList",workoutList);
   }
 
@@ -95,11 +96,11 @@ const ViewDuringWorkout = (props) => {
       let json = await response.json();
 
       setExercise(json);
-      console.log('onko tämä json', json, ' ', exerciseList);
+     // console.log('onko tämä json', json, ' ', exerciseList);
     } catch (error) {
       console.log(error);
     }
-    console.log('mikä tämä on', exerciseList);
+    //console.log('mikä tämä on', exerciseList);
   };
 
 
@@ -126,7 +127,7 @@ const ViewDuringWorkout = (props) => {
             );
               let data = await response.json();
               setNewWorkOut(data);
-              console.log("workoutid", data[0].workoutid);
+             // console.log("workoutid", data[0].workoutid);
               setWorkoutId(data[0].workoutid);
               
               
@@ -144,7 +145,7 @@ const ViewDuringWorkout = (props) => {
 
 
   const renderItem = ({item, index}) => {
-    console.log("lista", exerciseList);
+    //console.log("lista", exerciseList);
     return (
         // wraps everything, is there for bottom navbar
         <View style={{marginBottom:20, backgroundColor:'white', borderRadius:15}}>
