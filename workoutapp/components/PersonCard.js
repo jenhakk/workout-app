@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     fonts: {
         marginBottom: 30,
         fontSize: 18,
+        textAlign:'center',
     },
     details: {
         marginTop: 10,
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     user: {
         alignItems: 'center',
         flexDirection: 'column',
-        marginBottom: 6,
+        marginBottom: 6,  
     },
 });
 
