@@ -10,7 +10,7 @@ const NavButtons = ({params}) => {
         type="material-community"
         color="rgba(92, 99,216, 1)"
         size={35}
-        onPress={() => params.navigation.navigate('Add Exercises')}
+        onPress={() => params.navigation.navigate('Workout Summary')}
       />
 
       <Icon
