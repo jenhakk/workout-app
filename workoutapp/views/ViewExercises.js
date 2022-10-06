@@ -41,11 +41,11 @@ const ViexExercises = props => {
       let json = await response.json();
 
       setExercise(json);
-      console.log('onko tämä json', json, ' ', exerciseList);
+      // console.log('onko tämä json', json, ' ', exerciseList);
     } catch (error) {
       console.log(error);
     }
-    console.log('mikä tämä on', exerciseList);
+    // console.log('mikä tämä on', exerciseList);
   };
 
   const saveExercisesToDb = async () => {
@@ -61,7 +61,7 @@ const ViexExercises = props => {
         },
       );
       let json = await response.json();
-      console.log(json);
+      // console.log(json);
     } catch (error) {
       console.log(error);
     } finally {
@@ -99,8 +99,7 @@ const ViexExercises = props => {
     setVisibility(false);
   };
   const renderItem = ({item, index}) => {
-    console.log('rivi 61', item.movepic);
-
+    
     let path = imageurl + item.movepic;
 
     return (

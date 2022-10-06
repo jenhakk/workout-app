@@ -11,6 +11,7 @@ import ViewExercises from './views/ViewExercises';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ViewDuringWorkout from './views/ViewDuringWorkout';
+import ViewAfterWorkout from './views/ViewAfterWorkout';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ const App=()=>{
         <Stack.Screen name="Profile" component={ViewPerson} />
         <Stack.Screen name="Edit profile" component={ViewEditProfile} />
         <Stack.Screen name="During workout" component={ViewDuringWorkout} />
+        <Stack.Screen name="Workout Summary" component={ViewAfterWorkout} />
       </Stack.Navigator>
     </NavigationContainer>
   );

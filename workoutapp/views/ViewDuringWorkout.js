@@ -37,15 +37,15 @@ const ViewDuringWorkout = (props) => {
     const addSerieToList = () => {
         console.log("pääseekö ", Number(reps1), "workoutid ", workoutId, "exerId ", exerId);
         setWorkouts(workoutList => [...workoutList, { 'reps': Number(reps1), 'weights': Number(weights1), 'duration': Number(duration1), 'workoutid': workoutId, 'exerciseid': exerId }]);
-        console.log("workoutList", workoutList);
-        addNewWorkoutExercise();
+        // console.log("workoutList", workoutList);
+        //addNewWorkoutExercise();
     }
 
     const inputReps1 = (id, reps) => {
         setReps1(reps);
         setExerId(id);
         console.log("reps", reps);
-        // console.log("id",id);
+        console.log("id",id);
 
         setWorkoutId(newWorkout[0].workoutid);
     }
@@ -53,31 +53,51 @@ const ViewDuringWorkout = (props) => {
     const inputWeights1 = (id, weights) => {
         setWeights1(weights);
         setExerId(id);
+        console.log("w", weights);
+        console.log("id",id);
 
     }
     const inputDuration1 = (id, dura) => {
         setDuration1(dura);
         setExerId(id);
+        console.log("d", dura);
+        console.log("id",id);
     }
-    const inputReps2 = (reps) => {
+    const inputReps2 = (id, reps) => {
         setReps2(reps);
+        setExerId(id);
+        console.log("reps", reps);
+        
     }
 
-    const inputWeights2 = (weights) => {
+    const inputWeights2 = (id, weights) => {
         setWeights2(weights);
+        setExerId(id);
+        console.log("we", weights);
+        
     }
-    const inputDuration2 = (duration) => {
+    const inputDuration2 = (id, duration) => {
         setDuration2(duration);
+        setExerId(id);
+        console.log("id",id);
+        console.log("dura", duration);
     }
-    const inputReps3 = (reps) => {
+    const inputReps3 = (id, reps) => {
         setReps3(reps);
+        setExerId(id);
+        console.log("reps", reps);
     }
 
-    const inputWeights3 = (weights) => {
+    const inputWeights3 = (id, weights) => {
         setWeights3(weights);
+        setExerId(id);
+        console.log("wei", weights);
     }
-    const inputDuration3 = (duration) => {
+    const inputDuration3 = (id, duration) => {
         setDuration3(duration);
+        setExerId(id);
+        console.log("id",id);
+        console.log("duration", duration);
     }
 
     useEffect(() => {
@@ -85,8 +105,8 @@ const ViewDuringWorkout = (props) => {
             fetchCheckedExercises();
             addNewWorkout();
             setLoading(false);
-
         }
+       
     }, []);
 
     const fetchCheckedExercises = async () => {
@@ -121,7 +141,7 @@ const ViewDuringWorkout = (props) => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
 
-                        date: "3.10.2022",
+                        date: date,
                         personid: 1,
                     }),
                 },
@@ -144,7 +164,10 @@ const ViewDuringWorkout = (props) => {
     //   Creating new record for row in WorkoutExercise table
     const addNewWorkoutExercise = async () => {
         console.log('IN ADDNEWWORKOUTEXERCISE list ', workoutList);
-
+        workoutExerciseList = [{ 'reps': Number(reps1), 'weights': Number(weights1), 'duration': Number(duration1), 'workoutid': workoutId, 'exerciseid': exerId },
+        { 'reps': Number(reps2), 'weights': Number(weights2), 'duration': Number(duration2), 'workoutid': workoutId, 'exerciseid': exerId },
+        { 'reps': Number(reps3), 'weights': Number(weights3), 'duration': Number(duration3), 'workoutid': workoutId, 'exerciseid': exerId }
+        ];
         try {
 
             let response = await fetch(
@@ -152,13 +175,14 @@ const ViewDuringWorkout = (props) => {
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        reps: workoutList[0].reps,
-                        weights: workoutList[0].weights,
-                        duration: workoutList[0].duration,
-                        workoutid: workoutList[0].workoutid,
-                        exerciseid: workoutList[0].exerciseid,
-                    }),
+                    // body: JSON.stringify({
+                    //     reps: reps1,
+                    //     weights: weights1,
+                    //     duration: duration1,
+                    //     workoutid: workoutId,
+                    //     exerciseid: exerId,
+                    // }),
+                    body: JSON.stringify(workoutExerciseList),
                 },
             );
             let data = await response.json();
@@ -223,17 +247,17 @@ const ViewDuringWorkout = (props) => {
                                 <Input
                                     inputContainerStyle={{ flexDirection: 'row', width: 50 }}
                                     inputStyle={{ fontSize: 12 }}
-                                    onChangeText={inputReps2}
+                                    onChangeText={(reps) => { inputReps2(item.exerciseid, reps) }}
                                 />
                                 <Input
                                     inputContainerStyle={{ flexDirection: 'row', width: 50 }}
                                     inputStyle={{ fontSize: 12 }}
-                                    onChangeText={inputWeights2}
+                                    onChangeText={(weights) => { inputWeights2(item.exerciseid, weights) }}
                                 />
                                 <Input
                                     inputContainerStyle={{ flexDirection: 'row', width: 50 }}
                                     inputStyle={{ fontSize: 12 }}
-                                    onChangeText={inputDuration2}
+                                    onChangeText={(dura) => { inputDuration2(item.exerciseid, dura) }}
                                 />
                             </View>
 
@@ -243,21 +267,28 @@ const ViewDuringWorkout = (props) => {
                                 <Input
                                     inputContainerStyle={{ flexDirection: 'row', width: 50 }}
                                     inputStyle={{ fontSize: 12 }}
-                                    onChangeText={inputReps3}
+                                    onChangeText={(reps) => { inputReps3(item.exerciseid, reps) }}
                                 />
                                 <Input
                                     inputContainerStyle={{ flexDirection: 'row', width: 50 }}
                                     inputStyle={{ fontSize: 12 }}
-                                    onChangeText={inputWeights3}
+                                    onChangeText={(weights) => { inputWeights3(item.exerciseid, weights) }}
                                 />
                                 <Input
                                     inputContainerStyle={{ flexDirection: 'row', width: 50 }}
                                     inputStyle={{ fontSize: 12 }}
-                                    onChangeText={inputDuration3}
+                                    onChangeText={(dura) => { inputDuration3(item.exerciseid, dura) }}
                                 />
                             </View>
                         </View>
                     </View>
+                    <Button
+                            buttonStyle={styles.buttonSave}
+                            title="SAVE"
+                            onPress={() => {
+                                addSerieToList(); addNewWorkoutExercise();
+                            }}
+                        />
                 </View>
             </View>
         );
@@ -280,7 +311,7 @@ const ViewDuringWorkout = (props) => {
                             buttonStyle={styles.button}
                             title="FINISH WORKOUT"
                             onPress={() => {
-                                addSerieToList();
+                                console.log("Great job!");
                             }}
                         />
                     )}
@@ -314,6 +345,15 @@ const styles = StyleSheet.create({
         width: '100%',
         marginBottom: 20,
         
+    },
+    buttonSave: {
+        marginTop: 5,
+        backgroundColor: '#29F2B9',
+        marginBottom: 10,
+        borderRadius: 20,
+        width: 100,
+        height: 50,
+        alignSelf: 'center',
     },
     button: {
         marginTop: 5,
