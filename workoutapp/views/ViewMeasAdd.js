@@ -20,7 +20,7 @@ const ViewMeasAdd = props => {
   const [hip, setHip] = useState('');
   const [bicep, setBicep] = useState('');
   const [thigh, setThigh] = useState('');
-  const [date, setDate] = useState('');
+  const date = getCurrentDate(); 
   const [measList, addMeas] = useState([]);
 
   // handling data from inputs
@@ -47,10 +47,6 @@ const ViewMeasAdd = props => {
   const handleThigh = event => {
     setThigh(event);
   };
-
-  // const addMeasToList = () => {
-  //   addMeas(measList => [...measList, {"weight": weight, "chest": chest, "waist": waist, "hip": hip, "bicep": bicep, "thigh": thigh, "date": "5.10.2022", "personid": person[0].personid},]);
-  // };
 
   // posting data to database and returning the current measurements here for later usage
   const postMeas = async () => {
@@ -84,17 +80,23 @@ const ViewMeasAdd = props => {
       var arr = list.pop();
       var lastMeas = arr.pop();
       
+      clearData();
       // forwarding added measurements to summary view
       props.navigation.navigate('Your measurements', {meas: lastMeas});
+
 
     } catch (error) {
       console.log(error);
     }
   };
 
-  // setting current date to state, so it can be applied to database
-  const setDateToState = () => {
-    setDate(getCurrentDate());
+  const clearData = () => {
+    setWeight('');
+    setChest('');
+    setWaist('');
+    setHip('');
+    setBicep('');
+    setThigh('');
   };
 
   return (
@@ -162,9 +164,6 @@ const ViewMeasAdd = props => {
           buttonStyle={styles.measButton}
           title="ADD MEASUREMENTS"
           onPress={() => {
-            {
-              setDateToState();
-            }
             {
               postMeas();
             }

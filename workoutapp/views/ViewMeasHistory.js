@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  array,
 } from 'react-native';
 import {Button, Text, Input, Card, Divider, FAB} from '@rneui/base';
 import {NavigationContainer} from '@react-navigation/native';
@@ -14,12 +15,12 @@ import MeasLabels from '../components/MeasLabels';
 import {CardDivider} from '@rneui/base/dist/Card/Card.Divider';
 import {TabItem} from '@rneui/base/dist/Tab/Tab.Item';
 import {getCurrentDate} from '../components/Date.js';
+import {ListItemInput} from '@rneui/base/dist/ListItem/ListItem.Input';
 
 const ViewMeasHistory = props => {
   // --- STATES AND VARIABLES ---
   const LOCAL_ADDRESS = 'http://10.0.2.2:8080';
   const SERVICE_ADDRESS = LOCAL_ADDRESS;
-  const [visible, setVisible] = useState(true);
 
   // gets person data from viewperson
   const [person, setPerson] = useState(
@@ -28,18 +29,18 @@ const ViewMeasHistory = props => {
 
   // gets the whole measurement data from database
   const [meas, setMeas] = useState([]);
-
-  // gets the last object from database
-  const [measFirstCol, setFirstCol] = useState([]);
-
-  // gets the second last object from database
-  const [measSecondCol, setSecondCol] = useState([]);
-
-  // gets the third last object from database
-  const [measThirdCol, setThirdCol] = useState([]);
+  const [meas1, setMeas1] = useState([]);
+  const [meas2, setMeas2] = useState([]);
+  const [meas3, setMeas3] = useState([]);
+  const [valueArr1, setArr1] = useState([]);
+  const [valueArr2, setArr2] = useState([]);
+  const [valueArr3, setArr3] = useState([]);
+  const [index1, setIndex1] = useState('');
+  const [index2, setIndex2] = useState('');
+  const [index3, setIndex3] = useState('');
 
   // labels of measurement array
-  const [measListLabels, setLabels] = useState([
+  const [measLabels, setLabels] = useState([
     'Weight',
     'Chest',
     'Bicep',
@@ -51,43 +52,85 @@ const ViewMeasHistory = props => {
   // --- USEEFFECT ---
   // reads the database once when the page renders and calls functions to extract third latest rows from it
   useEffect(() => {
-    fetchMeas(person[0].personid);
-    getLastMeas(meas);
-    getSecondLastMeas(meas);
-    getThirdLastMeas(meas);
-  }, []);
+    if (meas.length == 0) {
+      fetchMeas();
+    }
+
+    if (meas.length != 0 && meas1.length == 0) {
+      // console.log('Tullaanko tänne?');
+      splitData(meas);
+    }
+
+    if (meas.length != 0 && meas1.length != 0 && valueArr1.length == 0) {
+      // console.log('Tullaanko viimeseen?');
+      getValueArr();
+    }
+  }, [meas, meas1]);
 
   // --- FETCH ---
-  // reads measurements from database
-  const fetchMeas = async () => {
+  // // reads measurements from database
+  async function fetchMeas() {
     try {
-      let response = await fetch(
-        SERVICE_ADDRESS + '/rest/workoutservice/readmeas/' + person[0].personid,
+      const response = await fetch(
+        SERVICE_ADDRESS + '/rest/workoutservice/readlastthree',
       );
-      let json = await response.json();
-      setMeas(json);
+      const responseData = await response.json();
+      setMeas(responseData);
     } catch (error) {
       console.log(error);
     }
+  }
+
+  // console.log('DB: ', meas);
+  // console.log('MEAS1: ', meas1);
+  // console.log('VALUEARR1: ', valueArr1);
+  console.log('INDEX1: ', index1);
+  console.log('INDEX2: ', index2);
+  console.log('INDEX3: ', index3);
+
+  // --- FUNCTIONS TO HANDLE THE FETCHED DATA
+  // splitting json to three arrays
+  const splitData = meas => {
+    console.log('SPLITIN meas ', meas);
+    var obj1 = meas[meas.length - 1];
+    var obj2 = meas[meas.length - 2];
+    var obj3 = meas[meas.length - 3];
+
+    setMeas1(obj1);
+    setMeas2(obj2);
+    setMeas3(obj3);
   };
 
-  // --- FUNCTIONS TO EXTRACT WANTED MEAS ---
-  // returns the last measurement on the array read from database.
-  const getLastMeas = meas => {
-    var last = meas[meas.length - 1];
-    setFirstCol(last);
-  };
+  // handling arrays which display the data on the page
+  const getValueArr = () => {
+    // extracting only values to the arrays
+    var values1 = Object.values(meas1);
+    var values2 = Object.values(meas2);
+    var values3 = Object.values(meas3);
 
-  // returns the second last measurement on the array read from database.
-  const getSecondLastMeas = (meas) => {
-    var secondLast = meas[meas.length - 2];
-    setSecondCol(secondLast);
-  };
+    // extracting only
+    var valIndex1 = values1.pop();
+    var valIndex2 = values2.pop();
+    var valIndex3 = values3.pop();
 
-  // returns the third last measurement on the array read from database.
-  const getThirdLastMeas = (meas) => {
-    var thirdLast = meas[meas.length - 3];
-    setThirdCol(thirdLast);
+    setIndex1(valIndex1);
+    setIndex2(valIndex2);
+    setIndex3(valIndex3);
+
+    // specifying which indexes to remove from the array
+    removeValFromIndex = [0, 1, 8];
+
+    // removing the indexes from all three arrays
+    for (var i = removeValFromIndex.length - 1; i >= 0; i--) {
+      values1.splice(removeValFromIndex[i], 1);
+      values2.splice(removeValFromIndex[i], 1);
+      values3.splice(removeValFromIndex[i], 1);
+    }
+
+    // setting new values to the new array states
+    setArr1(values1);
+    setArr2(values2);
+    setArr3(values3);
   };
 
   // --- FUNCTIONS TO LIST VALUES ---
@@ -97,78 +140,64 @@ const ViewMeasHistory = props => {
 
   const renderLabels = (item, index) => {
     return (
-      <View key={index} style={styles.measListLabels}>
-        <Text style={styles.measListHeaders}>{item.item}</Text>
+      <View key={index}>
+        <Text>{item.item}</Text>
       </View>
     );
   };
 
-  console.log('1. COL ', measFirstCol);
-  console.log('2. COL ', measSecondCol);
-  console.log('3. COL ', measThirdCol);
-
   return (
     // wraps everything, is there for bottom navbar
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      {/* wraps whole page */}
-      <View style={styles.measContainerAll}>
-        {/* wraps header */}
-        <View>
-          <Text style={styles.measHeader}>View your latest measurements</Text>
-          <Text style={styles.measDate}>{getCurrentDate()}</Text>
+      <View style={styles.measArrContainer}>
+        <View style={styles.measArrDates}>
+          <Text> </Text>
+          <Text>{index1}</Text>
+          <Text>{index2}</Text>
+          <Text>{index3}</Text>
         </View>
-
-        {/* wraps whole chart (chart headers and array) */}
-        <View style={styles.measListContainer}>
-          {/* wraps the first column */}
-          <View>
-            <Text> </Text>
-            <View style={styles.measLabels}>
-              <FlatList
-                data={measListLabels}
-                keyExtractor={keyHandler}
-                renderItem={renderLabels}
-              />
-            </View>
+        <View>
+          <View style={styles.measColumns}>
+            <FlatList
+              data={measLabels}
+              keyExtractor={keyHandler}
+              renderItem={(item, index) => {
+                return <Text>{item.item}</Text>;
+              }}
+            />
           </View>
-
-          {/* wraps the second column */}
-          <TouchableOpacity activeOpacity={0.6}>
-            <View>
-              <Text style={styles.measListHeaders}>29.9.2022</Text>
-              <View style={styles.measValues}>
-              
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          {/* wraps the third column */}
-          <TouchableOpacity activeOpacity={0.6}>
-            <View>
-              <Text style={styles.measListHeaders}>30.9.2022</Text>
-              <View style={styles.measValues}>
-                
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          {/* wraps the fourth column */}
-          <TouchableOpacity activeOpacity={0.6}>
-            <View>
-              <Text style={styles.measListHeaders}>1.10.2022</Text>
-              <View style={styles.measValues}>
-               
-              </View>
-            </View>
-          </TouchableOpacity>
+          <View style={styles.measColumns}>
+            <FlatList
+              data={valueArr1}
+              keyExtractor={keyHandler}
+              renderItem={(item, index) => {
+                return <Text>{item.item}</Text>;
+              }}
+            />
+          </View>
+          <View style={styles.measColumns}>
+            <FlatList
+              data={valueArr2}
+              keyExtractor={keyHandler}
+              renderItem={(item, index) => {
+                return <Text>{item.item}</Text>;
+              }}
+            />
+          </View>
+          <View style={styles.measColumns}>
+            <FlatList
+              data={valueArr3}
+              keyExtractor={keyHandler}
+              renderItem={(item, index) => {
+                return <Text>{item.item}</Text>;
+              }}
+            />
+          </View>
         </View>
       </View>
-
-      <FAB
-        visible={visible}
-        icon={{name: 'add', color: 'white'}}
-        color="#7640E6"
-        style={styles.measFAB}
+      <Button
+        buttonStyle={styles.measButton}
+        title="ADD A NEW MEASUREMENT"
         onPress={() => {
           props.navigation.navigate('Add measurements', {person: person});
         }}
@@ -184,9 +213,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
   },
-  measListContainer: {
+  measArrContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignSelf: 'center',
+    width: '80%',
   },
   measHeader: {
     textAlign: 'center',
@@ -201,31 +232,40 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'normal',
   },
-  measLabels: {
+  measArrDates: {
+    flexDirection: 'row',
+  },
+  measColumns: {
     flexDirection: 'column',
-    width: 60,
-    marginRight: 8,
   },
-  measValues: {
-    flexDirection: 'column',
-    width: 85,
-    marginBottom: 250,
-    borderWidth: 1,
+  // measLabels: {
+  //   width: 60,
+  //   marginRight: 8,
+  // },
+  // measValues: {
+  //   width: 85,
+  //   marginBottom: 250,
+  //   borderWidth: 1,
+  // },
+  // measListHeaders: {
+  //   fontSize: 16,
+  // },
+  // measListLabels: {
+  //   height: 30,
+  //   padding: 5,
+  // },
+  // measListValues: {
+  //   height: 30,
+  //   padding: 5,
+  //   borderBottomWidth: 1,
+  //   backgroundColor: '#ebebeb',
+  // },
+  measButton: {
+    width: '65%',
+    marginTop: 40,
+    alignSelf: 'center',
+    borderRadius: 5,
   },
-  measListHeaders: {
-    fontSize: 16,
-  },
-  measListLabels: {
-    height: 30,
-    padding: 5,
-  },
-  measListValues: {
-    height: 30,
-    padding: 5,
-    borderBottomWidth: 1,
-    backgroundColor: '#ebebeb',
-  },
-  measFAB: {},
 });
 
 export default ViewMeasHistory;
