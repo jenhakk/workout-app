@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 import {Button, Text} from '@rneui/base';
 import {Icon} from '@rneui/themed';
@@ -9,9 +9,33 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {getCurrentDate} from '../components/Date.js';
 
 const ViewStart = props => {
+  const LOCAL_ADDRESS = 'http://10.0.2.2:8080';
+  const SERVICE_ADDRESS = LOCAL_ADDRESS;
+  const [isLoading, setLoading] = useState(true);
+  const [person, setPerson] = useState([]);
   var user = 'Pertti';
 
   const image = require('../assets/imageback.png');
+
+  useEffect(() => {
+    if (isLoading) {
+        fetchPerson();
+        setLoading(false);
+    }
+}, [])
+
+  const fetchPerson = async () => {
+    try {
+      let response = await fetch(
+        SERVICE_ADDRESS + '/rest/workoutservice/readperson',
+      );
+      let json = await response.json();
+
+      setPerson(json);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -51,7 +75,7 @@ const ViewStart = props => {
             title={<CustomTitleAddMeas />}
             buttonStyle={styles.button2}
             onPress={() => {
-              props.navigation.navigate('Add measurements');
+              props.navigation.navigate('Add measurements', { person: person});
             }}></Button>
         </View>
         <View style={styles.buttongroup}>
@@ -65,7 +89,7 @@ const ViewStart = props => {
             title={<CustomTitleMeasHistory />}
             buttonStyle={styles.button4}
             onPress={() => {
-              props.navigation.navigate('All recorded measurements');
+              props.navigation.navigate('All recorded measurements', { person: person});
             }}></Button>
         </View>
         <NavButtons params={props} />
