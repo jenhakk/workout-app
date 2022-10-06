@@ -16,35 +16,52 @@ const ViewAfterWorkout = props => {
   const SERVICE_ADDRESS = LOCAL_ADDRESS;
   const [isLoading, setLoading] = useState(true);
   const imageurl = 'http://10.0.2.2:8080/images/';
+  const [exerciseList, setExerciseList] = useState(props.route.params == undefined ? "" : props.route.params.exerciseList);
+  const [exIds, setExsIds] = useState([]);
+  const [workoutId, setWorkoutId] = useState(props.route.params == undefined ? "" : props.route.params.workoutExerciseList);
+  const [workid, setWork] = useState();
 
   useEffect(() => {
     if (isLoading) {
-      fetchWorkout();
+      
       setLoading(false);
+      collectExerciseNumbers();
+      console.log("exerciseList",exerciseList);
+      console.log("workoutid", workoutId);
+      fetchWorkout();
     }
 
-    splitListByExercise();
-  }, [workoutSummary]);
+    
+  }, []);
+
+//  Colllecting exercise id's from exerciseList to exIds list
+// for getting matching series from database
+  const collectExerciseNumbers = () => {
+
+    setWork(workoutId[0].workoutid);
+    console.log("workoutid:", workid);
+    for (let i = 0; i < exerciseList.length; i++) {
+        let id = exerciseList[i].exerciseid;
+        console.log("id:", id);
+        exIds.push(id);
+        console.log(exIds);
+    }
+  };
 
   const fetchWorkout = async () => {
     try {
       let response = await fetch(
-        SERVICE_ADDRESS + '/rest/workoutservice/readworkoutexercise/1',
+        SERVICE_ADDRESS + '/rest/workoutservice/readworkoutexercisesbyid/29',
       );
       let json = await response.json();
 
       setWorkoutSummary(json);
-      console.log('onko tämä json', json, ' ', workoutSummary);
+      //console.log('onko tämä json', json, ' ', workoutSummary);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const splitListByExercise = () => {
-    console.log("split ", workoutSummary);
-
-    
-  }
 
   keyExtractor = (item, index) => index.toString();
 
