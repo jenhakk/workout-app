@@ -39,7 +39,8 @@ const ViewEditProfile = (props) => {
         setLastname(enteredText);
     }
     const heightInputHandler = (enteredText) => {
-        setHeight(enteredText);
+        let trimmed = enteredText.replace(/\./g,'');
+        setHeight(trimmed);
     }
     const locationInputHandler = (enteredText) => {
         setLocation(enteredText);
@@ -207,6 +208,7 @@ const ViewEditProfile = (props) => {
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Firstname..."
+                            maxLength={50}
                             onChangeText={firstnameInputHandler}
                             value={firstname}
                         />
@@ -214,13 +216,16 @@ const ViewEditProfile = (props) => {
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Lastname..."
+                            maxLength={50}
                             onChangeText={lastnameInputHandler}
                             value={lastname}
                         />
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
+                            keyboardType= 'numeric'
                             placeholder="Height..."
+                            maxLength={3}
                             onChangeText={heightInputHandler}
                             value={'' + height}
                         />
@@ -228,6 +233,7 @@ const ViewEditProfile = (props) => {
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Location..."
+                            maxLength={50}
                             onChangeText={locationInputHandler}
                             value={location}
                         />
@@ -235,6 +241,7 @@ const ViewEditProfile = (props) => {
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
                             placeholder="Slogan..."
+                            maxLength={200}
                             onChangeText={sloganInputHandler}
                             value={slogan}
                         />
