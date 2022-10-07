@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList, ImageBackground} from 'react-native';
 import {Button, Text, Input} from '@rneui/base';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -8,19 +8,19 @@ import MeasLabels from '../components/MeasLabels';
 import {getCurrentDate} from '../components/Date.js';
 
 const ViewMeasAdd = props => {
-  // for person data
+  // for person data (comes from ViewPerson, ViewStart, ViewMeasHistory)
   const [person, setPerson] = useState(
     props.route.params == undefined ? '' : props.route.params.person,
   );
 
-  // for measurement inputs
+  // for adding measurement inputs
   const [weight, setWeight] = useState('');
   const [chest, setChest] = useState('');
   const [waist, setWaist] = useState('');
   const [hip, setHip] = useState('');
   const [bicep, setBicep] = useState('');
   const [thigh, setThigh] = useState('');
-  const date = getCurrentDate(); 
+  const date = getCurrentDate();
   const [measList, addMeas] = useState([]);
 
   // handling data from inputs
@@ -75,20 +75,49 @@ const ViewMeasAdd = props => {
       // responseData is set in the array, so it's possible to handle it as such.
       var list = [responseData];
 
-      // now that response we got from database is in the list, it is in two arrays, like so [[{}]]. 
+      // now that response we got from database is in the list, it is in two arrays, like so [[{}]].
       // to get the very last (or the most recent) row from the database, we'll remove everything else. Note that pop() removes everything than the last item.
       var arr = list.pop();
       var lastMeas = arr.pop();
-      
+
       clearData();
       // forwarding added measurements to summary view
       props.navigation.navigate('Your measurements', {meas: lastMeas});
-
-
     } catch (error) {
       console.log(error);
     }
   };
+
+  // BASE FOR UPDATE IF WE NEED OR WANT IT
+  // const updateMeas = async () => {
+  //   try {
+  //     let response = await fetch(
+  //       SERVICE_ADDRESS + '/rest/workoutservice/updatemeas/',
+  //       {
+  //         method: 'PUT',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           weight: Number(weight),
+  //           chest: Number(chest),
+  //           waist: Number(waist),
+  //           hip: Number(hip),
+  //           bicep: Number(bicep),
+  //           thigh: Number(thigh),
+  //           date: date,
+  //           personid: person[0].personid,
+  //           // measid puuttuu
+  //         }),
+  //       },
+  //     );
+
+  //     let json = await response.json();
+  //     setMeasFromHistory(json);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const clearData = () => {
     setWeight('');
@@ -101,7 +130,11 @@ const ViewMeasAdd = props => {
 
   return (
     // wraps everything, is there for bottom navbar
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <View style={{flex: 1}}>
+      <ImageBackground
+        source={require('../assets/imageback.png')}
+        resizeMode="cover"
+        style={styles.image}>
       {/* wraps whole form */}
       <View style={styles.measContainerAll}>
         <Text style={styles.measHeader}>Fill in your measurements:</Text>
@@ -170,6 +203,7 @@ const ViewMeasAdd = props => {
           }}
         />
       </View>
+      </ImageBackground>
       <NavButtons params={props} />
     </View>
   );
@@ -179,15 +213,16 @@ const styles = StyleSheet.create({
   measContainerAll: {
     width: '85%',
     alignSelf: 'center',
+    flexDirection: 'column',
     marginVertical: 30,
     paddingVertical: 18,
     paddingHorizontal: 30,
     borderRadius: 30,
-    backgroundColor: '#ebebeb',
+    backgroundColor: 'white',
   },
   measHeader: {
     textAlign: 'center',
-    marginBottom: 20,
+    marginVertical: 20,
     fontSize: 20,
     fontWeight: 'normal',
   },
@@ -218,6 +253,7 @@ const styles = StyleSheet.create({
   measButton: {
     width: '78%',
     alignSelf: 'center',
+    marginVertical: 10,
     borderRadius: 5,
   },
 });
