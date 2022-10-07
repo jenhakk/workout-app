@@ -16,17 +16,13 @@ const ViewAfterWorkout = props => {
   const SERVICE_ADDRESS = LOCAL_ADDRESS;
   const [isLoading, setLoading] = useState(true);
   const imageurl = 'http://10.0.2.2:8080/images/';
-  const [exerciseList, setExerciseList] = useState(props.route.params == undefined ? "" : props.route.params.exerciseList);
-  const [exIds, setExsIds] = useState([]);
-  const [workoutId, setWorkoutId] = useState(props.route.params == undefined ? "" : props.route.params.workoutExerciseList);
-  const [workid, setWork] = useState(68);
+  const [workoutId, setWorkoutId] = useState(props.route.params == undefined ? "" : props.route.params.workoutId);
+  const [workoutDate, setWorkoutDate] = useState(props.route.params == undefined ? "" : props.route.params.workoutDate);
 
   useEffect(() => {
     if (isLoading) {
       
       setLoading(false);
-      collectExerciseNumbers();
-      console.log("exerciseList",exerciseList);
       console.log("workoutid", workoutId);
       fetchWorkout();
     }
@@ -34,24 +30,10 @@ const ViewAfterWorkout = props => {
     
   }, []);
 
-//  Colllecting exercise id's from exerciseList to exIds list
-// for getting matching series from database
-  const collectExerciseNumbers = () => {
-
-    // setWork(workoutId[0].workoutid);
-    console.log("workoutid:", workid);
-    for (let i = 0; i < exerciseList.length; i++) {
-        let id = exerciseList[i].exerciseid;
-        console.log("id:", id);
-        exIds.push(id);
-        console.log(exIds);
-    }
-  };
-
   const fetchWorkout = async () => {
     try {
       let response = await fetch(
-        SERVICE_ADDRESS + '/rest/workoutservice/readworkoutexercisesbyid/49',
+        SERVICE_ADDRESS + '/rest/workoutservice/readworkoutexercisesbyid/'+workoutId,
       );
       let json = await response.json();
 
@@ -62,13 +44,11 @@ const ViewAfterWorkout = props => {
     }
   };
 
-
   keyExtractor = (item, index) => index.toString();
 
   
   const renderItem = ({item, index}) => {
-    //console.log('rivi 61', item.picture);
-
+   
     let path = imageurl + item[index].picture;
 
     return (
@@ -76,25 +56,23 @@ const ViewAfterWorkout = props => {
         
 
         <ListItem.Content style={styles.content}>
-        <ListItem.Title style={{fontSize: 20, color: '#6533F9'}}>
-          {item[index].movename}
-          
-           
+        <ListItem.Title style={{fontSize: 22, color: '#6533F9', paddingBottom:5, paddingLeft:10}}>
+          {item[index].movename}   
           </ListItem.Title>
-          <View style={{flexDirection:'row', justifyContent:'space-between', width:'90%', paddingLeft:50}}>
-          <Text>Reps:</Text>
-          <Text>Weights</Text>
-          <Text>Duration:</Text>
+          <View style={{flexDirection:'row', justifyContent:'space-between', width:'90%', paddingLeft:60}}>
+          <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Reps:</Text>
+          <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Weights</Text>
+          <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Duration:</Text>
           </View>
           
           {item.map((item, index) => {
 
             return(
               <View style={{flexDirection:'row', justifyContent:'space-between', width:'80%'}} key={index}>
-                <Text>Set {index+1}</Text>
-                <Text>{item.reps}</Text>
-                <Text>{item.weights}</Text>
-                <Text>{item.duration}</Text>
+                <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Set {index+1}</Text>
+                <Text style={styles.textStyle}>{item.reps}</Text>
+                <Text style={styles.textStyle}>{item.weights} kg</Text>
+                <Text style={styles.textStyle}>{item.duration}</Text>
                 
                 </View>
             );
@@ -127,7 +105,7 @@ const ViewAfterWorkout = props => {
           <Text
             style={{
               color: 'white',
-              fontSize: 18,
+              fontSize:24,
               textAlign: 'center',
               fontWeight: '500',
               marginTop: 10,
@@ -135,6 +113,7 @@ const ViewAfterWorkout = props => {
             }}>
             Your workout summary
           </Text>
+          <Text style={{textAlign:'center', color:'white', fontSize:18}}>{workoutDate}</Text>
           <FlatList
             keyExtractor={keyExtractor}
             data={workoutSummary}
@@ -143,9 +122,9 @@ const ViewAfterWorkout = props => {
               <Button
                 buttonStyle={styles.button}
                 title="DONE"
-                // onPress={() => {
-                //   saveExercisesToDb();
-                // }}
+                onPress={() => {
+                  props.navigation.navigate('Home');
+                }}
               />
             )}
           />
@@ -183,10 +162,14 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   content: {
-    padding: 10,
+    padding: 5,
+  },
+  textStyle:{
+    fontSize:16,
+   
   },
   avatar: {
-    resizeMode: 'contain',
+    resizeMode: 'contain'
   },
   bottom: {
     height: 50,
