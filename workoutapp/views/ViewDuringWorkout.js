@@ -27,6 +27,7 @@ const ViewDuringWorkout = props => {
   const [duration3, setDuration3] = useState('');
   const [exerId, setExerId] = useState();
   const [workoutId, setWorkoutId] = useState();
+  const [workoutDate, setWorkoutDate] = useState('');
 
   const date = getCurrentDate();
 
@@ -129,7 +130,7 @@ const ViewDuringWorkout = props => {
       let json = await response.json();
 
       setExercise(json);
-      // console.log('onko tämä json', json, ' ', exerciseList);
+      console.log('onko tämä json', json);
     } catch (error) {
       console.log(error);
     }
@@ -158,6 +159,7 @@ const ViewDuringWorkout = props => {
       setNewWorkOut(data);
       // console.log("workoutid", data[0].workoutid);
       setWorkoutId(data[0].workoutid);
+      setWorkoutDate(data[0].date);
     } catch (error) {
       console.log(error);
     } finally {
@@ -215,6 +217,27 @@ const ViewDuringWorkout = props => {
     }
   };
   //END
+
+  const setExercisesToFalse = async () => {
+    console.log("pääseekö tänne metodiin?");
+    console.log(exerciseList);
+    try {
+      let response = await fetch(
+        SERVICE_ADDRESS + '/rest/workoutservice/updatecheckedstofalse',
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(exerciseList),
+        },
+      );
+      let json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.log(error);
+    } 
+  };
 
   const renderItem = ({item, index}) => {
     //console.log("lista", exerciseList);
@@ -376,7 +399,8 @@ const ViewDuringWorkout = props => {
                 buttonStyle={styles.button}
                 title="FINISH WORKOUT"
                 onPress={() => {
-                  props.navigation.navigate('Workout Summary', {exerciseList, workoutExerciseList});
+                  setExercisesToFalse();
+                  props.navigation.navigate('Workout Summary', {workoutId, workoutDate});
                 }}
               />
             )}
