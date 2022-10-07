@@ -19,7 +19,7 @@ const ViewAfterWorkout = props => {
   const [exerciseList, setExerciseList] = useState(props.route.params == undefined ? "" : props.route.params.exerciseList);
   const [exIds, setExsIds] = useState([]);
   const [workoutId, setWorkoutId] = useState(props.route.params == undefined ? "" : props.route.params.workoutExerciseList);
-  const [workid, setWork] = useState();
+  const [workid, setWork] = useState(68);
 
   useEffect(() => {
     if (isLoading) {
@@ -38,7 +38,7 @@ const ViewAfterWorkout = props => {
 // for getting matching series from database
   const collectExerciseNumbers = () => {
 
-    setWork(workoutId[0].workoutid);
+    // setWork(workoutId[0].workoutid);
     console.log("workoutid:", workid);
     for (let i = 0; i < exerciseList.length; i++) {
         let id = exerciseList[i].exerciseid;
@@ -51,7 +51,7 @@ const ViewAfterWorkout = props => {
   const fetchWorkout = async () => {
     try {
       let response = await fetch(
-        SERVICE_ADDRESS + '/rest/workoutservice/readworkoutexercisesbyid/29',
+        SERVICE_ADDRESS + '/rest/workoutservice/readworkoutexercisesbyid/49',
       );
       let json = await response.json();
 
@@ -69,20 +69,39 @@ const ViewAfterWorkout = props => {
   const renderItem = ({item, index}) => {
     //console.log('rivi 61', item.picture);
 
-    let path = imageurl + item.picture;
+    let path = imageurl + item[index].picture;
 
     return (
       <ListItem bottomDivider key={index} style={styles.listitem}>
+        
 
         <ListItem.Content style={styles.content}>
-          <ListItem.Title style={{fontSize: 20, color: '#6533F9'}}>
-            {item.movename}
+        <ListItem.Title style={{fontSize: 20, color: '#6533F9'}}>
+          {item[index].movename}
+          
+           
           </ListItem.Title>
-          <ListItem.Subtitle>
-            {item.reps}
-            {item.weights}
-            {item.duration}
-          </ListItem.Subtitle>
+          <View style={{flexDirection:'row', justifyContent:'space-between', width:'90%', paddingLeft:50}}>
+          <Text>Reps:</Text>
+          <Text>Weights</Text>
+          <Text>Duration:</Text>
+          </View>
+          
+          {item.map((item, index) => {
+
+            return(
+              <View style={{flexDirection:'row', justifyContent:'space-between', width:'80%'}} key={index}>
+                <Text>Set {index+1}</Text>
+                <Text>{item.reps}</Text>
+                <Text>{item.weights}</Text>
+                <Text>{item.duration}</Text>
+                
+                </View>
+            );
+            
+            
+          })}
+
         </ListItem.Content>
         
          <Avatar
