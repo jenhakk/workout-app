@@ -23,7 +23,7 @@ const ViewAfterWorkout = props => {
     if (isLoading) {
       
       setLoading(false);
-      console.log("workoutid", workoutId);
+     // console.log("workoutid", workoutId);
       fetchWorkout();
     }
 
@@ -38,18 +38,20 @@ const ViewAfterWorkout = props => {
       let json = await response.json();
 
       setWorkoutSummary(json);
-      //console.log('onko tämä json', json, ' ', workoutSummary);
+      console.log('WorkoutSummary    ', json);
     } catch (error) {
       console.log(error);
     }
   };
 
-  keyExtractor = (item, index) => index.toString();
+  keyExtractor = (item, index) => {index.toString();}
 
   
   const renderItem = ({item, index}) => {
-   
-    let path = imageurl + item[index].picture;
+    
+
+  console.log('imageurl         ',imageurl + item[0].picture);
+   let path = imageurl + item[0].picture;
 
     return (
       <ListItem bottomDivider key={index} style={styles.listitem}>
@@ -57,7 +59,7 @@ const ViewAfterWorkout = props => {
 
         <ListItem.Content style={styles.content}>
         <ListItem.Title style={{fontSize: 22, color: '#6533F9', paddingBottom:5, paddingLeft:10}}>
-          {item[index].movename}   
+          {item[0].movename}   
           </ListItem.Title>
           <View style={{flexDirection:'row', justifyContent:'space-between', width:'90%', paddingLeft:60}}>
           <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Reps:</Text>
@@ -91,7 +93,7 @@ const ViewAfterWorkout = props => {
           avatarStyle={styles.avatar}
         />
       </ListItem>
-    );
+   );
   };
 
   return (
