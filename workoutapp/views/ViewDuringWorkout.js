@@ -61,8 +61,8 @@ const ViewDuringWorkout = props => {
   const inputReps1 = (id, reps) => {
     setReps1(reps);
     setExerId(id);
-    console.log('reps', reps);
-    console.log('id', id);
+    // console.log('reps', reps);
+    // console.log('id', id);
 
     setWorkoutId(newWorkout[0].workoutid);
   };
@@ -70,48 +70,48 @@ const ViewDuringWorkout = props => {
   const inputWeights1 = (id, weights) => {
     setWeights1(weights);
     setExerId(id);
-    console.log('w', weights);
-    console.log('id', id);
+    // console.log('w', weights);
+    // console.log('id', id);
   };
   const inputDuration1 = (id, dura) => {
     setDuration1(dura);
     setExerId(id);
-    console.log('d', dura);
-    console.log('id', id);
+    // console.log('d', dura);
+    // console.log('id', id);
   };
   const inputReps2 = (id, reps) => {
     setReps2(reps);
     setExerId(id);
-    console.log('reps', reps);
+    // console.log('reps', reps);
   };
 
   const inputWeights2 = (id, weights) => {
     setWeights2(weights);
     setExerId(id);
-    console.log('we', weights);
+    // console.log('we', weights);
   };
   const inputDuration2 = (id, duration) => {
     setDuration2(duration);
     setExerId(id);
-    console.log('id', id);
-    console.log('dura', duration);
+    // console.log('id', id);
+    // console.log('dura', duration);
   };
   const inputReps3 = (id, reps) => {
     setReps3(reps);
     setExerId(id);
-    console.log('reps', reps);
+    // console.log('reps', reps);
   };
 
   const inputWeights3 = (id, weights) => {
     setWeights3(weights);
     setExerId(id);
-    console.log('wei', weights);
+    // console.log('wei', weights);
   };
   const inputDuration3 = (id, duration) => {
     setDuration3(duration);
     setExerId(id);
-    console.log('id', id);
-    console.log('duration', duration);
+    // console.log('id', id);
+    // console.log('duration', duration);
   };
 
   useEffect(() => {
@@ -130,7 +130,7 @@ const ViewDuringWorkout = props => {
       let json = await response.json();
 
       setExercise(json);
-      console.log('onko tämä json', json);
+     // console.log('onko tämä json', json);
     } catch (error) {
       console.log(error);
     }
@@ -170,7 +170,7 @@ const ViewDuringWorkout = props => {
 
   //   Creating new record for row in WorkoutExercise table
   const addNewWorkoutExercise = async () => {
-    console.log('IN ADDNEWWORKOUTEXERCISE list ', workoutList);
+   // console.log('IN ADDNEWWORKOUTEXERCISE list ', workoutList);
     workoutExerciseList = [
       {
         reps: Number(reps1),
@@ -211,7 +211,7 @@ const ViewDuringWorkout = props => {
         },
       );
       let data = await response.json();
-      console.log(data);
+      //console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -219,8 +219,8 @@ const ViewDuringWorkout = props => {
   //END
 
   const setExercisesToFalse = async () => {
-    console.log("pääseekö tänne metodiin?");
-    console.log(exerciseList);
+   // console.log("pääseekö tänne metodiin?");
+   // console.log(exerciseList);
     try {
       let response = await fetch(
         SERVICE_ADDRESS + '/rest/workoutservice/updatecheckedstofalse',
@@ -233,7 +233,7 @@ const ViewDuringWorkout = props => {
         },
       );
       let json = await response.json();
-      console.log(json);
+    //  console.log(json);
     } catch (error) {
       console.log(error);
     } 
@@ -363,7 +363,6 @@ const ViewDuringWorkout = props => {
             buttonStyle={styles.buttonSave}
             title="SAVE"
             onPress={() => {
-              addSerieToList();
               addNewWorkoutExercise();
             }}
           />
