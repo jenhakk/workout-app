@@ -137,9 +137,13 @@ const ViewMeasHistory = props => {
             />
           </View>
         </View>
-      </ImageBackground>
-
+        <View style={{height:50,position:'absolute', bottom:0, width:'100%' }}>
       <NavButtons params={props} />
+      </View>
+      </ImageBackground>
+     
+   
+      
     </View>
   );
 };
@@ -148,13 +152,17 @@ const styles = StyleSheet.create({
   measContainerAll: {
     width: '92%',
     alignSelf: 'center',
-    marginVertical: 40,
+    marginVertical: 30,
     borderRadius: 30,
     backgroundColor: 'white',
   },
+  image: {
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
   measHeader: {
     textAlign: 'center',
-    marginVertical: 40,
+    marginVertical: 20,
     fontSize: 20,
     fontWeight: 'normal',
   },
