@@ -48,8 +48,8 @@ const ViewAfterWorkout = props => {
 
   
   const renderItem = ({item, index}) => {
-    
-
+    console.log("workoutsummary   ",workoutSummary);
+  
   console.log('imageurl         ',imageurl + item[0].picture);
    let path = imageurl + item[0].picture;
 

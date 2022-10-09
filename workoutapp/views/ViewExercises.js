@@ -99,7 +99,7 @@ const ViexExercises = props => {
     setVisibility(false);
   };
   const renderItem = ({item, index}) => {
-    
+    console.log(" view exercises  ",index);
     let path = imageurl + item.movepic;
 
     return (
