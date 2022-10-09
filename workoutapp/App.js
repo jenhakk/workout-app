@@ -13,6 +13,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ViewDuringWorkout from './views/ViewDuringWorkout';
 import ViewAfterWorkout from './views/ViewAfterWorkout';
 import ViewWorkoutHistory from './views/ViewWorkoutHistory';
+import ViewInstructions from './views/ViewInstructions';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +32,7 @@ const App=()=>{
         <Stack.Screen name="During workout" component={ViewDuringWorkout} />
         <Stack.Screen name="Workout Summary" component={ViewAfterWorkout} />
         <Stack.Screen name="Workout History" component={ViewWorkoutHistory} />
+        <Stack.Screen name="Instructions" component={ViewInstructions} />
       </Stack.Navigator>
     </NavigationContainer>
   );
