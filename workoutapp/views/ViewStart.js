@@ -13,6 +13,7 @@ const ViewStart = props => {
   const SERVICE_ADDRESS = LOCAL_ADDRESS;
   const [isLoading, setLoading] = useState(true);
   const [person, setPerson] = useState([]);
+  const [personId, setPersonId] = useState();
   var user = 'Pertti';
 
   const image = require('../assets/imageback.png');
@@ -32,6 +33,8 @@ const ViewStart = props => {
       let json = await response.json();
 
       setPerson(json);
+      setPersonId(json[0].personid);
+      console.log("person id?", json[0].personid);
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +86,7 @@ const ViewStart = props => {
             title={<CustomTitleWorkoutHistory />}
             buttonStyle={styles.button3}
             onPress={() => {
-              props.navigation.navigate('During workout');
+              props.navigation.navigate('Workout History', {personId: personId});
             }}></Button>
           <Button
             title={<CustomTitleMeasHistory />}

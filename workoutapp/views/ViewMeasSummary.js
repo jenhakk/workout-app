@@ -68,7 +68,9 @@ const ViewMeasSummary = props => {
           />
         </View>
       </ImageBackground>
+      <View style={{height:50,  position:'absolute', bottom:0, width:'100%' }}>
       <NavButtons params={props} />
+      </View>
     </View>
   );
 };
@@ -77,15 +79,19 @@ const styles = StyleSheet.create({
   measContainerAll: {
     width: '85%',
     alignSelf: 'center',
-    marginVertical: 30,
-    paddingVertical: 18,
+    marginVertical: 20,
+    paddingVertical: 10,
     paddingHorizontal: 45,
     borderRadius: 30,
     backgroundColor: 'white',
   },
+  image: {
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
   measHeader: {
     textAlign: 'center',
-    marginVertical: 20,
+    marginVertical: 10,
     fontSize: 20,
     fontWeight: 'normal',
   },
