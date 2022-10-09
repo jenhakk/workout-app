@@ -48,7 +48,7 @@ const ViewWorkoutHistory = props => {
     try {
       let response = await fetch(
         SERVICE_ADDRESS +
-          '/rest/workoutservice/readworkoutexercise/' + 1,
+          '/rest/workoutservice/readworkoutexercisesbyid/' + id,
       );
       let json = await response.json();
 
@@ -72,7 +72,7 @@ const ViewWorkoutHistory = props => {
       let json = await response.json();
 
       setWorkoutHistory(json);
-      console.log('Workouts    ', json);
+      // console.log('Workouts    ', json);
     } catch (error) {
       console.log(error);
     }
@@ -80,6 +80,7 @@ const ViewWorkoutHistory = props => {
   };
 
   keyExtractor = (item, index) => {
+    
     index.toString();
   };
 
@@ -87,7 +88,7 @@ const ViewWorkoutHistory = props => {
     index.toString();
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem2 = ({item, index}) => {
     return (
       <TouchableOpacity onPress={() => {fetchWorkoutExercisesByWorkoutId(item.workoutid)}} onLongPress={() => {}} key={index}>
         <View style={{alignItems:'center'}}>
@@ -123,7 +124,7 @@ const ViewWorkoutHistory = props => {
           <FlatList
             keyExtractor={keyExtractor}
             data={workoutHistory}
-            renderItem={renderItem}
+            renderItem={renderItem2}
             // ListFooterComponent={() => (
             //   <Button
             //     buttonStyle={styles.button}
@@ -137,27 +138,30 @@ const ViewWorkoutHistory = props => {
         </View>
         <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{width:300}}>
 
-        {/* <FlatList
+         <FlatList
             keyExtractor={keyHandler}
             data={workoutExercises}
-            renderItem={(item, index) => {
+            renderItem={({item, index}) => {
               console.log("overlay", workoutExercises);
-              console.log("move", item[index].movename);
+              // console.log("toimi saatana");
+              //console.log("move", item[index].movename);
+              let path = 'http://10.0.2.2:8080/images/' + item[0].picture;
+              console.log(path);
               return (
                 <ListItem bottomDivider key={index} style={styles.listitem}>
                   
-                  {/* let path = imageurl + item[0].picture; */}
+                    
           
-                  {/* <ListItem.Content >
+                   <ListItem.Content >
                   <ListItem.Title style={{fontSize: 22, color: '#6533F9', paddingBottom:5, paddingLeft:10}}>
-                                      </ListItem.Title> */}
-                    {/* <View style={{flexDirection:'row', justifyContent:'space-between', width:'90%', paddingLeft:60}}>
+                                     {item[0].movename} </ListItem.Title> 
+                     <View style={{flexDirection:'row', justifyContent:'space-between', width:'90%', paddingLeft:60}}>
                     <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Reps:</Text>
                     <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Weights</Text>
                     <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Duration:</Text>
-                    </View> */}
+                    </View> 
                     
-                    {/* {item.map((item, index) => {
+                     {item.map((item, index) => {
           
                       return(
                         <View style={{flexDirection:'row', justifyContent:'space-between', width:'80%'}} key={index}>
@@ -171,18 +175,19 @@ const ViewWorkoutHistory = props => {
                       
                       
                     })}
-           */}
-                  {/* </ListItem.Content> */}
+
+           
+                   </ListItem.Content> 
                   
-                   {/* <Avatar
+                   <Avatar
                     source={{uri: path}}
                     size={65}
                     onPress={() => {
                       handleModalOpen;
                     }}
                     avatarStyle={styles.avatar}
-                  /> */}
-                {/* </ListItem>
+                  /> 
+                </ListItem>
              );
 
             }}
@@ -194,10 +199,10 @@ const ViewWorkoutHistory = props => {
                   props.navigation.navigate('Home');
                 }}
               />
-            )} */}
-          {/* /> */}
+            )} 
+          /> 
    
-        </Overlay> 
+         </Overlay> 
       </ImageBackground>
       <View style={styles.bottom}>
         <NavButtons params={props} />
