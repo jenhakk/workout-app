@@ -102,8 +102,14 @@ const ViewInstructions = (props) => {
             source={require('../assets/imageback.png')}
             resizeMode="cover"
         ><View style={{ height: '100%' }}>
-                <View style={{ flex: 1 }}><Text h2>INSTRUCTIONS</Text>
-                    <Text>Here you can see the Instructions for this application. Choose above what </Text>
+                <View style={{ flex: 1 }}>
+                    <View style={{width:'70%', alignSelf:'center'}}>
+                    <Text h2 h2Style={{alignSelf:'center', marginBottom:20, marginTop:20}}>INSTRUCTIONS</Text>
+                    <Text style={{fontSize:18}}>Here you can see the Instructions for this application.</Text>
+                    <Text style={{fontSize:16}}>Choose WORKOUT if you need some guidance how to save your workouts.</Text>
+                    <Text style={{fontSize:16}}>Choose measurements if you need to know, how to add measurements and save them.</Text>
+                    <Text style={{fontSize:16}}>In profile section you get to know how to modify your personal information and avatar.</Text>
+                    </View>
                     <View style={styles.buttongroup}>
                         <Button
                             title={<CustomTitleWorkout />}
