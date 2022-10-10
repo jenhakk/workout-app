@@ -7,16 +7,20 @@ import {
   Modal,
   TouchableOpacity,
 } from 'react-native';
-import {Card, Text, ListItem, Avatar, Image, Button} from '@rneui/themed';
+import {
+  Card,
+  Text,
+  ListItem,
+  Avatar,
+  Image,
+  Button,
+  Overlay,
+} from '@rneui/themed';
 import NavButtons from '../components/NavButtons';
 import {Dialog} from '@rneui/base';
 
 const ViexExercises = props => {
-  const [exerciseList, setExercise] = useState([
-    // {exerciseid:1, movename: 'Biceps curl', movepic: require('../assets/benchpress.jpg'),checked:false},
-    // {exerciseid:2, movename: 'Weight lift', movepic: require('../assets/weightlift.png'),checked:false}
-  ]);
-
+  const [exerciseList, setExercise] = useState([]);
   const LOCAL_ADDRESS = 'http://10.0.2.2:8080';
   const SERVICE_ADDRESS = LOCAL_ADDRESS;
   const [isLoading, setLoading] = useState(true);
@@ -25,6 +29,8 @@ const ViexExercises = props => {
   const [id, setId] = useState(-1);
   const [exerciseToUpdate, updateExercise] = useState();
   const [visibility, setVisibility] = useState(false);
+  const [imageVisibility, setImageVisibility] = useState(false);
+  const [imagePath, setImagePath] = useState('');
 
   useEffect(() => {
     if (isLoading) {
@@ -33,6 +39,7 @@ const ViexExercises = props => {
     }
   }, []);
 
+  //Fetch for reading exercises from database into a list
   const fetchExercises = async () => {
     try {
       let response = await fetch(
@@ -41,13 +48,14 @@ const ViexExercises = props => {
       let json = await response.json();
 
       setExercise(json);
-      // console.log('onko tämä json', json, ' ', exerciseList);
+     
     } catch (error) {
       console.log(error);
     }
-    // console.log('mikä tämä on', exerciseList);
+   
   };
 
+  //Updating chosen exercises checked attribute as "true"
   const saveExercisesToDb = async () => {
     try {
       let response = await fetch(
@@ -61,7 +69,7 @@ const ViexExercises = props => {
         },
       );
       let json = await response.json();
-      // console.log(json);
+      
     } catch (error) {
       console.log(error);
     } finally {
@@ -69,12 +77,28 @@ const ViexExercises = props => {
     }
   };
 
+  //Toggle Start workout dialog
   const toggleDialog = () => {
     setVisibility(!visibility);
   };
 
+  //Open Image Overlay
+  handleModalOpen = path => {
+    console.log(path);
+    setImagePath(path);
+    setImageVisibility(!imageVisibility);
+  };
+
+  //Close Image Overlay
+  handleModalClose = () => {
+    setImageVisibility(!imageVisibility);
+  };
+
+  //KeyExtractor for Flatlist
   keyExtractor = (item, index) => index.toString();
 
+  //Setting chosen exercises checked value as true or false
+  //and setting it to exerciseList
   const updateItem = index => {
     console.log(index);
     updateExercise(exerciseList[index]);
@@ -84,47 +108,34 @@ const ViexExercises = props => {
     setChecked(!checked);
   };
 
-  const openImage = index => {
-    exerciseList[id].movepic;
-    setExercise(exerciseList);
-    setId(-1);
-    setVisibility(true);
-  };
-
-  handleModalOpen = () => {
-    setVisibility(true);
-  };
-
-  handleModalClose = () => {
-    setVisibility(false);
-  };
+  //rendering for Flatlist
   const renderItem = ({item, index}) => {
-    console.log(" view exercises  ",index);
+    // setting image path for avatar source
     let path = imageurl + item.movepic;
 
     return (
+      // Start of ListItem
       <ListItem bottomDivider key={index} style={styles.listitem}>
-        {/* <TouchableOpacity> */}
+
+        {/* Image */}
         <Avatar
           source={{uri: path}}
           size={65}
           onPress={() => {
-            handleModalOpen;
+            handleModalOpen(path);
           }}
           avatarStyle={styles.avatar}
         />
-        {/* <Modal
-        open={visibility}
-        onClose={handleModalClose}
-        closeAfterTransition
-      />
-    </TouchableOpacity> */}
 
+        {/* ListItem.Content starts */}
         <ListItem.Content style={styles.content}>
+          {/* Title */}
           <ListItem.Title style={{fontSize: 20, color: '#6533F9'}}>
             {item.movename}
           </ListItem.Title>
         </ListItem.Content>
+
+        {/* Checkbox */}
         <ListItem.CheckBox
           checked={item.checked}
           uncheckedColor="#6533F9"
@@ -137,30 +148,71 @@ const ViexExercises = props => {
     );
   };
 
+  // Base View
   return (
     <View style={styles.container}>
       <ImageBackground
         source={require('../assets/imageback.png')}
         resizeMode="cover"
         style={styles.image}>
-        <Dialog isVisible={visibility} onBackdropPress={toggleDialog} overlayStyle={{backgroundColor:'#C940E6', height:200, borderRadius:20}}>
-          <Dialog.Title titleStyle={{color: 'white', fontSize:30, textAlign:'center' }}title="Have a great workout!" />
+
+          {/* Dialog for Start Workout button */}
+        <Dialog
+          isVisible={visibility}
+          onBackdropPress={toggleDialog}
+          overlayStyle={{
+            backgroundColor: '#C940E6',
+            height: 200,
+            borderRadius: 20,
+          }}>
+          <Dialog.Title
+            titleStyle={{color: 'white', fontSize: 30, textAlign: 'center'}}
+            title="Have a great workout!"
+          />
           <Dialog.Actions>
-            
+            {/* Cancel action button */}
             <Dialog.Button
-              buttonStyle={{backgroundColor:'#9F40E6', borderRadius:5,margin:10}}
-              titleStyle={{color:'white', fontSize:20}}
+              buttonStyle={{
+                backgroundColor: '#9F40E6',
+                borderRadius: 5,
+                margin: 10,
+              }}
+              titleStyle={{color: 'white', fontSize: 20}}
               title="Wait.."
               onPress={() => toggleDialog()}
             />
+
+            {/* Moving to During Workout View button */}
             <Dialog.Button
-              buttonStyle={{backgroundColor:'#9F40E6', borderRadius:5, margin:10, marginRight:25}}
-              titleStyle={{color:'white', fontSize:20, fontWeight:'700'}}
+              buttonStyle={{
+                backgroundColor: '#9F40E6',
+                borderRadius: 5,
+                margin: 10,
+                marginRight: 25,
+              }}
+              titleStyle={{color: 'white', fontSize: 20, fontWeight: '700'}}
               title="LET'S GO!"
-              onPress={() => {props.navigation.navigate('During workout')}}
+              onPress={() => {
+                props.navigation.navigate('During workout');
+              }}
             />
           </Dialog.Actions>
         </Dialog>
+        {/* End of Dialog */}
+        
+        {/* Overlay for showing larger images  */}
+        <Overlay
+          isVisible={imageVisibility}
+          onBackdropPress={handleModalClose}
+          overlayStyle={{backgroundColor: 'white', height: 300, width: 300, borderRadius:10}}>
+          <Image
+            style={{width: '100%', height: '100%', resizeMode: 'stretch'}}
+            source={{uri: imagePath}}
+          />
+        </Overlay>
+        {/* End of Overlay */}
+
+        {/* Flatlist View starts */}
         <View style={styles.flatlist}>
           <Text
             style={{
@@ -173,6 +225,7 @@ const ViexExercises = props => {
             }}>
             Choose exercises you want to add to your workout
           </Text>
+          {/* Flatlist starts */}
           <FlatList
             keyExtractor={keyExtractor}
             data={exerciseList}
@@ -187,8 +240,12 @@ const ViexExercises = props => {
               />
             )}
           />
+          {/* Flatlist ends */}
+
         </View>
       </ImageBackground>
+
+      {/* Bottom navigation */}
       <View style={styles.bottom}>
         <NavButtons params={props} />
       </View>

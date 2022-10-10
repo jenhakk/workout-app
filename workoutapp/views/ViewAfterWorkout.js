@@ -21,15 +21,12 @@ const ViewAfterWorkout = props => {
 
   useEffect(() => {
     if (isLoading) {
-      
-      setLoading(false);
-     // console.log("workoutid", workoutId);
       fetchWorkout();
+      setLoading(false);
     }
-
-    
   }, []);
 
+  //Fetch for getting details of chosen workout by workoutid
   const fetchWorkout = async () => {
     try {
       let response = await fetch(
@@ -44,19 +41,17 @@ const ViewAfterWorkout = props => {
     }
   };
 
+  // KeyExtractor for Flatlist
   keyExtractor = (item, index) => {index.toString();}
 
-  
+  //Rendering Flatlist
   const renderItem = ({item, index}) => {
-    console.log("workoutsummary   ",workoutSummary);
-  
-  console.log('imageurl         ',imageurl + item[0].picture);
+   
+    //Setting path for exercise images
    let path = imageurl + item[0].picture;
 
     return (
       <ListItem bottomDivider key={index} style={styles.listitem}>
-        
-
         <ListItem.Content style={styles.content}>
         <ListItem.Title style={{fontSize: 22, color: '#6533F9', paddingBottom:5, paddingLeft:10}}>
           {item[0].movename}   
@@ -67,6 +62,7 @@ const ViewAfterWorkout = props => {
           <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Duration:</Text>
           </View>
           
+          {/* Mapping the list again to get sets */}
           {item.map((item, index) => {
 
             return(
@@ -74,16 +70,14 @@ const ViewAfterWorkout = props => {
                 <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Set {index+1}</Text>
                 <Text style={styles.textStyle}>{item.reps}</Text>
                 <Text style={styles.textStyle}>{item.weights} kg</Text>
-                <Text style={styles.textStyle}>{item.duration}</Text>
-                
+                <Text style={styles.textStyle}>{item.duration}</Text>  
                 </View>
-            );
-            
-            
+            );            
           })}
 
         </ListItem.Content>
         
+        {/* Exercise image */}
          <Avatar
           source={{uri: path}}
           size={65}
@@ -96,6 +90,7 @@ const ViewAfterWorkout = props => {
    );
   };
 
+  // Base View
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -103,6 +98,7 @@ const ViewAfterWorkout = props => {
         resizeMode="cover"
         style={styles.image}>
         
+        {/* Flatlist View starts */}
         <View style={styles.flatlist}>
           <Text
             style={{
@@ -132,6 +128,7 @@ const ViewAfterWorkout = props => {
           />
         </View>
       </ImageBackground>
+      {/* Bottom navigation */}
       <View style={styles.bottom}>
         <NavButtons params={props} />
       </View>
