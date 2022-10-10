@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, FlatList, ImageBackground} from 'react-native';
-import {Card, Text, Input, Button} from '@rneui/themed';
+import {Card, Text, Input, Button, Dialog, AirbnbRating} from '@rneui/themed';
 import NavButtons from '../components/NavButtons';
 import {getCurrentDate} from '../components/Date.js';
 
@@ -28,6 +28,8 @@ const ViewDuringWorkout = props => {
   const [exerId, setExerId] = useState();
   const [workoutId, setWorkoutId] = useState();
   const [workoutDate, setWorkoutDate] = useState('');
+  const [toggleSaveVisibility, setToggleSaveVisibility] = useState(false);
+  const [toggleFinishVisibility, setToggleFinishVisibility] = useState(false);
 
   const date = getCurrentDate();
 
@@ -130,7 +132,7 @@ const ViewDuringWorkout = props => {
       let json = await response.json();
 
       setExercise(json);
-     // console.log('onko tämä json', json);
+      // console.log('onko tämä json', json);
     } catch (error) {
       console.log(error);
     }
@@ -170,7 +172,7 @@ const ViewDuringWorkout = props => {
 
   //   Creating new record for row in WorkoutExercise table
   const addNewWorkoutExercise = async () => {
-   // console.log('IN ADDNEWWORKOUTEXERCISE list ', workoutList);
+    // console.log('IN ADDNEWWORKOUTEXERCISE list ', workoutList);
     workoutExerciseList = [
       {
         reps: Number(reps1),
@@ -200,18 +202,10 @@ const ViewDuringWorkout = props => {
         {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
-          // body: JSON.stringify({
-          //     reps: reps1,
-          //     weights: weights1,
-          //     duration: duration1,
-          //     workoutid: workoutId,
-          //     exerciseid: exerId,
-          // }),
           body: JSON.stringify(workoutExerciseList),
         },
       );
       let data = await response.json();
-      //console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -219,8 +213,6 @@ const ViewDuringWorkout = props => {
   //END
 
   const setExercisesToFalse = async () => {
-   // console.log("pääseekö tänne metodiin?");
-   // console.log(exerciseList);
     try {
       let response = await fetch(
         SERVICE_ADDRESS + '/rest/workoutservice/updatecheckedstofalse',
@@ -233,10 +225,17 @@ const ViewDuringWorkout = props => {
         },
       );
       let json = await response.json();
-    //  console.log(json);
     } catch (error) {
       console.log(error);
-    } 
+    }
+  };
+
+  const showSavedAlert = () => {
+    setToggleSaveVisibility(!toggleSaveVisibility);
+  };
+
+  const showFinishedAlert = () => {
+    setToggleFinishVisibility(!toggleFinishVisibility);
   };
 
   const renderItem = ({item, index}) => {
@@ -364,6 +363,7 @@ const ViewDuringWorkout = props => {
             title="SAVE"
             onPress={() => {
               addNewWorkoutExercise();
+              showSavedAlert();
             }}
           />
         </View>
@@ -399,12 +399,92 @@ const ViewDuringWorkout = props => {
                 title="FINISH WORKOUT"
                 onPress={() => {
                   setExercisesToFalse();
-                  props.navigation.navigate('Workout Summary', {workoutId, workoutDate});
+                  showFinishedAlert();
                 }}
               />
             )}
           />
         </View>
+        {/* Dialog for Save button */}
+        <Dialog
+          isVisible={toggleSaveVisibility}
+          onBackdropPress={showSavedAlert}>
+          <Dialog.Title
+            title="Set saved succesfully!"
+            titleStyle={{textAlign: 'center', color: '#6533F9'}}
+          />
+          <Text style={{textAlign: 'center', fontSize: 15}}>
+            You can edit it by changing values and saving again.
+          </Text>
+          {/* <Dialog.Button buttonStyle={{backgroundColor:'#C940E6', width:80, alignSelf:'center', marginTop: 20, borderRadius:10}} titleStyle={{color:'white'}} title="OK" onPress={() => showSavedAlert()}/> */}
+        </Dialog>
+
+        {/*Dialog for Finish Workout button  */}
+        <Dialog
+          isVisible={toggleFinishVisibility}
+          onBackdropPress={showFinishedAlert}>
+          <Dialog.Title
+            title="Finished workout!"
+            titleStyle={{textAlign: 'center', color: '#6533F9'}}
+          />
+          <Dialog.Actions>
+            <Text style={{fontSize: 15, textAlign: 'center', marginRight: 40}}>
+              Are you sure you are ready?
+            </Text>
+
+            <Dialog.Button
+              buttonStyle={{
+                backgroundColor: '#C940E6',
+                width: 80,
+                marginTop: 20,
+                borderRadius: 10,
+                marginRight: 20,
+              }}
+              titleStyle={{color: 'white'}}
+              title="NO"
+              onPress={() => showFinishedAlert()}
+            />
+            <Dialog.Button
+              buttonStyle={{
+                backgroundColor: '#C940E6',
+                width: 80,
+                marginTop: 20,
+                borderRadius: 10,
+                marginRight: 45,
+              }}
+              titleStyle={{color: 'white'}}
+              title="YES"
+              onPress={() => {
+                props.navigation.navigate('Workout Summary', {
+                  workoutId,
+                  workoutDate,
+                });
+                setExercisesToFalse();
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight:'700',
+                textAlign: 'center',
+                color:'#C940E6',
+                marginRight: 40,
+                marginTop: 30,
+              }}>
+              How was your workout?
+            </Text>
+            <AirbnbRating
+              ratingContainerStyle={{marginRight: 60}}
+              starContainerStyle={{textAlign: 'center'}}
+              reviewColor="#C940E6"
+              selectedColor="#C940E6"
+              count={5}
+              reviews={['Terrible', 'Meh', 'OK', 'Good', 'Great']}
+              defaultRating={5}
+              size={20}
+            />
+          </Dialog.Actions>
+        </Dialog>
         <View style={styles.bottom}>
           <NavButtons params={props} />
         </View>
