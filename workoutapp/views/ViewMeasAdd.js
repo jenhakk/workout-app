@@ -6,6 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NavButtons from '../components/NavButtons';
 import MeasLabels from '../components/MeasLabels';
 import {getCurrentDate} from '../components/Date.js';
+import {validateNumbers} from '../components/Validation';
 
 const ViewMeasAdd = props => {
   // for person data (comes from ViewPerson, ViewStart, ViewMeasHistory)
@@ -22,75 +23,29 @@ const ViewMeasAdd = props => {
   const [thigh, setThigh] = useState('');
   const date = getCurrentDate();
 
-  // for input validation
-  let newText = '';
-  let numbers = '0123456789';
-
   // handling data from inputs
   const handleWeight = event => {
-    for (var i = 0; i < event.length; i++) {
-      if (numbers.indexOf(event[i]) > -1) {
-        newText += event[i];
-      } else {
-        alert('Please enter whole numbers only!');
-      }
-    }
-    setWeight(newText);
+    setWeight(validateNumbers(event));
   };
 
   const handleChest = event => {
-    for (var i = 0; i < event.length; i++) {
-      if (numbers.indexOf(event[i]) > -1) {
-        newText += event[i];
-      } else {
-        alert('Please enter whole numbers only!');
-      }
-    }
-    setChest(newText);
+    setChest(validateNumbers(event));
   };
 
   const handleWaist = event => {
-    for (var i = 0; i < event.length; i++) {
-      if (numbers.indexOf(event[i]) > -1) {
-        newText += event[i];
-      } else {
-        alert('Please enter whole numbers only!');
-      }
-    }
-    setWaist(newText);
+    setWaist(validateNumbers(event));
   };
 
   const handleHip = event => {
-    for (var i = 0; i < event.length; i++) {
-      if (numbers.indexOf(event[i]) > -1) {
-        newText += event[i];
-      } else {
-        alert('Please enter whole numbers only!');
-      }
-    }
-    setHip(newText);
+    setHip(validateNumbers(event));
   };
 
   const handleBicep = event => {
-    for (var i = 0; i < event.length; i++) {
-      if (numbers.indexOf(event[i]) > -1) {
-        newText += event[i];
-      } else {
-        alert('Please enter whole numbers only!');
-      }
-    }
-    setBicep(newText);
+    setBicep(validateNumbers(event));
   };
 
   const handleThigh = event => {
-    for (var i = 0; i < event.length; i++) {
-      if (numbers.indexOf(event[i]) > -1) {
-        newText += event[i];
-      } else {
-        alert('Please enter whole numbers only!');
-      }
-    }
-    setThigh(newText);
+    setThigh(validateNumbers(event));
   };
 
   // posting data to database and returning the current measurements here for later usage
@@ -169,7 +124,7 @@ const ViewMeasAdd = props => {
                 value={'' + weight}
                 keyboardType="numeric"
                 maxLength={3}
-                onChangeText={text => handleWeight(text)}
+                onChangeText={handleWeight}
                 placeholder="Weight"
               />
               <Input

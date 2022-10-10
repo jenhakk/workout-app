@@ -3,6 +3,7 @@ import {View, StyleSheet, FlatList, ImageBackground} from 'react-native';
 import {Card, Text, Input, Button, Dialog, AirbnbRating} from '@rneui/themed';
 import NavButtons from '../components/NavButtons';
 import {getCurrentDate} from '../components/Date.js';
+import {validateNumbers} from '../components/Validation';
 
 const ViewDuringWorkout = props => {
   // for measurement labels
@@ -61,7 +62,7 @@ const ViewDuringWorkout = props => {
   };
 
   const inputReps1 = (id, reps) => {
-    setReps1(reps);
+    setReps1(validateNumbers(reps));
     setExerId(id);
     // console.log('reps', reps);
     // console.log('id', id);
@@ -70,47 +71,47 @@ const ViewDuringWorkout = props => {
   };
 
   const inputWeights1 = (id, weights) => {
-    setWeights1(weights);
+    setWeights1(validateNumbers(weights));
     setExerId(id);
     // console.log('w', weights);
     // console.log('id', id);
   };
   const inputDuration1 = (id, dura) => {
-    setDuration1(dura);
+    setDuration1(validateNumbers(dura));
     setExerId(id);
     // console.log('d', dura);
     // console.log('id', id);
   };
   const inputReps2 = (id, reps) => {
-    setReps2(reps);
+    setReps2(validateNumbers(reps));
     setExerId(id);
     // console.log('reps', reps);
   };
 
   const inputWeights2 = (id, weights) => {
-    setWeights2(weights);
+    setWeights2(validateNumbers(weights));
     setExerId(id);
     // console.log('we', weights);
   };
   const inputDuration2 = (id, duration) => {
-    setDuration2(duration);
+    setDuration2(validateNumbers(duration));
     setExerId(id);
     // console.log('id', id);
     // console.log('dura', duration);
   };
   const inputReps3 = (id, reps) => {
-    setReps3(reps);
+    setReps3(validateNumbers(reps));
     setExerId(id);
     // console.log('reps', reps);
   };
 
   const inputWeights3 = (id, weights) => {
-    setWeights3(weights);
+    setWeights3(validateNumbers(weights));
     setExerId(id);
     // console.log('wei', weights);
   };
   const inputDuration3 = (id, duration) => {
-    setDuration3(duration);
+    setDuration3(validateNumbers(duration));
     setExerId(id);
     // console.log('id', id);
     // console.log('duration', duration);
@@ -278,7 +279,9 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
-                  value={item.exerciseid}
+                  value={''+reps1}
+                  keyboardType="numeric"
+                  maxLength={2}
                   onChangeText={reps => {
                     inputReps1(item.exerciseid, reps);
                   }}
@@ -286,6 +289,9 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
+                  value={''+weights1}
+                  keyboardType="numeric"
+                  maxLength={3}
                   onChangeText={weights => {
                     inputWeights1(item.exerciseid, weights);
                   }}
@@ -293,6 +299,9 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
+                  keyboardType="numeric"
+                  value={''+duration1}
+                  maxLength={3}
                   onChangeText={dura => {
                     inputDuration1(item.exerciseid, dura);
                   }}
@@ -308,6 +317,9 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
+                  keyboardType="numeric"
+                  value={''+reps2}
+                  maxLength={2}
                   onChangeText={reps => {
                     inputReps2(item.exerciseid, reps);
                   }}
@@ -315,6 +327,9 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
+                  value={''+weights2}
+                  keyboardType="numeric"
+                  maxLength={3}
                   onChangeText={weights => {
                     inputWeights2(item.exerciseid, weights);
                   }}
@@ -322,6 +337,9 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
+                  value={''+duration2}
+                  keyboardType="numeric"
+                  maxLength={3}
                   onChangeText={dura => {
                     inputDuration2(item.exerciseid, dura);
                   }}
@@ -337,6 +355,9 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
+                  value={''+reps3}
+                  keyboardType="numeric"
+                  maxLength={2}
                   onChangeText={reps => {
                     inputReps3(item.exerciseid, reps);
                   }}
@@ -344,6 +365,9 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
+                  value={''+weights3}
+                  keyboardType="numeric"
+                  maxLength={3}
                   onChangeText={weights => {
                     inputWeights3(item.exerciseid, weights);
                   }}
@@ -351,6 +375,9 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
+                  value={''+duration3}
+                  keyboardType="numeric"
+                  maxLength={3}
                   onChangeText={dura => {
                     inputDuration3(item.exerciseid, dura);
                   }}
