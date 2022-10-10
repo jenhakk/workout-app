@@ -8,7 +8,7 @@ import MeasLabels from '../components/MeasLabels';
 import {getCurrentDate} from '../components/Date.js';
 
 const ViewMeasSummary = props => {
-  // received measurements
+  // received measurements from ViewMeasAdd.js
   const [meas, setMeas] = useState(
     props.route.params == undefined ? '' : props.route.params.meas,
   );
@@ -21,7 +21,7 @@ const ViewMeasSummary = props => {
   const [bicep, setBicep] = useState();
   const [thigh, setThigh] = useState();
 
-  // places received measurements immeadiately to states after page has rendered
+  // when the view renders (only once), measurement states receive values from array we get navigated as props
   useEffect(() => {
     setWeight(meas.weight);
     setChest(meas.chest);
@@ -32,25 +32,25 @@ const ViewMeasSummary = props => {
   }, []);
 
   return (
-    // wraps everything, is there for bottom navbar
+    // wraps everything on the view, is there for bottom navbar
     <View style={{flex: 1}}>
       <ImageBackground
         source={require('../assets/imageback.png')}
         resizeMode="cover"
         style={styles.image}>
-        {/* wraps whole form */}
+        {/* wraps the whole form */}
         <View style={styles.measContainerAll}>
           <Text style={styles.measHeader}>Measurements:</Text>
           <Text style={styles.measDate}>{getCurrentDate()}</Text>
 
-          {/* wraps input area (labels and inputs) */}
-          <View style={styles.measContainerList}>
-            {/* wraps labels */}
-            <View style={styles.measWrapLists}>
+           {/* wraps input area (both labels and inputs) */}
+          <View style={styles.measForm}>
+            {/* wraps just labels */}
+            <View style={styles.measFormComps}>
               <MeasLabels />
             </View>
             {/* wraps measurement values in text components */}
-            <View style={styles.measWrapLists}>
+            <View style={styles.measFormComps}>
               <Text style={styles.measValues}>{weight} kg</Text>
               <Text style={styles.measValues}>{chest} cm</Text>
               <Text style={styles.measValues}>{waist} cm</Text>
@@ -68,6 +68,8 @@ const ViewMeasSummary = props => {
           />
         </View>
       </ImageBackground>
+
+      {/* wraps bottom navbar */}
       <View style={{height:50,  position:'absolute', bottom:0, width:'100%' }}>
       <NavButtons params={props} />
       </View>
@@ -101,12 +103,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'normal',
   },
-  measContainerList: {
+  measForm: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
   },
-  measWrapLists: {
+  measFormComps: {
     flexDirection: 'column',
   },
   measValues: {

@@ -21,31 +21,76 @@ const ViewMeasAdd = props => {
   const [bicep, setBicep] = useState('');
   const [thigh, setThigh] = useState('');
   const date = getCurrentDate();
-  const [measList, addMeas] = useState([]);
+
+  // for input validation
+  let newText = '';
+  let numbers = '0123456789';
 
   // handling data from inputs
   const handleWeight = event => {
-    setWeight(event);
+    for (var i = 0; i < event.length; i++) {
+      if (numbers.indexOf(event[i]) > -1) {
+        newText += event[i];
+      } else {
+        alert('Please enter whole numbers only!');
+      }
+    }
+    setWeight(newText);
   };
 
   const handleChest = event => {
-    setChest(event);
+    for (var i = 0; i < event.length; i++) {
+      if (numbers.indexOf(event[i]) > -1) {
+        newText += event[i];
+      } else {
+        alert('Please enter whole numbers only!');
+      }
+    }
+    setChest(newText);
   };
 
   const handleWaist = event => {
-    setWaist(event);
+    for (var i = 0; i < event.length; i++) {
+      if (numbers.indexOf(event[i]) > -1) {
+        newText += event[i];
+      } else {
+        alert('Please enter whole numbers only!');
+      }
+    }
+    setWaist(newText);
   };
 
   const handleHip = event => {
-    setHip(event);
+    for (var i = 0; i < event.length; i++) {
+      if (numbers.indexOf(event[i]) > -1) {
+        newText += event[i];
+      } else {
+        alert('Please enter whole numbers only!');
+      }
+    }
+    setHip(newText);
   };
 
   const handleBicep = event => {
-    setBicep(event);
+    for (var i = 0; i < event.length; i++) {
+      if (numbers.indexOf(event[i]) > -1) {
+        newText += event[i];
+      } else {
+        alert('Please enter whole numbers only!');
+      }
+    }
+    setBicep(newText);
   };
 
   const handleThigh = event => {
-    setThigh(event);
+    for (var i = 0; i < event.length; i++) {
+      if (numbers.indexOf(event[i]) > -1) {
+        newText += event[i];
+      } else {
+        alert('Please enter whole numbers only!');
+      }
+    }
+    setThigh(newText);
   };
 
   // posting data to database and returning the current measurements here for later usage
@@ -70,7 +115,6 @@ const ViewMeasAdd = props => {
       );
 
       let responseData = await response.json();
-      //await addMeas(measList => [...measList, responseData]);
 
       // responseData is set in the array, so it's possible to handle it as such.
       var list = [responseData];
@@ -88,37 +132,7 @@ const ViewMeasAdd = props => {
     }
   };
 
-  // BASE FOR UPDATE IF WE NEED OR WANT IT
-  // const updateMeas = async () => {
-  //   try {
-  //     let response = await fetch(
-  //       SERVICE_ADDRESS + '/rest/workoutservice/updatemeas/',
-  //       {
-  //         method: 'PUT',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({
-  //           weight: Number(weight),
-  //           chest: Number(chest),
-  //           waist: Number(waist),
-  //           hip: Number(hip),
-  //           bicep: Number(bicep),
-  //           thigh: Number(thigh),
-  //           date: date,
-  //           personid: person[0].personid,
-  //           // measid puuttuu
-  //         }),
-  //       },
-  //     );
-
-  //     let json = await response.json();
-  //     setMeasFromHistory(json);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
+  // clearing data from inputs after inputs have been added to db and before the most recent input has been forwarded to the next page.
   const clearData = () => {
     setWeight('');
     setChest('');
@@ -129,85 +143,99 @@ const ViewMeasAdd = props => {
   };
 
   return (
-    // wraps everything, is there for bottom navbar
+    // wraps everything on the view, is there for bottom navbar
     <View style={{flex: 1}}>
       <ImageBackground
         source={require('../assets/imageback.png')}
         resizeMode="cover"
         style={styles.image}>
-      {/* wraps whole form */}
-      <View style={styles.measContainerAll}>
-        <Text style={styles.measHeader}>Fill in your measurements:</Text>
-        <Text style={styles.measDate}>{getCurrentDate()}</Text>
+        {/* wraps the whole form */}
+        <View style={styles.measContainerAll}>
+          <Text style={styles.measHeader}>Fill in your measurements:</Text>
+          <Text style={styles.measDate}>{getCurrentDate()}</Text>
 
-        {/* wraps input area (labels and inputs) */}
-        <View style={styles.measContainerList}>
-          {/* wraps labels */}
-          <View style={styles.measWrapLists}>
-            <MeasLabels />
-          </View>
+          {/* wraps input area (both labels and inputs) */}
+          <View style={styles.measForm}>
+            {/* wraps just labels */}
+            <View style={styles.measFormComps}>
+              <MeasLabels />
+            </View>
 
-          {/* wraps inputs */}
-          <View style={styles.measWrapLists}>
-            <Input
-              inputContainerStyle={styles.measInput}
-              inputStyle={styles.measInputText}
-              value={'' + weight}
-              onChangeText={handleWeight}
-              placeholder="Weight"
-            />
-            <Input
-              inputContainerStyle={styles.measInput}
-              inputStyle={styles.measInputText}
-              value={'' + chest}
-              onChangeText={handleChest}
-              placeholder="Chest"
-            />
-            <Input
-              inputContainerStyle={styles.measInput}
-              inputStyle={styles.measInputText}
-              value={'' + waist}
-              onChangeText={handleWaist}
-              placeholder="Waist"
-            />
-            <Input
-              inputContainerStyle={styles.measInput}
-              inputStyle={styles.measInputText}
-              value={'' + hip}
-              onChangeText={handleHip}
-              placeholder="Hip"
-            />
-            <Input
-              inputContainerStyle={styles.measInput}
-              inputStyle={styles.measInputText}
-              value={'' + bicep}
-              onChangeText={handleBicep}
-              placeholder="Bicep"
-            />
-            <Input
-              inputContainerStyle={styles.measInput}
-              inputStyle={styles.measInputText}
-              value={'' + thigh}
-              onChangeText={handleThigh}
-              placeholder="Thigh"
-            />
+            {/* wraps just inputs */}
+            <View style={styles.measFormComps}>
+              <Input
+                inputContainerStyle={styles.measInput}
+                inputStyle={styles.measInputText}
+                value={'' + weight}
+                keyboardType="numeric"
+                maxLength={3}
+                onChangeText={text => handleWeight(text)}
+                placeholder="Weight"
+              />
+              <Input
+                inputContainerStyle={styles.measInput}
+                inputStyle={styles.measInputText}
+                value={'' + chest}
+                keyboardType="numeric"
+                maxLength={3}
+                onChangeText={handleChest}
+                placeholder="Chest"
+              />
+              <Input
+                inputContainerStyle={styles.measInput}
+                inputStyle={styles.measInputText}
+                value={'' + waist}
+                keyboardType="numeric"
+                maxLength={3}
+                onChangeText={handleWaist}
+                placeholder="Waist"
+              />
+              <Input
+                inputContainerStyle={styles.measInput}
+                inputStyle={styles.measInputText}
+                value={'' + hip}
+                keyboardType="numeric"
+                maxLength={3}
+                onChangeText={handleHip}
+                placeholder="Hip"
+              />
+              <Input
+                inputContainerStyle={styles.measInput}
+                inputStyle={styles.measInputText}
+                value={'' + bicep}
+                keyboardType="numeric"
+                maxLength={3}
+                onChangeText={handleBicep}
+                placeholder="Bicep"
+              />
+              <Input
+                inputContainerStyle={styles.measInput}
+                inputStyle={styles.measInputText}
+                value={'' + thigh}
+                keyboardType="numeric"
+                maxLength={3}
+                onChangeText={handleThigh}
+                placeholder="Thigh"
+              />
+            </View>
           </View>
+          <Button
+            buttonStyle={styles.measButton}
+            title="ADD MEASUREMENTS"
+            onPress={() => {
+              {
+                postMeas();
+              }
+            }}
+          />
         </View>
-        <Button
-          buttonStyle={styles.measButton}
-          title="ADD MEASUREMENTS"
-          onPress={() => {
-            {
-              postMeas();
-            }
-          }}
-        />
-      </View>
-      <View style={{height:50,  position:'absolute', bottom:0, width:'100%' }}>
-      <NavButtons params={props} />
-      </View>
-      </ImageBackground>
 
+        {/* wraps bottom navbar */}
+        <View
+          style={{height: 50, position: 'absolute', bottom: 0, width: '100%'}}>
+          <NavButtons params={props} />
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -222,7 +250,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 30,
     backgroundColor: 'white',
-
   },
   image: {
     flex: 1,
@@ -240,12 +267,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'normal',
   },
-  measContainerList: {
+  measForm: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
   },
-  measWrapLists: {
+  measFormComps: {
     flexDirection: 'column',
   },
   measInput: {
