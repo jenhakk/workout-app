@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, FlatList, ImageBackground} from 'react-native';
-import {Button, Text, Input} from '@rneui/base';
+import {Button, Text} from '@rneui/base';
+import {Icon} from '@rneui/themed';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NavButtons from '../components/NavButtons';
@@ -18,6 +19,7 @@ const ViewMeasHistory = props => {
   const [person, setPerson] = useState(
     props.route.params == undefined ? '' : props.route.params.person,
   );
+
 
   // gets the last three measurement rows from database
   const [meas, setMeas] = useState([]);
@@ -46,6 +48,18 @@ const ViewMeasHistory = props => {
   // after checking meas length and running code depending on it, asyncronous function fetchMeas() is run.
   // the view re-renders when the value of meas state changes
   useEffect(() => {
+    
+      {props.navigation.setOptions({headerRight: () => (
+        <Icon
+          name="head-question"
+          type="material-community"
+          color="rgba(92, 99,216, 1)"
+          size={25}
+          onPress={() => props.navigation.navigate('Instructions')}
+        />
+      )})
+    }
+    
     if (meas.length === 0) {
       setVisible(false);
       setMessage('No measurements added.');
@@ -69,6 +83,7 @@ const ViewMeasHistory = props => {
       console.log(error);
     }
   }
+  
 
   return (
     // wraps everything on the view, is there for bottom navbar
@@ -158,6 +173,7 @@ const ViewMeasHistory = props => {
       </ImageBackground>
     </View>
   );
+
 };
 
 const styles = StyleSheet.create({
@@ -218,5 +234,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
+
+
+
 
 export default ViewMeasHistory;

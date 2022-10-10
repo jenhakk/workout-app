@@ -19,6 +19,19 @@ const ViewEditProfile = (props) => {
     const [picture, setPicture] = useState("");
     const [visibility, setVisibility] = useState(false);
 
+    useEffect(()=>{
+        {props.navigation.setOptions({headerRight: () => (
+          <Icon
+            name="head-question"
+            type="material-community"
+            color="rgba(92, 99,216, 1)"
+            size={25}
+            onPress={() => props.navigation.navigate('Instructions')}
+          />
+        )})
+      }
+    })
+
     useEffect(() => {
         setFirstname(person[0].firstname);
         setLastname(person[0].lastname);

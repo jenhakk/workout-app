@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, FlatList, ImageBackground} from 'react-native';
-import {Card, Text, Input, Button, Dialog, AirbnbRating} from '@rneui/themed';
+import {Icon, Text, Input, Button, Dialog, AirbnbRating} from '@rneui/themed';
 import NavButtons from '../components/NavButtons';
 import {getCurrentDate} from '../components/Date.js';
 import {validateNumbers} from '../components/Validation';
 
 const ViewDuringWorkout = props => {
+
   // for measurement labels
 
   const [exerciseList, setExercise] = useState([
@@ -118,6 +119,17 @@ const ViewDuringWorkout = props => {
   };
 
   useEffect(() => {
+    {props.navigation.setOptions({headerRight: () => (
+      <Icon
+        name="head-question"
+        type="material-community"
+        color="rgba(92, 99,216, 1)"
+        size={25}
+        onPress={() => props.navigation.navigate('Instructions')}
+      />
+    )})
+  }
+
     if (isLoading) {
       fetchCheckedExercises();
       addNewWorkout();

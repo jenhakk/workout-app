@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {
-  Card,
+  Icon,
   Text,
   ListItem,
   Avatar,
@@ -31,8 +31,20 @@ const ViexExercises = props => {
   const [visibility, setVisibility] = useState(false);
   const [imageVisibility, setImageVisibility] = useState(false);
   const [imagePath, setImagePath] = useState('');
+  
+ 
 
   useEffect(() => {
+    {props.navigation.setOptions({headerRight: () => (
+      <Icon
+        name="head-question"
+        type="material-community"
+        color="rgba(92, 99,216, 1)"
+        size={25}
+        onPress={() => props.navigation.navigate('Instructions')}
+      />
+    )})
+  }
     if (isLoading) {
       fetchExercises();
       setLoading(false);

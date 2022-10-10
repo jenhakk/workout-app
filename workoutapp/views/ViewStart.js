@@ -19,6 +19,16 @@ const ViewStart = props => {
   const image = require('../assets/imageback.png');
 
   useEffect(() => {
+    {props.navigation.setOptions({headerRight: () => (
+      <Icon
+        name="head-question"
+        type="material-community"
+        color="rgba(92, 99,216, 1)"
+        size={25}
+        onPress={() => props.navigation.navigate('Instructions')}
+      />
+    )})
+  }
     if (isLoading) {
         fetchPerson();
         setLoading(false);

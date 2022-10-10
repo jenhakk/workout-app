@@ -22,16 +22,16 @@ const App=()=>{
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Start">
-        <Stack.Screen name="Home" component={ViewStart} />
-        <Stack.Screen name="Add Exercises" component={ViewExercises} />
-        <Stack.Screen name="Add measurements" component={ViewMeasAdd} />
-        <Stack.Screen name="Your measurements" component={ViewMeasSummary} />
-        <Stack.Screen name="All recorded measurements" component={ViewMeasHistory} />
-        <Stack.Screen name="Profile" component={ViewPerson} />
-        <Stack.Screen name="Edit profile" component={ViewEditProfile} />
-        <Stack.Screen name="During workout" component={ViewDuringWorkout} />
-        <Stack.Screen name="Workout Summary" component={ViewAfterWorkout} />
-        <Stack.Screen name="Workout History" component={ViewWorkoutHistory} />
+        <Stack.Screen name="Home" component={ViewStart} options={{headerRight: () => ( <Button title='ins' />)}} />
+        <Stack.Screen name="Add Exercises" component={ViewExercises} options={{headerRight: () => ( <Button title='ins' />)}} />
+        <Stack.Screen name="Add measurements" component={ViewMeasAdd} options={{headerRight: () => ( <Button title='ins' />)}} />
+        <Stack.Screen name="Your measurements" component={ViewMeasSummary} options={{headerRight: () => ( <Button title='ins' />)}} />
+        <Stack.Screen name="All recorded measurements" component={ViewMeasHistory} options={{headerRight: () => ( <Button title='ins' />)}} />
+        <Stack.Screen name="Profile" component={ViewPerson} options={{headerRight: () => ( <Button title='ins' />)}} />
+        <Stack.Screen name="Edit profile" component={ViewEditProfile} options={{headerRight: () => ( <Button title='ins' />)}} />
+        <Stack.Screen name="During workout" component={ViewDuringWorkout} options={{headerRight: () => ( <Button title='ins' />)}} />
+        <Stack.Screen name="Workout Summary" component={ViewAfterWorkout} options={{headerRight: () => ( <Button title='ins' />)}} />
+        <Stack.Screen name="Workout History" component={ViewWorkoutHistory} options={{headerRight: () => ( <Button title='ins' />)}} />
         <Stack.Screen name="Instructions" component={ViewInstructions} />
       </Stack.Navigator>
     </NavigationContainer>

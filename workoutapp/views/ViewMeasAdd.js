@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, FlatList, ImageBackground} from 'react-native';
-import {Button, Text, Input} from '@rneui/base';
+import {Button, Text, Input, Icon} from '@rneui/base';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NavButtons from '../components/NavButtons';
@@ -22,6 +22,19 @@ const ViewMeasAdd = props => {
   const [bicep, setBicep] = useState('');
   const [thigh, setThigh] = useState('');
   const date = getCurrentDate();
+
+  useEffect(()=>{
+    {props.navigation.setOptions({headerRight: () => (
+      <Icon
+        name="head-question"
+        type="material-community"
+        color="rgba(92, 99,216, 1)"
+        size={25}
+        onPress={() => props.navigation.navigate('Instructions')}
+      />
+    )})
+  }
+})
 
   // handling data from inputs
   const handleWeight = event => {
