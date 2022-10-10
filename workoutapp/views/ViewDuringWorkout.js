@@ -291,7 +291,6 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
-                  value={''+reps1}
                   keyboardType="numeric"
                   maxLength={2}
                   onChangeText={reps => {
@@ -301,7 +300,6 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
-                  value={''+weights1}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={weights => {
@@ -312,7 +310,6 @@ const ViewDuringWorkout = props => {
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
                   keyboardType="numeric"
-                  value={''+duration1}
                   maxLength={3}
                   onChangeText={dura => {
                     inputDuration1(item.exerciseid, dura);
@@ -330,7 +327,6 @@ const ViewDuringWorkout = props => {
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
                   keyboardType="numeric"
-                  value={''+reps2}
                   maxLength={2}
                   onChangeText={reps => {
                     inputReps2(item.exerciseid, reps);
@@ -339,7 +335,6 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
-                  value={''+weights2}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={weights => {
@@ -349,7 +344,6 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
-                  value={''+duration2}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={dura => {
@@ -367,7 +361,6 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
-                  value={''+reps3}
                   keyboardType="numeric"
                   maxLength={2}
                   onChangeText={reps => {
@@ -377,7 +370,6 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
-                  value={''+weights3}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={weights => {
@@ -387,7 +379,6 @@ const ViewDuringWorkout = props => {
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
-                  value={''+duration3}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={dura => {
@@ -428,7 +419,7 @@ const ViewDuringWorkout = props => {
         </Text>
         <View style={styles.flatlist}>
           <FlatList
-            style={{height: '50%', marginBottom: 20}}
+            style={{height: '50%', marginBottom:20}}
             keyExtractor={keyExtractor}
             data={exerciseList}
             renderItem={renderItem}
@@ -441,7 +432,10 @@ const ViewDuringWorkout = props => {
                   showFinishedAlert();
                 }}
               />
-            )}
+            
+            )
+            
+          }
           />
         </View>
         {/* Dialog for Save button */}
@@ -524,9 +518,10 @@ const ViewDuringWorkout = props => {
             />
           </Dialog.Actions>
         </Dialog>
-        <View style={styles.bottom}>
-          <NavButtons params={props} />
-        </View>
+       <View style={styles.bottom}>
+          <NavButtons />
+       </View>
+          
       </ImageBackground>
     </View>
   );
@@ -542,6 +537,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingLeft: 20,
     paddingRight: 20,
+    
   },
 
   containerAll: {
