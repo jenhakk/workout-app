@@ -11,16 +11,15 @@ import {getCurrentDate} from '../components/Date.js';
 import {ListItemInput} from '@rneui/base/dist/ListItem/ListItem.Input';
 
 const ViewMeasHistory = props => {
-  // --- STATES AND VARIABLES ---
   const LOCAL_ADDRESS = 'http://10.0.2.2:8080';
   const SERVICE_ADDRESS = LOCAL_ADDRESS;
 
-  // gets person data from viewperson
+  // gets person data from ViewPerson.js, ViewStart.js and ViewMeasSummary.js
   const [person, setPerson] = useState(
     props.route.params == undefined ? '' : props.route.params.person,
   );
 
-  // gets the whole measurement data from database
+  // gets the last three measurement rows from database
   const [meas, setMeas] = useState([]);
 
   // labels of measurement array
@@ -33,12 +32,19 @@ const ViewMeasHistory = props => {
     'Thigh',
   ]);
 
-  const [hiphei, setHiphei] = useState(1);
+  // the state for message to imply there's no measurement records
   const [message, setMessage] = useState([]);
+
+  // the state, which changes depending on if there's array to show or not. True means that array is on the page, false means there's no array
   const [visibility, setVisible] = useState(true);
 
-  // --- USEEFFECT ---
-  // reads the database once when the page renders and calls functions to extract third latest rows from it
+  // --- FUNCTIONS ---
+  // when the page renders for the first time:
+  // -> length of meas state is checked.
+  //    -> if meas (array) is empty, visibility state is set false and message state gets text to say, there's no measurements yet.
+  //    -> in other case, visibility is set to true and message gets empty value, meaning that there is array showing.
+  // after checking meas length and running code depending on it, asyncronous function fetchMeas() is run.
+  // the view re-renders when the value of meas state changes
   useEffect(() => {
     if (meas.length === 0) {
       setVisible(false);
@@ -51,8 +57,7 @@ const ViewMeasHistory = props => {
     fetchMeas();
   }, [meas]);
 
-  // --- FETCH ---
-  // // reads measurements from database
+  //reads measurements from database and sets data got from database to meas state.
   async function fetchMeas() {
     try {
       const response = await fetch(
@@ -66,18 +71,22 @@ const ViewMeasHistory = props => {
   }
 
   return (
-    // wraps everything, is there for bottom navbar
+    // wraps everything on the view, is there for bottom navbar
     <View style={{flex: 1}}>
       <ImageBackground
         source={require('../assets/imageback.png')}
         resizeMode="cover"
         style={styles.image}>
-        <View style ={styles.measContainerAll}>
+        {/* wraps the whole array, header and date */}
+        <View style={styles.measContainerAll}>
           <Text style={styles.measHeader}>Fill in your measurements:</Text>
           <Text style={styles.measDate}>{getCurrentDate()}</Text>
 
+          {/* wraps the whole array */}
           <View style={styles.measArr}>
+            {/* wraps the whole array and keeping measurement labels next to array */}
             <View style={{flexDirection: 'row'}}>
+              {/* warps the whole array and puts measurement labels on their place next to array */}
               <View style={{marginTop: 31.5}}>
                 {visibility && (
                   <View>
@@ -91,7 +100,8 @@ const ViewMeasHistory = props => {
                 )}
               </View>
 
-              <View style={{flexDirection: 'column'}}>
+              {/* wrap the whole array and sets dates on top of array */}
+              <View>
                 <FlatList
                   data={meas}
                   keyExtractor={(item, index) => index.toString()}
@@ -125,6 +135,8 @@ const ViewMeasHistory = props => {
               </View>
             </View>
           </View>
+
+          {/* wraps message state and button */}
           <View>
             <Text style={styles.measMessage}>{message}</Text>
             <Text></Text>
@@ -137,13 +149,13 @@ const ViewMeasHistory = props => {
             />
           </View>
         </View>
-        <View style={{height:50,position:'absolute', bottom:0, width:'100%' }}>
-      <NavButtons params={props} />
-      </View>
+
+        {/* wraps bottom navbar */}
+        <View
+          style={{height: 50, position: 'absolute', bottom: 0, width: '100%'}}>
+          <NavButtons params={props} />
+        </View>
       </ImageBackground>
-     
-   
-      
     </View>
   );
 };
