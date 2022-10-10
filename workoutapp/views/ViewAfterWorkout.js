@@ -7,7 +7,7 @@ import {
   Modal,
   TouchableOpacity,
 } from 'react-native';
-import {Card, Text, ListItem, Avatar, Image, Button} from '@rneui/themed';
+import {Card, Text, ListItem, Avatar, Icon, Button} from '@rneui/themed';
 import NavButtons from '../components/NavButtons';
 
 const ViewAfterWorkout = props => {
@@ -20,6 +20,16 @@ const ViewAfterWorkout = props => {
   const [workoutDate, setWorkoutDate] = useState(props.route.params == undefined ? "" : props.route.params.workoutDate);
 
   useEffect(() => {
+    {props.navigation.setOptions({headerRight: () => (
+      <Icon
+        name="head-question"
+        type="material-community"
+        color="rgba(92, 99,216, 1)"
+        size={25}
+        onPress={() => props.navigation.navigate('Instructions')}
+      />
+    )})
+  }
     if (isLoading) {
       fetchWorkout();
       setLoading(false);

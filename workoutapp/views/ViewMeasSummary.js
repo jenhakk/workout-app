@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, FlatList, ImageBackground} from 'react-native';
-import {Button, Text, Input} from '@rneui/base';
+import {Button, Text, Icon} from '@rneui/base';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NavButtons from '../components/NavButtons';
@@ -23,6 +23,18 @@ const ViewMeasSummary = props => {
 
   // when the view renders (only once), measurement states receive values from array we get navigated as props
   useEffect(() => {
+    
+    {props.navigation.setOptions({headerRight: () => (
+        <Icon
+          name="head-question"
+          type="material-community"
+          color="rgba(92, 99,216, 1)"
+          size={25}
+          onPress={() => props.navigation.navigate('Instructions')}
+        />
+      )})
+    }
+    
     setWeight(meas.weight);
     setChest(meas.chest);
     setWaist(meas.waist);
@@ -124,5 +136,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
+
+
+
 
 export default ViewMeasSummary;

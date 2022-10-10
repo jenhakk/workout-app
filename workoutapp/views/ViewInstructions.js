@@ -102,7 +102,7 @@ const ViewInstructions = (props) => {
             source={require('../assets/imageback.png')}
             resizeMode="cover"
         ><View style={{ height: '100%' }}>
-                <View style={{flex:1}}><Text h2>INSTRUCTIONS</Text>
+                <View style={{ flex: 1 }}><Text h2>INSTRUCTIONS</Text>
                     <Text>Here you can see the Instructions for this application. Choose above what </Text>
                     <View style={styles.buttongroup}>
                         <Button
@@ -119,7 +119,7 @@ const ViewInstructions = (props) => {
                                 openMeasDialog();
                             }}></Button>
 
-<Button
+                        <Button
                             title={<CustomTitleProfile />}
                             buttonStyle={styles.button1}
                             onPress={() => {
@@ -130,7 +130,7 @@ const ViewInstructions = (props) => {
                     <Dialog
                         isVisible={visible1}
                         onBackdropPress={openWorkoutDialog}
-                        overlayStyle={{ backgroundColor: 'rgba(92, 99,216, 0.6)', height: '50%' }}
+                        overlayStyle={{ backgroundColor: 'rgba(92, 99,216, 0.6)', height: '50%', width: '100%' }}
 
                     ><ImageBackground
                         source={require('../assets/imageback.png')}
@@ -159,23 +159,22 @@ const ViewInstructions = (props) => {
                     <Dialog
                         isVisible={visible2}
                         onBackdropPress={openMeasDialog}
-                        overlayStyle={{ backgroundColor: 'rgba(92, 99,216, 0.6)', height: '50%' }}
+                        overlayStyle={{ backgroundColor: 'rgba(92, 99,216, 0.6)', height: '50%', width: '100%' }}
 
                     ><ImageBackground
                         source={require('../assets/imageback.png')}
                         resizeMode="cover"
                     >
 
-                            <Dialog.Title title="Workout" />
+                            <Dialog.Title title="Measurements" />
                         </ImageBackground>
                         <ScrollView style={styles.scrollviewstyle}>
-                            <Text h4 h4Style={{ marginBottom: 5 }}>Starting a new workout</Text>
+                            <Text h4 h4Style={{ marginBottom: 5 }}>Measurements</Text>
 
-                            <Text style={styles.text}>Choose "Start workout" and choose the exercises you're gonna do. Once you have choosed exercises,
-                                press the "start" button.
+                            <Text style={styles.text}>You can add your measurements by choosing "add measurements". There you are able to fill in your measurements.
                             </Text>
-                            <Text style={styles.text}>Next you can see a view where you can fill the details about your workout: Repeats, Weights and Duration. Every exercise consists three sets.</Text>
-                            <Text style={styles.text}>Once you have filled all three sets press "Save". When you have filled and saved all of the exercises choose "Finish workout". After that you will receive a summary of your training.</Text>
+                            <Text style={styles.text}>In measurements history you are able to see last three records of measurements.</Text>
+                            <Text style={styles.text}></Text>
                         </ScrollView>
                         <Text style={{ alignSelf: 'flex-end' }}>...</Text>
                         <View style={styles.buttonContainer}>
@@ -188,23 +187,22 @@ const ViewInstructions = (props) => {
                     <Dialog
                         isVisible={visible3}
                         onBackdropPress={openPersonDialog}
-                        overlayStyle={{ backgroundColor: 'rgba(92, 99,216, 0.6)', height: '50%' }}
+                        overlayStyle={{ backgroundColor: 'rgba(92, 99,216, 0.6)', height: '50%', width: '100%' }}
 
                     ><ImageBackground
                         source={require('../assets/imageback.png')}
                         resizeMode="cover"
                     >
 
-                            <Dialog.Title title="Workout" />
+                            <Dialog.Title title="Profile" />
                         </ImageBackground>
                         <ScrollView style={styles.scrollviewstyle}>
-                            <Text h4 h4Style={{ marginBottom: 5 }}>Starting a new workout</Text>
+                            <Text h4 h4Style={{ marginBottom: 5 }}>Profile</Text>
 
-                            <Text style={styles.text}>Choose "Start workout" and choose the exercises you're gonna do. Once you have choosed exercises,
-                                press the "start" button.
+                            <Text style={styles.text}>You can see you profile bt choosing profile silhouette from the navbar.
                             </Text>
-                            <Text style={styles.text}>Next you can see a view where you can fill the details about your workout: Repeats, Weights and Duration. Every exercise consists three sets.</Text>
-                            <Text style={styles.text}>Once you have filled all three sets press "Save". When you have filled and saved all of the exercises choose "Finish workout". After that you will receive a summary of your training.</Text>
+                            <Text style={styles.text}>In profile page you can see your avatar and some personal details. By choosing "edit your profile" you are able to edit these details and avatar.</Text>
+                            <Text style={styles.text}>If you want to change your icon, click the icon and choose which one you want to use. Check your personal details and choose "save changes".</Text>
                         </ScrollView>
                         <Text style={{ alignSelf: 'flex-end' }}>...</Text>
                         <View style={styles.buttonContainer}>
@@ -219,10 +217,10 @@ const ViewInstructions = (props) => {
 
 
                 </View>
-                <View  style={styles.bottom}>
-                <NavButtons params={props} />
+                <View style={styles.bottom}>
+                    <NavButtons params={props} />
                 </View>
-                </View>
+            </View>
         </ImageBackground>
 
 
@@ -241,10 +239,10 @@ const styles = StyleSheet.create({
         margin: 3,
     },
     buttongroup: {
-        marginTop:60,
+        marginTop: 60,
         flexDirection: 'row',
         justifyContent: 'center',
-      },
+    },
     text: {
         textAlign: 'justify',
         marginBottom: 5,
@@ -259,11 +257,11 @@ const styles = StyleSheet.create({
     scrollviewstyle: {
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(92, 99,216, 0.9)',
+        backgroundColor: 'rgb(207, 157, 221)',
     },
     bottom: {
-        height:'7%'
-      },
+        height: '7%'
+    },
 });
 
 export default ViewInstructions;

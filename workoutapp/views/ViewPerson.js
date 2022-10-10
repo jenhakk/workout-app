@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { Text, Card, Button } from '@rneui/base';
+import { Icon, Button } from '@rneui/base';
 import NavButtons from '../components/NavButtons';
 import PersonCard from '../components/PersonCard';
 
@@ -11,6 +11,16 @@ const ViewPerson = (props) => {
     const [person, setPerson] = useState([]);
 
     useEffect(() => {
+        {props.navigation.setOptions({headerRight: () => (
+            <Icon
+              name="head-question"
+              type="material-community"
+              color="rgba(92, 99,216, 1)"
+              size={25}
+              onPress={() => props.navigation.navigate('Instructions')}
+            />
+          )})
+        }
         if (isLoading) {
             fetchPerson();
             setLoading(false);
