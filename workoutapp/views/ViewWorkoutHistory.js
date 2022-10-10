@@ -31,8 +31,9 @@ const ViewWorkoutHistory = props => {
 
   useEffect(() => {
     if (isLoading) {
-      fetchWorkoutsByPerson();
+      
       setLoading(false);
+      fetchWorkoutsByPerson();
     }
   }, []);
 
@@ -67,6 +68,23 @@ const ViewWorkoutHistory = props => {
     }
   };
 
+  // const deleteWorkoutById = async(workoutid) => {
+
+  //   try {
+  //     let response = await fetch(
+  //       SERVICE_ADDRESS + '/rest/workoutservice/deleteworkoutbyid' + workoutid,
+  //       {
+  //         method: 'DELETE',
+  //       },
+  //     );
+  //       let json = await response.json();
+  //       setWorkoutHistory(json);
+  //       } 
+  //       catch (error) {
+  //         console.log(error);
+  //       }
+  // };
+
   //KeyExtractor for Flatlist for Workout list
   keyExtractor = (item, index) => {
     index.toString();
@@ -82,16 +100,24 @@ const ViewWorkoutHistory = props => {
     setVisible(!visible);
   };
 
+  // const deleteWorkout = (workoutid) => {
+  //   console.log("delete      ", workoutid)
+    
+  //   deleteWorkoutById(workoutid);
+    
+  // }
+
   //Rendering Flatlist of Workouts
   const renderItem2 = ({item, index}) => {
     return (
       // TouchableOpacity for chosing workout from list
-      <TouchableOpacity
+      <TouchableOpacity 
+        key={index}
         onPress={() => {
           fetchWorkoutExercisesByWorkoutId(item.workoutid);
         }}
-        onLongPress={() => {}}
-        key={index}
+        // onLongPress={() => deleteWorkout(item.workoutid)}
+        
         activeOpacity={0.8}>
         <View style={{alignItems: 'center'}}>
           <View style={styles.listitem}>
