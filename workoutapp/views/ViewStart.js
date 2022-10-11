@@ -14,7 +14,6 @@ const ViewStart = props => {
   const [isLoading, setLoading] = useState(true);
   const [person, setPerson] = useState([]);
   const [personId, setPersonId] = useState();
-  var user = 'Pertti';
 
   const image = require('../assets/imageback.png');
 
@@ -35,6 +34,7 @@ const ViewStart = props => {
     }
 }, [])
 
+  //Fetching person id from database to send forward to other Views
   const fetchPerson = async () => {
     try {
       let response = await fetch(
@@ -44,7 +44,6 @@ const ViewStart = props => {
 
       setPerson(json);
       setPersonId(json[0].personid);
-      console.log("person id?", json[0].personid);
     } catch (error) {
       console.log(error);
     }
@@ -117,6 +116,7 @@ const ViewStart = props => {
   );
 };
 
+//Custom buttons with icon and title
 const CustomTitleWorkout = () => {
   return (
     <View style={{flexDirection: 'column'}}>
