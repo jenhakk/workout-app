@@ -6,7 +6,6 @@ import {getCurrentDate} from '../components/Date.js';
 import {validateNumbers} from '../components/Validation';
 
 const ViewDuringWorkout = props => {
-
   // for measurement labels
 
   const [exerciseList, setExercise] = useState([
@@ -119,16 +118,19 @@ const ViewDuringWorkout = props => {
   };
 
   useEffect(() => {
-    {props.navigation.setOptions({headerRight: () => (
-      <Icon
-        name="head-question"
-        type="material-community"
-        color="rgba(92, 99,216, 1)"
-        size={25}
-        onPress={() => props.navigation.navigate('Instructions')}
-      />
-    )})
-  }
+    {
+      props.navigation.setOptions({
+        headerRight: () => (
+          <Icon
+            name="head-question"
+            type="material-community"
+            color="rgba(92, 99,216, 1)"
+            size={25}
+            onPress={() => props.navigation.navigate('Instructions')}
+          />
+        ),
+      });
+    }
 
     if (isLoading) {
       fetchCheckedExercises();
@@ -432,10 +434,7 @@ const ViewDuringWorkout = props => {
                   showFinishedAlert();
                 }}
               />
-            
-            )
-            
-          }
+            )}
           />
         </View>
         {/* Dialog for Save button */}
@@ -498,9 +497,9 @@ const ViewDuringWorkout = props => {
             <Text
               style={{
                 fontSize: 16,
-                fontWeight:'700',
+                fontWeight: '700',
                 textAlign: 'center',
-                color:'#C940E6',
+                color: '#C940E6',
                 marginRight: 40,
                 marginTop: 30,
               }}>
@@ -518,12 +517,10 @@ const ViewDuringWorkout = props => {
             />
           </Dialog.Actions>
         </Dialog>
-       
-          
       </ImageBackground>
       <View style={styles.bottom}>
-          <NavButtons />
-       </View>
+        <NavButtons params={props} />
+      </View>
     </View>
   );
 };
@@ -538,11 +535,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   flatlist: {
-    flex:8,
+    flex: 8,
     height: '100%',
     paddingLeft: 20,
     paddingRight: 20,
-    
   },
 
   containerAll: {

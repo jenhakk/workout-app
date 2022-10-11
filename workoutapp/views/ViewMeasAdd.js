@@ -23,18 +23,21 @@ const ViewMeasAdd = props => {
   const [thigh, setThigh] = useState('');
   const date = getCurrentDate();
 
-  useEffect(()=>{
-    {props.navigation.setOptions({headerRight: () => (
-      <Icon
-        name="head-question"
-        type="material-community"
-        color="rgba(92, 99,216, 1)"
-        size={25}
-        onPress={() => props.navigation.navigate('Instructions')}
-      />
-    )})
-  }
-})
+  useEffect(() => {
+    {
+      props.navigation.setOptions({
+        headerRight: () => (
+          <Icon
+            name="head-question"
+            type="material-community"
+            color="rgba(92, 99,216, 1)"
+            size={25}
+            onPress={() => props.navigation.navigate('Instructions')}
+          />
+        ),
+      });
+    }
+  });
 
   // handling data from inputs
   const handleWeight = event => {
@@ -83,11 +86,11 @@ const ViewMeasAdd = props => {
       );
 
       let responseData = await response.json();
-
       clearData();
-      
+
       // forwarding added measurements to summary view
       props.navigation.navigate('Your measurements', {meas: responseData});
+      
     } catch (error) {
       console.log(error);
     }
