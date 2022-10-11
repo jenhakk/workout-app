@@ -419,7 +419,7 @@ const ViewDuringWorkout = props => {
         </Text>
         <View style={styles.flatlist}>
           <FlatList
-            style={{height: '50%', marginBottom:20}}
+            // style={{height: '50%', marginBottom:20}}
             keyExtractor={keyExtractor}
             data={exerciseList}
             renderItem={renderItem}
@@ -518,11 +518,12 @@ const ViewDuringWorkout = props => {
             />
           </Dialog.Actions>
         </Dialog>
-       <View style={styles.bottom}>
-          <NavButtons />
-       </View>
+       
           
       </ImageBackground>
+      <View style={styles.bottom}>
+          <NavButtons />
+       </View>
     </View>
   );
 };
@@ -532,9 +533,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  image: {
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
   flatlist: {
-    height: '90%',
-    marginBottom: 20,
+    flex:8,
+    height: '100%',
     paddingLeft: 20,
     paddingRight: 20,
     
