@@ -123,7 +123,7 @@ const ViewAfterWorkout = props => {
           </Text>
           <Text style={{textAlign:'center', color:'white', fontSize:18}}>{workoutDate}</Text>
           <FlatList
-            keyExtractor={keyExtractor}
+            // keyExtractor={keyExtractor}
             data={workoutSummary}
             renderItem={renderItem}
             ListFooterComponent={() => (
