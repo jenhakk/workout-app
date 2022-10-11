@@ -105,7 +105,13 @@ const ViewStart = props => {
               props.navigation.navigate('All recorded measurements', { person: person});
             }}></Button>
         </View>
+        <View style={styles.bottom}>
+
         <NavButtons params={props} />
+        </View>
+       
+  
+        
       </View>
     </View>
   );
@@ -227,6 +233,8 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     flex: 3,
+    width:Dimensions.get('window').width,
+    alignItems:'center'
   },
   buttongroup: {
     flexDirection: 'row',
@@ -265,6 +273,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     margin: 5,
   },
+  bottom: {
+    flex:1,
+    width:Dimensions.get('window').width,
+  }
 });
 
 export default ViewStart;
