@@ -4,7 +4,7 @@ import {
   StyleSheet,
   FlatList,
   ImageBackground,
-  Modal,
+  Alert,
   TouchableOpacity,
 } from 'react-native';
 import {
@@ -80,7 +80,29 @@ const ViewWorkoutHistory = props => {
     }
   };
 
+const alerting=(id)=>{
+  console.log(id);
+  Alert.alert(
+    //title
+    'Are you sure?',
+    //body
+    'Do you want to delete this workout ?',
+    [
+      {
+        text: 'Yes',
+        onPress: () => deleteWorkoutById(id)
+      },
+      {
+        text: 'No',
+        onPress: () => console.log('No Pressed'), style: 'cancel'
+      },
+    ],
+    {cancelable: false},
+    //clicking out side of alert will not cancel
+  );
+}
   const deleteWorkoutById = async(workoutid) => {
+    
 console.log('indeleteworkoutbyid  ',workoutid);
     try {
       let response = await fetch(
@@ -133,7 +155,7 @@ console.log('indeleteworkoutbyid  ',workoutid);
         onPress={() => {
           fetchWorkoutExercisesByWorkoutId(item.workoutid);
         }}
-       onLongPress={() => deleteWorkoutById(item.workoutid)}
+       onLongPress={() => alerting(item.workoutid)}
         
         activeOpacity={0.8}>
         <View style={{alignItems: 'center'}}>
