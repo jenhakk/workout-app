@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import {View, StyleSheet, ImageBackground, Dimensions} from 'react-native';
 import {Button, Text} from '@rneui/base';
 import {Icon} from '@rneui/themed';
 import Motivation from '../components/Motivation';
@@ -76,7 +76,7 @@ const ViewStart = props => {
       </View>
 
       <View style={styles.buttonContainer}>
-        {/* <Text style={{paddingLeft:15, fontSize:16, textAlign:'center'}}>Choose action:</Text> */}
+        
         <View style={styles.buttongroup}>
           <Button
             title={<CustomTitleWorkout />}
@@ -105,7 +105,13 @@ const ViewStart = props => {
               props.navigation.navigate('All recorded measurements', { person: person});
             }}></Button>
         </View>
+        <View style={styles.bottom}>
+
         <NavButtons params={props} />
+        </View>
+       
+  
+        
       </View>
     </View>
   );
@@ -202,16 +208,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: 'white',
+    width:'100%'
   },
   image: {
     flex: 1,
     justifyContent: 'flex-start',
     alignSelf: 'center',
     height: '95%',
+    width:Dimensions.get('window').width,
+
   },
   top: {
     flex: 2,
     alignItems: 'center',
+    
     
   },
   motivation: {
@@ -223,6 +233,8 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     flex: 3,
+    width:Dimensions.get('window').width,
+    alignItems:'center'
   },
   buttongroup: {
     flexDirection: 'row',
@@ -261,6 +273,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     margin: 5,
   },
+  bottom: {
+    flex:1,
+    width:Dimensions.get('window').width,
+  }
 });
 
 export default ViewStart;
