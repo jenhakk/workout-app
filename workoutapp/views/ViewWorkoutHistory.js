@@ -80,22 +80,22 @@ const ViewWorkoutHistory = props => {
     }
   };
 
-  // const deleteWorkoutById = async(workoutid) => {
-
-  //   try {
-  //     let response = await fetch(
-  //       SERVICE_ADDRESS + '/rest/workoutservice/deleteworkoutbyid' + workoutid,
-  //       {
-  //         method: 'DELETE',
-  //       },
-  //     );
-  //       let json = await response.json();
-  //       setWorkoutHistory(json);
-  //       } 
-  //       catch (error) {
-  //         console.log(error);
-  //       }
-  // };
+  const deleteWorkoutById = async(workoutid) => {
+console.log('indeleteworkoutbyid  ',workoutid);
+    try {
+      let response = await fetch(
+        SERVICE_ADDRESS + '/rest/workoutservice/deleteworkoutbyid/' + workoutid,
+        {
+          method: 'DELETE',
+        },
+      );
+        let json = await response.json();
+        setWorkoutHistory(json);
+        } 
+        catch (error) {
+          console.log(error);
+        }
+  };
 
   //KeyExtractor for Flatlist for Workout list
   keyExtract = (item, index) => {
@@ -133,7 +133,7 @@ const ViewWorkoutHistory = props => {
         onPress={() => {
           fetchWorkoutExercisesByWorkoutId(item.workoutid);
         }}
-        // onLongPress={() => deleteWorkout(item.workoutid)}
+       onLongPress={() => deleteWorkoutById(item.workoutid)}
         
         activeOpacity={0.8}>
         <View style={{alignItems: 'center'}}>
