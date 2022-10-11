@@ -23,18 +23,20 @@ const ViewMeasSummary = props => {
 
   // when the view renders (only once), measurement states receive values from array we get navigated as props
   useEffect(() => {
-    
-    {props.navigation.setOptions({headerRight: () => (
-        <Icon
-          name="head-question"
-          type="material-community"
-          color="rgba(92, 99,216, 1)"
-          size={25}
-          onPress={() => props.navigation.navigate('Instructions')}
-        />
-      )})
+    {
+      props.navigation.setOptions({
+        headerRight: () => (
+          <Icon
+            name="head-question"
+            type="material-community"
+            color="rgba(92, 99,216, 1)"
+            size={25}
+            onPress={() => props.navigation.navigate('Instructions')}
+          />
+        ),
+      });
     }
-    
+
     setWeight(meas[0].weight);
     setChest(meas[0].chest);
     setWaist(meas[0].waist);
@@ -55,7 +57,7 @@ const ViewMeasSummary = props => {
           <Text style={styles.measHeader}>Measurements:</Text>
           <Text style={styles.measDate}>{getCurrentDate()}</Text>
 
-           {/* wraps input area (both labels and inputs) */}
+          {/* wraps input area (both labels and inputs) */}
           <View style={styles.measForm}>
             {/* wraps just labels */}
             <View style={styles.measFormComps}>
@@ -82,8 +84,9 @@ const ViewMeasSummary = props => {
       </ImageBackground>
 
       {/* wraps bottom navbar */}
-      <View style={{height:50,  position:'absolute', bottom:0, width:'100%' }}>
-      <NavButtons params={props} />
+      <View
+        style={{height: 50, position: 'absolute', bottom: 0, width: '100%'}}>
+        <NavButtons params={props} />
       </View>
     </View>
   );
@@ -136,8 +139,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
-
-
-
 
 export default ViewMeasSummary;

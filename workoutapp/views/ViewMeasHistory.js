@@ -12,19 +12,15 @@ import {getCurrentDate} from '../components/Date.js';
 import {ListItemInput} from '@rneui/base/dist/ListItem/ListItem.Input';
 
 const ViewMeasHistory = props => {
-  const LOCAL_ADDRESS = 'http://10.0.2.2:8080';
-  const SERVICE_ADDRESS = LOCAL_ADDRESS;
-
   // gets person data from ViewPerson.js, ViewStart.js and ViewMeasSummary.js
   const [person, setPerson] = useState(
     props.route.params == undefined ? '' : props.route.params.person,
   );
 
-
   // gets the last three measurement rows from database
   const [meas, setMeas] = useState([]);
 
-  // labels of measurement array
+  // labels of measurement array on the page
   const [measLabels, setLabels] = useState([
     'Weight',
     'Chest',
@@ -71,19 +67,20 @@ const ViewMeasHistory = props => {
     fetchMeas();
   }, [meas]);
 
-  //reads measurements from database and sets data got from database to meas state.
+  //reads measurements from database and sets data got from there to meas state.
   async function fetchMeas() {
     try {
-      const response = await fetch(
-        SERVICE_ADDRESS + '/rest/workoutservice/readlastthree',
+      let response = await fetch(
+        'http://10.0.2.2:8080/rest/workoutservice/readlastthree',
       );
       const responseData = await response.json();
+
+      // sets the last three rows of measurements to array state, so it can be used to display array.
       setMeas(responseData);
     } catch (error) {
       console.log(error);
     }
   }
-  
 
   return (
     // wraps everything on the view, is there for bottom navbar
@@ -103,6 +100,7 @@ const ViewMeasHistory = props => {
             <View style={{flexDirection: 'row'}}>
               {/* warps the whole array and puts measurement labels on their place next to array */}
               <View style={{marginTop: 31.5}}>
+                {/* MEAS LABELS */}
                 {visibility && (
                   <View>
                     <Text style={styles.arrLabel}>{measLabels[0]}</Text>
@@ -117,6 +115,7 @@ const ViewMeasHistory = props => {
 
               {/* wrap the whole array and sets dates on top of array */}
               <View>
+                {/* MEAS DATES on top of the array */}
                 <FlatList
                   data={meas}
                   keyExtractor={(item, index) => index.toString()}
@@ -130,6 +129,7 @@ const ViewMeasHistory = props => {
                   }}
                 />
 
+                {/* MEAS VALUES */}
                 <FlatList
                   data={meas}
                   keyExtractor={(item, index) => index.toString()}
