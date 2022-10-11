@@ -84,17 +84,10 @@ const ViewMeasAdd = props => {
 
       let responseData = await response.json();
 
-      // responseData is set in the array, so it's possible to handle it as such.
-      var list = [responseData];
-
-      // now that response we got from database is in the list, it is in two arrays, like so [[{}]].
-      // to get the very last (or the most recent) row from the database, we'll remove everything else. Note that pop() removes everything than the last item.
-      var arr = list.pop();
-      var lastMeas = arr.pop();
-
       clearData();
+      
       // forwarding added measurements to summary view
-      props.navigation.navigate('Your measurements', {meas: lastMeas});
+      props.navigation.navigate('Your measurements', {meas: responseData});
     } catch (error) {
       console.log(error);
     }

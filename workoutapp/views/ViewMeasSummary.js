@@ -35,12 +35,12 @@ const ViewMeasSummary = props => {
       )})
     }
     
-    setWeight(meas.weight);
-    setChest(meas.chest);
-    setWaist(meas.waist);
-    setHip(meas.hip);
-    setBicep(meas.bicep);
-    setThigh(meas.thigh);
+    setWeight(meas[0].weight);
+    setChest(meas[0].chest);
+    setWaist(meas[0].waist);
+    setHip(meas[0].hip);
+    setBicep(meas[0].bicep);
+    setThigh(meas[0].thigh);
   }, []);
 
   return (
