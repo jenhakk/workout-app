@@ -10,16 +10,21 @@ const ViewPerson = (props) => {
     const [isLoading, setLoading] = useState(true);
     const [person, setPerson] = useState([]);
 
+    // first one to get instructions-page button to the header
+    // second section for getting person details from a database
     useEffect(() => {
-        {props.navigation.setOptions({headerRight: () => (
-            <Icon
-              name="head-question"
-              type="material-community"
-              color="rgba(92, 99,216, 1)"
-              size={25}
-              onPress={() => props.navigation.navigate('Instructions')}
-            />
-          )})
+        {
+            props.navigation.setOptions({
+                headerRight: () => (
+                    <Icon
+                        name="head-question"
+                        type="material-community"
+                        color="rgba(92, 99,216, 1)"
+                        size={25}
+                        onPress={() => props.navigation.navigate('Instructions')}
+                    />
+                )
+            })
         }
         if (isLoading) {
             fetchPerson();
@@ -27,7 +32,7 @@ const ViewPerson = (props) => {
         }
     }, [])
 
-
+    // method for fetching person details from database and adding this to person array with setPerson
     const fetchPerson = async () => {
         try {
             let response = await fetch(SERVICE_ADDRESS + "/rest/workoutservice/readperson");
@@ -44,9 +49,11 @@ const ViewPerson = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.card}>
+                {/* PersonCard component to which sending person details as a parameter */}
                 <PersonCard person={person} />
             </View>
             <View style={styles.buttoncont}>
+                {/* buttons to next views, person will be sent as a parameter */}
                 <Button
                     buttonStyle={styles.button}
                     title='EDIT YOUR PROFILE'
@@ -67,7 +74,6 @@ const ViewPerson = (props) => {
 const styles = StyleSheet.create({
     container: {
         height: '100%',
-
         justifyContent: 'center',
         backgroundColor: 'white',
     },
@@ -75,7 +81,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         marginBottom: 50,
-
     },
     button: {
         marginRight: 5,
@@ -92,7 +97,6 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-
     },
 });
 

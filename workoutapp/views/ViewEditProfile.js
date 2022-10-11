@@ -4,12 +4,15 @@ import { Text, Button } from '@rneui/base';
 import { Input, Icon } from '@rneui/themed';
 import PersonLabels from '../components/PersonLabels';
 import NavButtons from '../components/NavButtons';
+import { validateNumbers } from '../components/Validation';
 
 const ViewEditProfile = (props) => {
+    // Path for avatars
     const path = 'http://10.0.2.2:8080/images/profile/';
+    // Path for rest requests
     const LOCAL_ADDRESS = "http://10.0.2.2:8080";
     const SERVICE_ADDRESS = LOCAL_ADDRESS;
-
+    //getting person as a parameter from a ViewPerson
     const [person, setPerson] = useState(props.route.params == undefined ? "" : props.route.params.person);
     const [firstname, setFirstname] = useState("");
     const [height, setHeight] = useState("");
@@ -18,20 +21,23 @@ const ViewEditProfile = (props) => {
     const [slogan, setSlogan] = useState("");
     const [picture, setPicture] = useState("");
     const [visibility, setVisibility] = useState(false);
-
-    useEffect(()=>{
-        {props.navigation.setOptions({headerRight: () => (
-          <Icon
-            name="head-question"
-            type="material-community"
-            color="rgba(92, 99,216, 1)"
-            size={25}
-            onPress={() => props.navigation.navigate('Instructions')}
-          />
-        )})
-      }
+    // first one to get instructions-page button to the header
+    useEffect(() => {
+        {
+            props.navigation.setOptions({
+                headerRight: () => (
+                    <Icon
+                        name="head-question"
+                        type="material-community"
+                        color="rgba(92, 99,216, 1)"
+                        size={25}
+                        onPress={() => props.navigation.navigate('Instructions')}
+                    />
+                )
+            })
+        }
     })
-
+    // second one for adding person details to variables from a person array from route.params
     useEffect(() => {
         setFirstname(person[0].firstname);
         setLastname(person[0].lastname);
@@ -41,19 +47,18 @@ const ViewEditProfile = (props) => {
         setPicture(person[0].picture);
 
     }, [])
-
+    // variable for images path, will be used as image source
     const imgpath = path + picture;
 
+    // input handlers for person details
     const firstnameInputHandler = (enteredText) => {
         setFirstname(enteredText);
-        console.log(firstname);
     }
     const lastnameInputHandler = (enteredText) => {
         setLastname(enteredText);
     }
     const heightInputHandler = (enteredText) => {
-        let trimmed = enteredText.replace(/\./g,'');
-        setHeight(trimmed);
+        setHeight(validateNumbers(enteredText));
     }
     const locationInputHandler = (enteredText) => {
         setLocation(enteredText);
@@ -61,7 +66,7 @@ const ViewEditProfile = (props) => {
     const sloganInputHandler = (enteredText) => {
         setSlogan(enteredText);
     }
-
+    // updating person-arrays information from input fields after saving, will be called from button save changes
     const updatePersonList = () => {
         person[0].firstname = firstname.trim();
         person[0].lastname = lastname.trim();
@@ -71,7 +76,7 @@ const ViewEditProfile = (props) => {
         person[0].picture = picture;
         updatePerson();
     }
-
+    // updating person details to a database and after that setting new database details to a setPerson
     const updatePerson = async () => {
 
         try {
@@ -91,7 +96,7 @@ const ViewEditProfile = (props) => {
         catch (error) {
             console.log(error);
         }
-
+        // these next three methods are for modal view
     }
     handleModalOpen = () => {
         setVisibility(true);
@@ -101,10 +106,10 @@ const ViewEditProfile = (props) => {
         setVisibility(false);
     };
 
-    const chooseImage = (uri) => {
-        setPicture(uri);
+    // this modals method takes the choosed pictures name and set its to a picture variable
+    const chooseImage = (img) => {
+        setPicture(img);
         handleModalClose();
-
     }
 
     return (
@@ -121,24 +126,19 @@ const ViewEditProfile = (props) => {
 
                     </TouchableOpacity>
 
-                    {/* There is te opening modal: */}
+                    {/* Here is te opening modal for choosing avatar */}
                     <Modal
                         visible={visibility}
                         setVisibility={setVisibility}
                         onClose={handleModalClose}
                         transparent={true}
-
-
                     >
                         {/*Wrapping all items inside container */}
 
                         <View style={styles.modalContainer}>
-
                             <View style={styles.modalContainerPic}>
-
                                 <View style={styles.modalStillPic}>
                                     {/*Wrapping first 3 items inside view */}
-
                                     <View>
                                         <TouchableOpacity onPress={() => chooseImage('pingu.png')}><Image
                                             style={styles.image}
@@ -200,7 +200,6 @@ const ViewEditProfile = (props) => {
                                                 source={{ uri: path + 'pingu9.png' }}
                                             /></TouchableOpacity>
                                     </View>
-
                                 </View>
                                 <View style={styles.buttonContainer}>
                                     <Button onPress={handleModalClose}><Icon name='close'
@@ -236,7 +235,7 @@ const ViewEditProfile = (props) => {
                         <Input
                             inputContainerStyle={styles.inputStyle}
                             inputStyle={styles.textStyle}
-                            keyboardType= 'numeric'
+                            keyboardType='numeric'
                             placeholder="Height..."
                             maxLength={3}
                             onChangeText={heightInputHandler}
@@ -284,7 +283,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     modalContainer: {
-
         alignItems: 'flex-start',
         justifyContent: 'center',
         flex: 1,
@@ -292,14 +290,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(92, 99,216, 0.5)',
     },
     modalContainerPic: {
-
         marginTop: 90,
         width: '100%',
         justifyContent: 'center',
         flexDirection: 'row',
         backgroundColor: 'rgba(92, 99,216, 1)',
-
-
     },
     modalStillPic: {
         marginTop: 50,
@@ -334,9 +329,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         borderBottomColor: 'black',
     },
-    buttoncont: {
-        flex: 1,
-    },
     inputStyle: {
         width: 200,
         height: 35,
@@ -355,7 +347,7 @@ const styles = StyleSheet.create({
     },
     buttonContainerNav: {
         flex: 1,
-        marginTop:10,
+        marginTop: 10,
     },
 });
 
