@@ -98,7 +98,8 @@ const ViewWorkoutHistory = props => {
   // };
 
   //KeyExtractor for Flatlist for Workout list
-  keyExtractor = (item, index) => {
+  keyExtract = (item, index) => {
+    console.log("extractor indeksi  ",index);
     index.toString();
   };
 
@@ -121,9 +122,13 @@ const ViewWorkoutHistory = props => {
 
   //Rendering Flatlist of Workouts
   const renderItem2 = ({item, index}) => {
+    console.log("indeksi  ",index);
     return (
       // TouchableOpacity for chosing workout from list
-      <TouchableOpacity 
+
+
+      <TouchableOpacity
+      
         key={index}
         onPress={() => {
           fetchWorkoutExercisesByWorkoutId(item.workoutid);
@@ -163,7 +168,7 @@ const ViewWorkoutHistory = props => {
         {/* Flatlist View for workouts */}
         <View style={styles.flatlist}>
           <FlatList
-            keyExtractor={keyExtractor}
+            // keyExtractor={keyExtract}
             data={workoutHistory}
             renderItem={renderItem2}
           />
@@ -175,7 +180,7 @@ const ViewWorkoutHistory = props => {
           onBackdropPress={toggleOverlay}
           overlayStyle={{width: '90%'}}>
           <FlatList
-            keyExtractor={keyHandler}
+            // keyExtractor={keyHandler}
             data={workoutExercises}
             renderItem={({item, index}) => {
               console.log('overlay', workoutExercises);
