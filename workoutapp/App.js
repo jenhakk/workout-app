@@ -37,15 +37,5 @@ const App=()=>{
     </NavigationContainer>
   );
 }
-    // <View>
-    //   {/* <AwesomeButton />
-    //   <Motivation />
-    //   <Button title='Smile!' />
-    //   <Text>Halloo</Text> */}
-      
-      
-    //   <ViewStart />
-    //   {/* <ViewMeasAdd /> */}
-    // </View>
 
 export default App;

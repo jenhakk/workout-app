@@ -338,7 +338,6 @@ const styles = StyleSheet.create({
   scrollviewstyle: {
     width: '95%',
     height: '100%',
-    // backgroundColor: 'rgb(207, 157, 221)',
   },
   bottom: {
     height: '7%',
