@@ -3,7 +3,7 @@ import {View, StyleSheet, FlatList} from 'react-native';
 import {Card, Text} from '@rneui/themed';
 
 const MeasLabels = () => {
-  // for measurement labels
+  // for measurement labels on ViewMeasAdd and ViewMeasSummary
   const [labels, setLabels] = useState([
     'Weight',
     'Chest',
