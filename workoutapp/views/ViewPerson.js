@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { Icon, Button } from '@rneui/base';
 import NavButtons from '../components/NavButtons';
 import PersonCard from '../components/PersonCard';
@@ -48,6 +48,10 @@ const ViewPerson = (props) => {
 
     return (
         <View style={styles.container}>
+            <ImageBackground
+        source={require('../assets/imageback.png')}
+        resizeMode="cover"
+        style={styles.image}>
             <View style={styles.card}>
                 {/* PersonCard component to which sending person details as a parameter */}
                 <PersonCard person={person} />
@@ -67,6 +71,7 @@ const ViewPerson = (props) => {
             <View style={styles.buttonContainer}>
                 <NavButtons params={props} />
             </View>
+            </ImageBackground>
         </View>
     );
 };

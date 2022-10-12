@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Modal, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, Modal, TouchableOpacity, ImageBackground } from 'react-native';
 import { Text, Button } from '@rneui/base';
 import { Input, Icon } from '@rneui/themed';
 import PersonLabels from '../components/PersonLabels';
@@ -114,6 +114,10 @@ const ViewEditProfile = (props) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
+            <ImageBackground
+        source={require('../assets/imageback.png')}
+        resizeMode="cover"
+        style={styles.imageBackground}>
             <View style={styles.PersonContainer}>
                 <Text style={styles.personHeader}>Edit your profile</Text>
                 <View style={{ marginBottom: 20 }}>
@@ -266,9 +270,11 @@ const ViewEditProfile = (props) => {
                     title='SAVE CHANGES'
                     onPress={() => { { props.navigation.navigate('Profile', { person: person }) }; { updatePersonList() } }}></Button>
             </View>
+            </ImageBackground>
             <View style={styles.buttonContainerNav}>
                 <NavButtons params={props} />
             </View>
+            
         </View>
     );
 };
@@ -279,7 +285,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 20,
         borderRadius: 7,
-        backgroundColor: '#C1ACFB',
+        backgroundColor: 'white',
         alignItems: 'center',
     },
     modalContainer: {
@@ -306,15 +312,18 @@ const styles = StyleSheet.create({
         marginBottom: 50,
     },
     image: {
-        width: 80,
-        height: 80,
+        width: 90,
+        height:90,
         margin: 10,
+        borderRadius:10
     },
     personHeader: {
         textAlign: 'center',
         marginBottom: 20,
-        fontSize: 20,
-        fontWeight: 'normal',
+        fontSize: 21,
+        color:'#9F40E6',
+        fontFamily:'OpenSans-SemiBold',
+        paddingTop:10
     },
     personContainerList: {
         flexDirection: 'row',
@@ -331,23 +340,21 @@ const styles = StyleSheet.create({
     },
     inputStyle: {
         width: 200,
-        height: 35,
+        height: 37,
     },
     button: {
         backgroundColor: '#9F40E6',
-        marginBottom: 20,
+        marginBottom: 10,
         borderRadius: 20,
         width: 200,
-        height: 70,
+        height: 55,
         alignSelf: 'center',
     },
     buttonContainer: {
-        marginTop: 8,
         marginBottom: 2,
     },
     buttonContainerNav: {
         flex: 1,
-        marginTop: 10,
     },
 });
 

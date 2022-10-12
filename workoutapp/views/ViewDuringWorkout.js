@@ -221,6 +221,17 @@ const ViewDuringWorkout = props => {
     } catch (error) {
       console.log(error);
     }
+    finally{
+      setReps1(0);
+      setReps2(0);
+      setReps3(0);
+      setWeights1(0);
+      setWeights2(0);
+      setWeights3(0);
+      setDuration1(0);
+      setDuration2(0);
+      setDuration3(0);
+        }
   };
   //END
 
@@ -250,11 +261,20 @@ const ViewDuringWorkout = props => {
   // }, timeout);
   
 
-  //Toggle function for Save buttons Dialog
-  const showSavedAlert = () => {
-    setToggleSaveVisibility(!toggleSaveVisibility);
+  //Toggle function for Save buttons Dialog, closes after 2 seconds if not clicked
+    const showSavedAlert = () => {
+  
+      setToggleSaveVisibility(true);   
+  
+      setTimeout(()=>{
+  
+        setToggleSaveVisibility(false);
+  
+      },2000);
+  
+    };
     
-  };
+
 
   //Toggle function for Finish Workout buttons Dialog
   const showFinishedAlert = () => {
