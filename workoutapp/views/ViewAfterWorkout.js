@@ -68,10 +68,10 @@ const ViewAfterWorkout = props => {
         <ListItem.Title style={{fontSize: 22, color: '#6533F9', paddingBottom:5, paddingLeft:10}}>
           {item[0].movename}   
           </ListItem.Title>
-          <View style={{flexDirection:'row', justifyContent:'space-between', width:'90%', paddingLeft:60}}>
-          <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Reps:</Text>
-          <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Weights</Text>
-          <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Duration:</Text>
+          <View style={{flexDirection:'row', justifyContent:'space-between', width:'95%', paddingLeft:60}}>
+          <Text style={{fontSize:14, fontFamily:'OpenSans-SemiBold', fontSize:15, color: '#9F40E6'}}>Reps:</Text>
+          <Text style={{fontSize:14, fontFamily:'OpenSans-SemiBold', fontSize:15, color: '#9F40E6'}}>Weights:</Text>
+          <Text style={{fontSize:14, fontFamily:'OpenSans-SemiBold', fontSize:15, color: '#9F40E6'}}>Duration:</Text>
           </View>
           
           {/* Mapping the list again to get sets */}
@@ -79,10 +79,10 @@ const ViewAfterWorkout = props => {
 
             return(
               <View style={{flexDirection:'row', justifyContent:'space-between', width:'80%'}} key={index}>
-                <Text style={{fontSize:15, fontWeight:'700', color: '#9F40E6'}}>Set {index+1}</Text>
+                <Text style={{fontSize:15, fontFamily:'OpenSans-SemiBold', fontSize:15, color: '#9F40E6'}}>Set {index+1}</Text>
                 <Text style={styles.textStyle}>{item.reps}</Text>
                 <Text style={styles.textStyle}>{item.weights} kg</Text>
-                <Text style={styles.textStyle}>{item.duration}</Text>  
+                <Text style={styles.textStyle}>{item.duration} s</Text>  
                 </View>
             );            
           })}
@@ -123,7 +123,7 @@ const ViewAfterWorkout = props => {
             }}>
             Your workout summary
           </Text>
-          <Text style={{textAlign:'center', color:'white', fontSize:18}}>{workoutDate}</Text>
+          <Text style={{textAlign:'center', color:'white', fontSize:20}}>{workoutDate}</Text>
           <FlatList
             // keyExtractor={keyExtractor}
             data={workoutSummary}
@@ -157,11 +157,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   button: {
-    marginTop: 5,
+    marginTop: 10,
     backgroundColor: '#9F40E6',
     marginBottom: 20,
     borderRadius: 20,
-    width: 200,
+    width: 120,
     height: 60,
     alignSelf: 'center',
   },

@@ -69,7 +69,7 @@ const ViewStart = props => {
               color: 'white',
               fontSize: 17,
               textAlign: 'center',
-              fontWeight: '700',
+              fontFamily:'OpenSans-SemiBold',
               paddingTop: 5,
               
             }}>
@@ -146,7 +146,7 @@ const CustomTitleWorkout = () => {
           fontSize: 15,
           color: 'white',
           marginTop: 15,
-          fontWeight: '700',
+          fontFamily:'OpenSans-SemiBold'
         }}>
         Start Workout
       </Text>
@@ -170,7 +170,8 @@ const CustomTitleAddMeas = () => {
           color: 'white',
           marginTop: 10,
           textAlign: 'center',
-          fontWeight: '700',
+          // fontWeight:'700',
+          fontFamily:'OpenSans-SemiBold'
         }}>
         Add Measurements
       </Text>
@@ -189,7 +190,7 @@ const CustomTitleWorkoutHistory = () => {
           color: 'white',
           marginTop: 10,
           textAlign: 'center',
-          fontWeight: '700',
+          fontFamily:'OpenSans-SemiBold'
         }}>
         Workout History
       </Text>
@@ -213,7 +214,7 @@ const CustomTitleMeasHistory = () => {
           color: 'white',
           marginTop: 10,
           textAlign: 'center',
-          fontWeight: '700',
+          fontFamily:'OpenSans-SemiBold'
         }}>
         Measurements History
       </Text>
