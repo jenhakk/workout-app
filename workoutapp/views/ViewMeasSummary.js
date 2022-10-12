@@ -109,14 +109,18 @@ const styles = StyleSheet.create({
   measHeader: {
     textAlign: 'center',
     marginVertical: 10,
-    fontSize: 20,
+    fontSize: 21,
     fontWeight: 'normal',
+    color:'#9F40E6',
+    fontFamily:'OpenSans-SemiBold',
   },
   measDate: {
     textAlign: 'center',
     marginBottom: 30,
     fontSize: 18,
     fontWeight: 'normal',
+    color:'#9F40E6',
+    fontFamily:'OpenSans-SemiBold',
   },
   measForm: {
     flexDirection: 'row',
@@ -128,14 +132,13 @@ const styles = StyleSheet.create({
   },
   measValues: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'normal',
     paddingBottom: 40,
   },
   measButton: {
-    marginTop: 5,
     backgroundColor: '#9F40E6',
-    marginBottom: 20,
+    marginBottom: 15,
     borderRadius: 20,
     width: 180,
     height: 55,

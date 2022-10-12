@@ -37,7 +37,10 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     fontWeight: 'normal',
-    paddingBottom: 40,
+    paddingBottom: 35,
+    paddingTop:5,
+    color:'#9F40E6',
+    fontFamily:'OpenSans-SemiBold',
   },
 });
 

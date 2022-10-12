@@ -271,7 +271,7 @@ console.log('indeleteworkoutbyid  ',workoutid);
                             {item.weights} kg
                           </Text>
                           <Text style={styles.textStyleOverlay}>
-                            {item.duration}
+                            {item.duration} s
                           </Text>
                         </View>
                       );

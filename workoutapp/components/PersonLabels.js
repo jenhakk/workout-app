@@ -33,11 +33,12 @@ const PersonLabels = () => {
 
 const styles = StyleSheet.create({
   personLabels: {
-    color: 'black',
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'normal',
     paddingTop:5,
     paddingBottom: 35,
+    color:'#9F40E6',
+    fontFamily:'OpenSans-SemiBold',
   },
 });
 

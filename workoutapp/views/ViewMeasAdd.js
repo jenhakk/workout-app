@@ -222,26 +222,29 @@ const styles = StyleSheet.create({
   measHeader: {
     textAlign: 'center',
     marginVertical: 10,
-    fontSize: 20,
+    fontSize: 21,
     fontWeight: 'normal',
-   
+    color:'#9F40E6',
+    fontFamily:'OpenSans-SemiBold',
   },
   measDate: {
     textAlign: 'center',
     marginBottom: 30,
     fontSize: 18,
     fontWeight: 'normal',
+    color:'#9F40E6',
+    fontFamily:'OpenSans-SemiBold',
   },
   measForm: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   measFormComps: {
     flexDirection: 'column',
   },
   measInput: {
-    width: 65,
+    width: 67,
     height: 35,
   },
   measInputText: {
@@ -256,7 +259,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 20,
     width: 210,
-    height: 60,
+    height: 55,
     alignSelf: 'center',
   },
 });

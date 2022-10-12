@@ -12,8 +12,8 @@ const PersonCard = (props) => {
         let path= imageurl+item.picture;
         
         return (
-            <Card containerStyle={{ backgroundColor: '#C1ACFB', borderRadius: 7 }}>
-                <Card.Title style={{ fontSize: 20 }}>Your Profile</Card.Title>
+            <Card containerStyle={{ backgroundColor: 'white', borderRadius: 7 }}>
+                <Card.Title style={{ fontSize: 20,  color:'#9F40E6'}}>Your Profile</Card.Title>
                 <Card.Divider />
                         <View style={styles.user}>
                             <Image
@@ -21,10 +21,10 @@ const PersonCard = (props) => {
                                 resizeMode="cover"
                                 source={{ uri: path }}
                             />
-                            <Text style={styles.fonts}>Name: {item.firstname} {item.lastname}</Text>
-                            <Text style={styles.fonts}>Height: {item.height}</Text>
-                            <Text style={styles.fonts}>Location: {item.location}</Text>
-                            <Text style={styles.fonts}>Slogan: "{item.slogan}"</Text>
+                            <Text style={styles.fonts}>Name: <Text style={styles.fontsinfo}>{item.firstname} {item.lastname}</Text></Text>
+                            <Text style={styles.fonts}>Height: <Text style={styles.fontsinfo}>{item.height}</Text></Text>
+                            <Text style={styles.fonts}>Location: <Text style={styles.fontsinfo}>{item.location}</Text></Text>
+                            <Text style={styles.fonts}>Slogan: <Text style={styles.fontsinfo}>"{item.slogan}"</Text></Text>
                         </View>
             </Card>
         )
@@ -46,11 +46,20 @@ const styles = StyleSheet.create({
         width: 120,
         height: 120,
         marginBottom: 15,
+        borderRadius:10
     },
     fonts: {
         marginBottom: 30,
         fontSize: 18,
         textAlign:'center',
+        color:'#9F40E6',
+        fontFamily:'OpenSans-SemiBold',
+    },
+    fontsinfo: {
+        marginBottom: 30,
+        fontSize: 18,
+        textAlign:'center',
+        fontFamily:'OpenSans-Regular',
     },
     details: {
         marginTop: 10,

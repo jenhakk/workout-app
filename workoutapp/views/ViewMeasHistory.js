@@ -191,14 +191,18 @@ const styles = StyleSheet.create({
   measHeader: {
     textAlign: 'center',
     marginVertical: 20,
-    fontSize: 20,
+    fontSize: 21,
     fontWeight: 'normal',
+    color:'#9F40E6',
+    fontFamily:'OpenSans-SemiBold',
   },
   measDate: {
     textAlign: 'center',
     marginBottom: 35,
     fontSize: 18,
     fontWeight: 'normal',
+    color:'#9F40E6',
+    fontFamily:'OpenSans-SemiBold',
   },
   measMessage: {
     textAlign: 'center',
@@ -212,20 +216,26 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   arrLabel: {
-    width: 55,
+    width: 60,
     padding: 5,
-    height: 31,
+    height: 35,
+    color:'#9F40E6',
+    fontFamily:'OpenSans-SemiBold',
+  
   },
   arrDate: {
     width: 90,
     textAlign: 'center',
     fontSize: 15,
     paddingVertical: 5,
+    color:'#9F40E6',
+    fontFamily:'OpenSans-SemiBold',
   },
   arrValue: {
     width: 90,
     padding: 5,
     borderWidth: 1,
+    fontSize:17
   },
   measButton: {
     marginTop: 5,

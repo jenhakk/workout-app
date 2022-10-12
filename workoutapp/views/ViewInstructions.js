@@ -119,12 +119,12 @@ const ViewInstructions = props => {
           <View style={{alignSelf: 'center', width: '85%', marginTop: 20}}>
             <Text style={{fontSize: 16, color: 'white', marginVertical: 10, fontFamily:'OpenSans-Regular'}}>
               Choose{' '}
-              <Text style={{fontWeight: '700', color: 'white'}}>WORKOUT</Text>{' '}
+              <Text style={{fontWeight: '700', color: 'white', fontFamily:'OpenSans-Regular'}}>WORKOUT</Text>{' '}
               if you need some guidance on how to save your workouts.
             </Text>
-            <Text style={{fontSize: 16, color: 'white', marginVertical: 10}}>
+            <Text style={{fontSize: 16, color: 'white', marginVertical: 10, fontFamily:'OpenSans-Regular'}}>
               Choose{' '}
-              <Text style={{fontWeight: '700', color: 'white'}}>
+              <Text style={{fontWeight: '700', color: 'white', fontFamily:'OpenSans-Regular'}}>
                 MEASUREMENTS
               </Text>{' '}
               if you need to know, how to add measurements and inspect them.
@@ -135,9 +135,10 @@ const ViewInstructions = props => {
                 color: 'white',
                 marginVertical: 10,
                 width: '100%',
+                fontFamily:'OpenSans-Regular'
               }}>
               In{' '}
-              <Text style={{fontWeight: '700', color: 'white'}}>PROFILE</Text>{' '}
+              <Text style={{fontWeight: '700', color: 'white', fontFamily:'OpenSans-Regular'}}>PROFILE</Text>{' '}
               section you can get to know how to modify your personal
               information and avatar.
             </Text>
@@ -199,7 +200,7 @@ const ViewInstructions = props => {
             <Text style={{alignSelf: 'flex-end'}}>...</Text>
             <View style={styles.buttonContainer}>
               <Button
-                title="close"
+                title="CLOSE"
                 buttonStyle={{
                   backgroundColor: 'transparent',
                   alignSelf: 'center',
@@ -240,7 +241,7 @@ const ViewInstructions = props => {
             <Text style={{alignSelf: 'flex-end'}}>...</Text>
             <View style={styles.buttonContainer}>
               <Button
-                title="close"
+                title="CLOSE"
                 buttonStyle={{
                   backgroundColor: 'transparent',
                   alignSelf: 'center',
@@ -286,7 +287,7 @@ const ViewInstructions = props => {
             <Text style={{alignSelf: 'flex-end'}}>...</Text>
             <View style={styles.buttonContainer}>
               <Button
-                title="close"
+                title="CLOSE"
                 buttonStyle={{
                   backgroundColor: 'transparent',
                   alignSelf: 'center',
@@ -319,17 +320,14 @@ const styles = StyleSheet.create({
     marginTop: 60,
     flexDirection: 'row',
     justifyContent: 'center',
-
-    // backgroundColor:'white',
-    // width:'100%',
-    // alignItems:'center',
-    // height:100
   },
   text: {
     textAlign: 'justify',
-    marginBottom: 5,
-    fontSize: 17,
-    color:'white'
+    marginBottom: 15,
+    fontSize: 18,
+    color:'white',
+    fontFamily:'OpenSans-Regular',
+
   },
   buttonContainer: {
     
