@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: 20,
     fontWeight: 'normal',
+   
   },
   measDate: {
     textAlign: 'center',
@@ -250,10 +251,13 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
   },
   measButton: {
-    width: '78%',
+    marginTop: 5,
+    backgroundColor: '#9F40E6',
+    marginBottom: 20,
+    borderRadius: 20,
+    width: 210,
+    height: 60,
     alignSelf: 'center',
-    marginVertical: 10,
-    borderRadius: 5,
   },
 });
 

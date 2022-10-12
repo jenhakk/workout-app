@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   measForm: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: 7,
   },
   measFormComps: {
     flexDirection: 'column',
@@ -133,10 +133,13 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   measButton: {
-    width: '55%',
+    marginTop: 5,
+    backgroundColor: '#9F40E6',
+    marginBottom: 20,
+    borderRadius: 20,
+    width: 180,
+    height: 55,
     alignSelf: 'center',
-    marginVertical: 10,
-    borderRadius: 5,
   },
 });
 

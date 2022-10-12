@@ -228,10 +228,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   measButton: {
-    width: '50%',
-    marginBottom: 50,
+    marginTop: 5,
+    backgroundColor: '#9F40E6',
+    marginBottom: 20,
+    borderRadius: 20,
+    width: 200,
+    height: 60,
     alignSelf: 'center',
-    borderRadius: 10,
   },
 });
 

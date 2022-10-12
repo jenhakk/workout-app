@@ -198,7 +198,7 @@ const ViexExercises = props => {
                 margin: 10,
               }}
               titleStyle={{color: 'white', fontSize: 20}}
-              title="Wait.."
+              title="Wait..."
               onPress={() => toggleDialog()}
             />
 
@@ -237,9 +237,9 @@ const ViexExercises = props => {
           <Text
             style={{
               color: 'white',
-              fontSize: 18,
+              fontSize: 17,
               textAlign: 'center',
-              fontWeight: '500',
+              fontFamily:'OpenSans-SemiBold',
               marginTop: 10,
               marginBottom: 7,
             }}>

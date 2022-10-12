@@ -37,6 +37,7 @@ const ViewDuringWorkout = props => {
   const [toggleSaveVisibility, setToggleSaveVisibility] = useState(false);
   //Visibility state for Finish Workout button dialog
   const [toggleFinishVisibility, setToggleFinishVisibility] = useState(false);
+  // const [timeout, setTimeout] = useState(3000);
 
   //Function for getting current date in form dd.mm.yyyy
   const date = getCurrentDate();
@@ -242,9 +243,17 @@ const ViewDuringWorkout = props => {
     }
   };
 
+  // let timeOut = 
+  // setTimeout(() => {
+  //   toggleSaveVisibility();
+  //   clearTimeout(timeout);
+  // }, timeout);
+  
+
   //Toggle function for Save buttons Dialog
   const showSavedAlert = () => {
     setToggleSaveVisibility(!toggleSaveVisibility);
+    
   };
 
   //Toggle function for Finish Workout buttons Dialog
@@ -271,9 +280,9 @@ const ViewDuringWorkout = props => {
           {/* Titles for chart */}
           <View style={{width: '100%'}}>
             <View style={{flexDirection: 'row', paddingLeft: 40}}>
-              <Text style={{paddingLeft: 35, paddingRight: 25}}>Repeats</Text>
-              <Text style={{paddingRight: 25, paddingLeft: 10}}>Weights</Text>
-              <Text style={{paddingRight: 20, paddingLeft: 10}}>Duration</Text>
+              <Text style={{paddingLeft: 35, paddingRight: 25, fontFamily:'OpenSans-Regular', fontSize:15}}>Repeats</Text>
+              <Text style={{paddingRight: 25, paddingLeft: 10, fontFamily:'OpenSans-Regular', fontSize:15}}>Weights</Text>
+              <Text style={{paddingRight: 20, paddingLeft: 10, fontFamily:'OpenSans-Regular', fontSize:15}}>Duration</Text>
             </View>
           </View>
 
@@ -284,13 +293,13 @@ const ViewDuringWorkout = props => {
               <View style={{width: '60%', flexDirection: 'row'}}>
                 {/* Set 1 title */}
                 <Text
-                  style={{paddingTop: 20, marginRight: 15, paddingLeft: 20}}>
+                  style={{paddingTop: 20, marginRight: 15, paddingLeft: 20, fontFamily:'OpenSans-Regular', fontSize:15}}>
                   Set 1
                 </Text>
                 {/* Input for repeats, weights and duration*/}
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
-                  inputStyle={{fontSize: 12}}
+                  inputStyle={{fontSize: 20}}
                   keyboardType="numeric"
                   maxLength={2}
                   onChangeText={reps => {
@@ -299,7 +308,7 @@ const ViewDuringWorkout = props => {
                 />
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
-                  inputStyle={{fontSize: 12}}
+                  inputStyle={{fontSize: 20}}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={weights => {
@@ -308,7 +317,7 @@ const ViewDuringWorkout = props => {
                 />
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
-                  inputStyle={{fontSize: 12}}
+                  inputStyle={{fontSize: 20}}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={dura => {
@@ -320,12 +329,12 @@ const ViewDuringWorkout = props => {
               {/* Second set */}
               <View style={{width: '60%', flexDirection: 'row'}}>
                 <Text
-                  style={{paddingTop: 20, marginRight: 15, paddingLeft: 20}}>
+                  style={{paddingTop: 20, marginRight: 15, paddingLeft: 20, fontFamily:'OpenSans-Regular', fontSize:15}}>
                   Set 2
                 </Text>
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
-                  inputStyle={{fontSize: 12}}
+                  inputStyle={{fontSize: 20}}
                   keyboardType="numeric"
                   maxLength={2}
                   onChangeText={reps => {
@@ -334,7 +343,7 @@ const ViewDuringWorkout = props => {
                 />
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
-                  inputStyle={{fontSize: 12}}
+                  inputStyle={{fontSize: 20}}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={weights => {
@@ -343,7 +352,7 @@ const ViewDuringWorkout = props => {
                 />
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
-                  inputStyle={{fontSize: 12}}
+                  inputStyle={{fontSize: 20}}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={dura => {
@@ -355,12 +364,12 @@ const ViewDuringWorkout = props => {
               {/* Third set*/}
               <View style={{width: '60%', flexDirection: 'row'}}>
                 <Text
-                  style={{paddingTop: 20, marginRight: 15, paddingLeft: 20}}>
+                  style={{paddingTop: 20, marginRight: 15, paddingLeft: 20, fontFamily:'OpenSans-Regular', fontSize:15}}>
                   Set 3
                 </Text>
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
-                  inputStyle={{fontSize: 12}}
+                  inputStyle={{fontSize: 20}}
                   keyboardType="numeric"
                   maxLength={2}
                   onChangeText={reps => {
@@ -369,7 +378,7 @@ const ViewDuringWorkout = props => {
                 />
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
-                  inputStyle={{fontSize: 12}}
+                  inputStyle={{fontSize: 20}}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={weights => {
@@ -378,7 +387,7 @@ const ViewDuringWorkout = props => {
                 />
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
-                  inputStyle={{fontSize: 12}}
+                  inputStyle={{fontSize: 20}}
                   keyboardType="numeric"
                   maxLength={3}
                   onChangeText={dura => {
@@ -411,10 +420,11 @@ const ViewDuringWorkout = props => {
         <Text
           style={{
             fontSize: 22,
-            paddingTop: 10,
+            paddingTop: 15,
             paddingBottom: 15,
             textAlign: 'center',
             color: 'white',
+            fontFamily:'OpenSans-Regular'
           }}>
           Fill your workout
         </Text>
@@ -440,22 +450,29 @@ const ViewDuringWorkout = props => {
         </View>
         {/* Dialog for Save button */}
         <Dialog
+          
           isVisible={toggleSaveVisibility}
-          onBackdropPress={showSavedAlert}>
+          onBackdropPress={showSavedAlert}
+          overlayStyle={{borderRadius:10}}>
+            
+ 
+
+         
+
           <Dialog.Title
             title="Set saved succesfully!"
-            titleStyle={{textAlign: 'center', color: '#6533F9'}}
+            titleStyle={{textAlign: 'center', color: '#6533F9', fontSize:19}}
           />
-          <Text style={{textAlign: 'center', fontSize: 15}}>
+          <Text style={{textAlign: 'center', fontSize: 15, fontFamily:'OpenSans-Regular'}}>
             You can edit it by changing values and saving again.
           </Text>
-          {/* <Dialog.Button buttonStyle={{backgroundColor:'#C940E6', width:80, alignSelf:'center', marginTop: 20, borderRadius:10}} titleStyle={{color:'white'}} title="OK" onPress={() => showSavedAlert()}/> */}
         </Dialog>
 
         {/*Dialog for Finish Workout button  */}
         <Dialog
           isVisible={toggleFinishVisibility}
-          onBackdropPress={showFinishedAlert}>
+          onBackdropPress={showFinishedAlert}
+          overlayStyle={{borderRadius:10}}>
           <Dialog.Title
             title="Finished workout!"
             titleStyle={{textAlign: 'center', color: '#6533F9'}}

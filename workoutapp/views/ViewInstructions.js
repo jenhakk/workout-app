@@ -111,13 +111,13 @@ const ViewInstructions = props => {
                 fontSize: 18,
                 color: 'white',
                 textAlign: 'center',
-                fontWeight: '700',
+                fontFamily:'OpenSans-SemiBold'
               }}>
               Here you can see the instructions for this application.
             </Text>
           </View>
           <View style={{alignSelf: 'center', width: '85%', marginTop: 20}}>
-            <Text style={{fontSize: 16, color: 'white', marginVertical: 10}}>
+            <Text style={{fontSize: 16, color: 'white', marginVertical: 10, fontFamily:'OpenSans-Regular'}}>
               Choose{' '}
               <Text style={{fontWeight: '700', color: 'white'}}>WORKOUT</Text>{' '}
               if you need some guidance on how to save your workouts.
