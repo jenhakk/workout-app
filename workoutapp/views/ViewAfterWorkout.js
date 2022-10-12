@@ -10,6 +10,7 @@ import {
 import {Card, Text, ListItem, Avatar, Icon, Button} from '@rneui/themed';
 import NavButtons from '../components/NavButtons';
 
+//View where use can see their summary from previous workout
 const ViewAfterWorkout = props => {
   const [workoutSummary, setWorkoutSummary] = useState([]);
   const LOCAL_ADDRESS = 'http://10.0.2.2:8080';
@@ -18,6 +19,7 @@ const ViewAfterWorkout = props => {
   const imageurl = 'http://10.0.2.2:8080/images/';
   const [workoutId, setWorkoutId] = useState(props.route.params == undefined ? "" : props.route.params.workoutId);
   const [workoutDate, setWorkoutDate] = useState(props.route.params == undefined ? "" : props.route.params.workoutDate);
+
 
   useEffect(() => {
     {props.navigation.setOptions({headerRight: () => (

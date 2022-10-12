@@ -5,18 +5,17 @@ import NavButtons from '../components/NavButtons';
 import {getCurrentDate} from '../components/Date.js';
 import {validateNumbers} from '../components/Validation';
 
+
+//View where user fills their workout chart and saves it to database
 const ViewDuringWorkout = props => {
-  // for measurement labels
 
-  const [exerciseList, setExercise] = useState([
-    // {exerciseid:1, movename: 'Biceps curl', movepic: require('../assets/benchpress.jpg'),checked:false},
-    // {exerciseid:2, movename: 'Weight lift', movepic: require('../assets/weightlift.png'),checked:false}
-  ]);
-
+  //List for exercises
+  const [exerciseList, setExercise] = useState([]);
   //List for one set
   const [workoutList, setWorkouts] = useState([]);
   //List for new workout
   const [newWorkout, setNewWorkOut] = useState([]);
+  //States for each sets repeats, weights and durations
   const [reps1, setReps1] = useState('');
   const [weights1, setWeights1] = useState('');
   const [duration1, setDuration1] = useState('');
@@ -26,27 +25,29 @@ const ViewDuringWorkout = props => {
   const [reps3, setReps3] = useState('');
   const [weights3, setWeights3] = useState('');
   const [duration3, setDuration3] = useState('');
+  //State for exerciseid
   const [exerId, setExerId] = useState();
+  //State for workoutid
   const [workoutId, setWorkoutId] = useState();
+  //State for workout date
   const [workoutDate, setWorkoutDate] = useState('');
+  //Setting persons id into personid state
+  const [personid, setPersonId] = useState(props.route.params == undefined ? '' : props.route.params.personId);
+  //Visibility state for Save buttons Dialog
   const [toggleSaveVisibility, setToggleSaveVisibility] = useState(false);
+  //Visibility state for Finish Workout button dialog
   const [toggleFinishVisibility, setToggleFinishVisibility] = useState(false);
 
+  //Function for getting current date in form dd.mm.yyyy
   const date = getCurrentDate();
 
+  //Addresses for backend
   const LOCAL_ADDRESS = 'http://10.0.2.2:8080';
   const SERVICE_ADDRESS = LOCAL_ADDRESS;
   const [isLoading, setLoading] = useState(true);
 
   const addSerieToList = () => {
-    console.log(
-      'pääseekö ',
-      Number(reps1),
-      'workoutid ',
-      workoutId,
-      'exerId ',
-      exerId,
-    );
+
     setWorkouts(workoutList => [
       ...workoutList,
       {
@@ -57,65 +58,59 @@ const ViewDuringWorkout = props => {
         exerciseid: exerId,
       },
     ]);
-    // console.log("workoutList", workoutList);
-    //addNewWorkoutExercise();
   };
 
+  //INPUT HANDLERS FOR ALL SETS
+  //Getting exercise id and input value and setting those into states
   const inputReps1 = (id, reps) => {
     setReps1(validateNumbers(reps));
     setExerId(id);
-    // console.log('reps', reps);
-    // console.log('id', id);
-
     setWorkoutId(newWorkout[0].workoutid);
   };
 
   const inputWeights1 = (id, weights) => {
     setWeights1(validateNumbers(weights));
     setExerId(id);
-    // console.log('w', weights);
-    // console.log('id', id);
+    setWorkoutId(newWorkout[0].workoutid);
   };
   const inputDuration1 = (id, dura) => {
     setDuration1(validateNumbers(dura));
     setExerId(id);
-    // console.log('d', dura);
-    // console.log('id', id);
+    setWorkoutId(newWorkout[0].workoutid);
   };
   const inputReps2 = (id, reps) => {
     setReps2(validateNumbers(reps));
     setExerId(id);
-    // console.log('reps', reps);
+    setWorkoutId(newWorkout[0].workoutid);
   };
 
   const inputWeights2 = (id, weights) => {
     setWeights2(validateNumbers(weights));
     setExerId(id);
-    // console.log('we', weights);
+    setWorkoutId(newWorkout[0].workoutid);
   };
   const inputDuration2 = (id, duration) => {
     setDuration2(validateNumbers(duration));
     setExerId(id);
-    // console.log('id', id);
-    // console.log('dura', duration);
+    setWorkoutId(newWorkout[0].workoutid);
   };
   const inputReps3 = (id, reps) => {
     setReps3(validateNumbers(reps));
     setExerId(id);
-    // console.log('reps', reps);
+    setWorkoutId(newWorkout[0].workoutid);
   };
 
   const inputWeights3 = (id, weights) => {
     setWeights3(validateNumbers(weights));
     setExerId(id);
-    // console.log('wei', weights);
+    setWorkoutId(newWorkout[0].workoutid);
   };
   const inputDuration3 = (id, duration) => {
     setDuration3(validateNumbers(duration));
     setExerId(id);
-    // console.log('id', id);
-    // console.log('duration', duration);
+    setWorkoutId(newWorkout[0].workoutid);
   };
+  // INPUT HANDLERS ENDS
 
   useEffect(() => {
     {
@@ -133,12 +128,14 @@ const ViewDuringWorkout = props => {
     }
 
     if (isLoading) {
+      // Fetching checked (true) exercises from database and creating new record in Workout table at first render
       fetchCheckedExercises();
       addNewWorkout();
       setLoading(false);
     }
   }, []);
 
+  //Fetching checked exercises from database and setting them into exerciseList
   const fetchCheckedExercises = async () => {
     try {
       let response = await fetch(
@@ -147,18 +144,18 @@ const ViewDuringWorkout = props => {
       let json = await response.json();
 
       setExercise(json);
-      // console.log('onko tämä json', json);
     } catch (error) {
       console.log(error);
     }
-    //console.log('mikä tämä on', exerciseList);
   };
 
   const keyExtractor = (item, index) => {
     return index.toString();
   };
 
-  //   Creating new record for workout in Workout table
+  // Creating a new record for workout in Workout table
+  // Getting created workout as list and setting it to newWorkOut list
+  // and getting workout id and workout date and saving those into own states  
   const addNewWorkout = async () => {
     try {
       let response = await fetch(
@@ -168,26 +165,25 @@ const ViewDuringWorkout = props => {
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
             date: date,
-            personid: 1,
+            personid: personid,
           }),
         },
       );
       let data = await response.json();
       setNewWorkOut(data);
-      // console.log("workoutid", data[0].workoutid);
       setWorkoutId(data[0].workoutid);
       setWorkoutDate(data[0].date);
     } catch (error) {
       console.log(error);
     } finally {
-      // console.log("workoutid", newWorkout.workoutid);
     }
   };
   //END
 
-  //   Creating new record for row in WorkoutExercise table
+  //   Creating new record for row in WorkoutExercise table in database containing 3 sets
+  // with repeats, weights, duration, workouts id and exercises id
   const addNewWorkoutExercise = async () => {
-    // console.log('IN ADDNEWWORKOUTEXERCISE list ', workoutList);
+    
     workoutExerciseList = [
       {
         reps: Number(reps1),
@@ -227,6 +223,7 @@ const ViewDuringWorkout = props => {
   };
   //END
 
+  // Setting all exercises' cheched values as false after workout is done
   const setExercisesToFalse = async () => {
     try {
       let response = await fetch(
@@ -245,21 +242,22 @@ const ViewDuringWorkout = props => {
     }
   };
 
+  //Toggle function for Save buttons Dialog
   const showSavedAlert = () => {
     setToggleSaveVisibility(!toggleSaveVisibility);
   };
 
+  //Toggle function for Finish Workout buttons Dialog
   const showFinishedAlert = () => {
     setToggleFinishVisibility(!toggleFinishVisibility);
   };
 
   const renderItem = ({item, index}) => {
-    //console.log("lista", exerciseList);
     return (
-      // wraps everything, is there for bottom navbar
+      // Flatlist rendering
       <View
         style={{marginBottom: 20, backgroundColor: 'white', borderRadius: 15}}>
-        {/* wraps whole page */}
+        {/* Wraps one exercise chart */}
         <View style={styles.containerAll}>
           <Text
             style={{
@@ -270,7 +268,7 @@ const ViewDuringWorkout = props => {
             }}>
             {item.movename}
           </Text>
-          {/* Taulukon otsikot */}
+          {/* Titles for chart */}
           <View style={{width: '100%'}}>
             <View style={{flexDirection: 'row', paddingLeft: 40}}>
               <Text style={{paddingLeft: 35, paddingRight: 25}}>Repeats</Text>
@@ -279,17 +277,17 @@ const ViewDuringWorkout = props => {
             </View>
           </View>
 
-          {/* Yhden liikkeen taulukko */}
+          {/* First set with Set titles */}
           <View>
             <View style={{flexDirection: 'column', width: '45%'}}>
-              {/* Yksi rivi */}
+              {/* One line */}
               <View style={{width: '60%', flexDirection: 'row'}}>
-                {/* Setti */}
+                {/* Set 1 title */}
                 <Text
                   style={{paddingTop: 20, marginRight: 15, paddingLeft: 20}}>
                   Set 1
                 </Text>
-                {/* Inputit toistoille, painoille ja kestolle */}
+                {/* Input for repeats, weights and duration*/}
                 <Input
                   inputContainerStyle={{flexDirection: 'row', width: 50}}
                   inputStyle={{fontSize: 12}}
@@ -319,7 +317,7 @@ const ViewDuringWorkout = props => {
                 />
               </View>
 
-              {/* Uusi rivi ilman otsikoita */}
+              {/* Second set */}
               <View style={{width: '60%', flexDirection: 'row'}}>
                 <Text
                   style={{paddingTop: 20, marginRight: 15, paddingLeft: 20}}>
@@ -354,7 +352,7 @@ const ViewDuringWorkout = props => {
                 />
               </View>
 
-              {/* Uusi rivi ilman otsikoita*/}
+              {/* Third set*/}
               <View style={{width: '60%', flexDirection: 'row'}}>
                 <Text
                   style={{paddingTop: 20, marginRight: 15, paddingLeft: 20}}>
@@ -390,6 +388,7 @@ const ViewDuringWorkout = props => {
               </View>
             </View>
           </View>
+          {/* Save button for saving sets for one exercise */}
           <Button
             buttonStyle={styles.buttonSave}
             title="SAVE"
@@ -419,9 +418,11 @@ const ViewDuringWorkout = props => {
           }}>
           Fill your workout
         </Text>
+
+        {/* Flatlist component, Button at the end of the list for Finishing workout
+        -> Sets all exercises checked values as false and shows Finished Dialog*/}
         <View style={styles.flatlist}>
           <FlatList
-            // style={{height: '50%', marginBottom:20}}
             keyExtractor={keyExtractor}
             data={exerciseList}
             renderItem={renderItem}
@@ -464,6 +465,7 @@ const ViewDuringWorkout = props => {
               Are you sure you are ready?
             </Text>
 
+              {/* NO button */}
             <Dialog.Button
               buttonStyle={{
                 backgroundColor: '#C940E6',
@@ -476,6 +478,8 @@ const ViewDuringWorkout = props => {
               title="NO"
               onPress={() => showFinishedAlert()}
             />
+
+            {/* YES button, calls function setExercisesToFalse, navigates to ViewAfterWorkout with workoutId and workoutDate as props  */}
             <Dialog.Button
               buttonStyle={{
                 backgroundColor: '#C940E6',
@@ -494,6 +498,8 @@ const ViewDuringWorkout = props => {
                 setExercisesToFalse();
               }}
             />
+
+            {/* Workout Rating: doesn't save ratings anywhere at this point */}
             <Text
               style={{
                 fontSize: 16,
