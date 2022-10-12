@@ -461,7 +461,6 @@ const ViewDuringWorkout = props => {
                 buttonStyle={styles.button}
                 title="FINISH WORKOUT"
                 onPress={() => {
-                  setExercisesToFalse();
                   showFinishedAlert();
                 }}
               />
@@ -484,7 +483,7 @@ const ViewDuringWorkout = props => {
             titleStyle={{textAlign: 'center', color: '#6533F9', fontSize:19}}
           />
           <Text style={{textAlign: 'center', fontSize: 15, fontFamily:'OpenSans-Regular'}}>
-            You can edit it by changing values and saving again.
+            You can not edit this anymore.
           </Text>
         </Dialog>
 

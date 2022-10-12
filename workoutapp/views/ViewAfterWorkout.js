@@ -47,7 +47,6 @@ const ViewAfterWorkout = props => {
       let json = await response.json();
 
       setWorkoutSummary(json);
-      console.log('WorkoutSummary    ', json);
     } catch (error) {
       console.log(error);
     }
@@ -93,9 +92,6 @@ const ViewAfterWorkout = props => {
          <Avatar
           source={{uri: path}}
           size={65}
-          onPress={() => {
-            handleModalOpen;
-          }}
           avatarStyle={styles.avatar}
         />
       </ListItem>
