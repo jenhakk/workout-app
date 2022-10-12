@@ -18,15 +18,24 @@ import {
 } from '@rneui/themed';
 import NavButtons from '../components/NavButtons';
 
+// View where user can see all their workouts and click them to see the details.
+// Longpressing will delete workout after confirmation alert
+
 const ViewWorkoutHistory = props => {
+
+  //List for all workouts
   const [workoutHistory, setWorkoutHistory] = useState([]);
+  //List for workoutExercises
   const [workoutExercises, setWorkoutExercises] = useState([]);
   const LOCAL_ADDRESS = 'http://10.0.2.2:8080';
   const SERVICE_ADDRESS = LOCAL_ADDRESS;
   const [isLoading, setLoading] = useState(true);
   const imageurl = 'http://10.0.2.2:8080/images/';
+  //State for persons id, comes from ViewStart
   const [personid, setPersonId] = useState(props.route.params == undefined ? '' : props.route.params.personId);
+  //Visibility state for Overlay for checking chosen workouts details
   const [visible, setVisible] = useState(false);
+  //State for workoutId
   const [workoutid, setWorkoutId] = useState();
 
   useEffect(() => {
@@ -44,12 +53,13 @@ const ViewWorkoutHistory = props => {
     
     if (isLoading) {
       
-      setLoading(false);
+      //Fetching persons all workouts from database at first render
       fetchWorkoutsByPerson();
+      setLoading(false);
     }
   }, []);
 
-  //Fetch workoutexercises by chosen workoutid
+  //Fetch workoutexercises by chosen workoutid, setting respond json to workoutExercises list
   const fetchWorkoutExercisesByWorkoutId = async id => {
     try {
       let response = await fetch(
@@ -62,11 +72,11 @@ const ViewWorkoutHistory = props => {
     } catch (error) {
       console.log(error);
     }
-
+    //Opening Overlay for workouts details
     toggleOverlay();
   };
 
-  //Fetching all workouts by personid
+  //Fetching all workouts by personid and setting those into workoutHistory list
   const fetchWorkoutsByPerson = async () => {
     try {
       let response = await fetch(
@@ -119,34 +129,16 @@ console.log('indeleteworkoutbyid  ',workoutid);
         }
   };
 
-  //KeyExtractor for Flatlist for Workout list
-  keyExtract = (item, index) => {
-    console.log("extractor indeksi  ",index);
-    index.toString();
-  };
-
-  //KeyHandler for Flatlist in Overlay
-  keyHandler = (item, index) => {
-    index.toString();
-  };
-
   //Toggling Overlay visibility
   const toggleOverlay = index => {
     setVisible(!visible);
   };
 
-  // const deleteWorkout = (workoutid) => {
-  //   console.log("delete      ", workoutid)
-    
-  //   deleteWorkoutById(workoutid);
-    
-  // }
-
   //Rendering Flatlist of Workouts
   const renderItem2 = ({item, index}) => {
-    console.log("indeksi  ",index);
+  
     return (
-      // TouchableOpacity for chosing workout from list
+      // TouchableOpacity for chosing workout from list and deleting them
 
 
       <TouchableOpacity
@@ -190,22 +182,20 @@ console.log('indeleteworkoutbyid  ',workoutid);
         {/* Flatlist View for workouts */}
         <View style={styles.flatlist}>
           <FlatList
-            // keyExtractor={keyExtract}
             data={workoutHistory}
             renderItem={renderItem2}
           />
         </View>
 
-        {/* Overlay for showing details of chosen workout starts */}
+        {/* Overlay for showing details of chosen workout starts
+        shows: Exercises name, image and sets with repeats, weights and exercises */}
         <Overlay
           isVisible={visible}
           onBackdropPress={toggleOverlay}
           overlayStyle={{width: '90%'}}>
           <FlatList
-            // keyExtractor={keyHandler}
             data={workoutExercises}
             renderItem={({item, index}) => {
-              console.log('overlay', workoutExercises);
               let path = 'http://10.0.2.2:8080/images/' + item[0].picture;
               console.log(path);
               return (
@@ -256,6 +246,7 @@ console.log('indeleteworkoutbyid  ',workoutid);
                       </Text>
                     </View>
 
+                      {/* Mapping for getting sets from list in different rows */}
                     {item.map((item, index) => {
                       return (
                         <View
@@ -286,7 +277,7 @@ console.log('indeleteworkoutbyid  ',workoutid);
                       );
                     })}
                   </ListItem.Content>
-
+                    {/* Exercise image */}
                   <Avatar
                     source={{uri: path}}
                     size={55}
@@ -351,6 +342,7 @@ const styles = StyleSheet.create({
     flex: 8,
     width: '100%',
     alignContent: 'center',
+    marginBottom:10
   },
   listitem: {
     padding: 10,
@@ -358,16 +350,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: '90%',
     borderRadius: 10,
+    
   },
   listitemOverlay: {
     padding: 5,
     backgroundColor: 'white',
     width: '100%',
   },
-  content: {
-    padding: 5,
-    width: 500,
-  },
+
   textStyleOverlay: {
     fontSize: 16,
   },

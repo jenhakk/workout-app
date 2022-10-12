@@ -29,12 +29,15 @@ const ViewStart = props => {
     )})
   }
     if (isLoading) {
+      // Fetching person information at first render
         fetchPerson();
         setLoading(false);
     }
 }, [])
 
   //Fetching person id from database to send forward to other Views
+  //Setting all person information to personList
+  //Setting just persons id to personId > Used in ViewWorkoutHistory
   const fetchPerson = async () => {
     try {
       let response = await fetch(
@@ -49,8 +52,11 @@ const ViewStart = props => {
     }
   };
 
+  //BASE VIEW
   return (
     <View style={styles.container}>
+
+      {/* Top of the screen with date and motivation box */}
       <View style={styles.top}>
         <ImageBackground
           source={require('../assets/imageback.png')}
@@ -67,13 +73,18 @@ const ViewStart = props => {
               paddingTop: 5,
               
             }}>
+
+              {/* DATE */}
             {getCurrentDate()}
           </Text>
+
+          {/* Motivation component from components folder */}
             <Motivation />
           </View>
         </ImageBackground>
       </View>
 
+          {/* BUTTONS */}
       <View style={styles.buttonContainer}>
         
         <View style={styles.buttongroup}>
@@ -81,7 +92,7 @@ const ViewStart = props => {
             title={<CustomTitleWorkout />}
             buttonStyle={styles.button1}
             onPress={() => {
-              props.navigation.navigate('Add Exercises');
+              props.navigation.navigate('Add Exercises', { personId: personId});
             }}></Button>
           <Button
             title={<CustomTitleAddMeas />}
@@ -104,6 +115,8 @@ const ViewStart = props => {
               props.navigation.navigate('All recorded measurements', { person: person});
             }}></Button>
         </View>
+
+        {/* BOTTOM NAVIGATION */}
         <View style={styles.bottom}>
 
         <NavButtons params={props} />
@@ -116,7 +129,9 @@ const ViewStart = props => {
   );
 };
 
-//Custom buttons with icon and title
+//Custom buttons to get icon and title in different rows
+
+//Start Workout button
 const CustomTitleWorkout = () => {
   return (
     <View style={{flexDirection: 'column'}}>
@@ -139,6 +154,7 @@ const CustomTitleWorkout = () => {
   );
 };
 
+//Add Measurements button
 const CustomTitleAddMeas = () => {
   return (
     <View style={{flexDirection: 'column'}}>
@@ -162,6 +178,7 @@ const CustomTitleAddMeas = () => {
   );
 };
 
+//Workout History button
 const CustomTitleWorkoutHistory = () => {
   return (
     <View style={{flexDirection: 'column'}}>
@@ -179,6 +196,8 @@ const CustomTitleWorkoutHistory = () => {
     </View>
   );
 };
+
+//Measurements History button
 const CustomTitleMeasHistory = () => {
   return (
     <View style={{flexDirection: 'column'}}>
@@ -216,13 +235,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: '95%',
     width:Dimensions.get('window').width,
-
   },
   top: {
     flex: 2,
     alignItems: 'center',
-    
-    
   },
   motivation: {
     flex: 2,
@@ -230,7 +246,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
-
   buttonContainer: {
     flex: 3,
     width:Dimensions.get('window').width,
@@ -240,7 +255,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
-
   button1: {
     width: 150,
     height: 170,

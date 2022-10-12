@@ -20,19 +20,28 @@ import NavButtons from '../components/NavButtons';
 import {Dialog} from '@rneui/base';
 
 const ViexExercises = props => {
+  //List of exercises
   const [exerciseList, setExercise] = useState([]);
+  //Address for backend
   const LOCAL_ADDRESS = 'http://10.0.2.2:8080';
   const SERVICE_ADDRESS = LOCAL_ADDRESS;
   const [isLoading, setLoading] = useState(true);
   const imageurl = 'http://10.0.2.2:8080/images/';
+  //Checked value used in setting exercise as checked or not
   const [checked, setChecked] = useState();
-  const [id, setId] = useState(-1);
+  //Setting exercises id for update checked value
   const [exerciseToUpdate, updateExercise] = useState();
+  //Confirmation dialogs visibility
   const [visibility, setVisibility] = useState(false);
+  //Image overlays visibility
   const [imageVisibility, setImageVisibility] = useState(false);
+  //Setting images path for showing it in Overlay
   const [imagePath, setImagePath] = useState('');
+  //Setting persons id from ViewStart into personid state
+  const [personId, setPersonId] = useState(props.route.params == undefined ? '' : props.route.params.personId);
   
- 
+ //View where user chooses exercises they want to add into their workout
+ //After pressing 'Start Workout' button user will be navigated to actual Workout View
 
   useEffect(() => {
     {props.navigation.setOptions({headerRight: () => (
@@ -46,12 +55,13 @@ const ViexExercises = props => {
     )})
   }
     if (isLoading) {
+      //Fetching all exercises from database to be shown in Flatlist
       fetchExercises();
       setLoading(false);
     }
   }, []);
 
-  //Fetch for reading exercises from database into a list
+  //Fetch for reading exercises from database into the exerciseList
   const fetchExercises = async () => {
     try {
       let response = await fetch(
@@ -67,7 +77,7 @@ const ViexExercises = props => {
    
   };
 
-  //Updating chosen exercises checked attribute as "true"
+  //Updating chosen exercises checked attribute as "true" into database
   const saveExercisesToDb = async () => {
     try {
       let response = await fetch(
@@ -85,6 +95,7 @@ const ViexExercises = props => {
     } catch (error) {
       console.log(error);
     } finally {
+      //Finally opening confirmation dialog of Start Workout button
       toggleDialog();
     }
   };
@@ -96,7 +107,6 @@ const ViexExercises = props => {
 
   //Open Image Overlay
   handleModalOpen = path => {
-    console.log(path);
     setImagePath(path);
     setImageVisibility(!imageVisibility);
   };
@@ -112,11 +122,9 @@ const ViexExercises = props => {
   //Setting chosen exercises checked value as true or false
   //and setting it to exerciseList
   const updateItem = index => {
-    console.log(index);
     updateExercise(exerciseList[index]);
     exerciseList[index].checked = !exerciseList[index].checked;
     setExercise(exerciseList);
-    console.log(exerciseList[index].checked);
     setChecked(!checked);
   };
 
@@ -127,9 +135,9 @@ const ViexExercises = props => {
 
     return (
       // Start of ListItem
-      <ListItem bottomDivider key={index} style={styles.listitem}>
+      <ListItem bottomDivider style={styles.listitem}>
 
-        {/* Image */}
+        {/* Exercise image */}
         <Avatar
           source={{uri: path}}
           size={65}
@@ -147,7 +155,7 @@ const ViexExercises = props => {
           </ListItem.Title>
         </ListItem.Content>
 
-        {/* Checkbox */}
+        {/* Checkbox: with onPress updates chosen exercise into exerciseList as !checked */}
         <ListItem.CheckBox
           checked={item.checked}
           uncheckedColor="#6533F9"
@@ -205,7 +213,7 @@ const ViexExercises = props => {
               titleStyle={{color: 'white', fontSize: 20, fontWeight: '700'}}
               title="LET'S GO!"
               onPress={() => {
-                props.navigation.navigate('During workout');
+                props.navigation.navigate('During workout', { personId: personId });
               }}
             />
           </Dialog.Actions>
@@ -237,7 +245,7 @@ const ViexExercises = props => {
             }}>
             Choose exercises you want to add to your workout
           </Text>
-          {/* Flatlist starts */}
+          {/* Flatlist starts: Button Start Workout updates exerciseList with new checked values into database */}
           <FlatList
             keyExtractor={keyExtractor}
             data={exerciseList}
