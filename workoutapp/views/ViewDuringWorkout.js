@@ -270,7 +270,7 @@ const ViewDuringWorkout = props => {
   
         setToggleSaveVisibility(false);
   
-      },2000);
+      },1000);
   
     };
     
