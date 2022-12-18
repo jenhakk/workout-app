@@ -20,16 +20,16 @@ The frontend has been created with **React Native** and the app runs with **Andr
 
 ## Screens
 
-### Home
+#### Home
 This view shows date and zen quotes and forwards to add exercise and measurements and see workout and **Measurement history** by simple buttons.
 
-### Profile
+#### Profile
 The user can fill in their personal information on profile, like name, location, their slogan and add a profile picture. 
 
-### Measurements 
+#### Measurements 
 The user can add their weight and other measurements via inputs. For now, there’s limited amount of different measurements the user can add, but later the list could be extended and the user could update their measurements. User can examine and update the changes from the history view.
 
-### Workout
+#### Workout
 When starting a new workout, the app forwards user to a view, which consists of the list of possible exercise moves that user can choose from. The list comes from the database. After the user has built their upcoming workout, they press the Start Exercise button.  
 
 On the next view, the user can see their chosen moves with the chart they can fill in series, repeats and weights or duration. After the user has done their workout, they press Finish Workout button, the app asks for confirmation that information is correct and this triggers another alert, which congratulates the user and asks for a review of workout.  
