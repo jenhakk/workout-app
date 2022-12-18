@@ -50,3 +50,6 @@ In this project we made our first mobile application. The project was very educa
 * Editing the number of series of exercise
 * Saving favourite exercises
 
+## My responsibilities
+
+I was mainly making the Workout features of the application and I also designed the UI.
