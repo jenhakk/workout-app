@@ -2,6 +2,8 @@
 
 **This repository is created for the frontend of our workout app. The project is for Mobile Programming course of Häme University of Applied Sciences. Here you can check [the backend](https://github.com/jenhakk/BE_WorkoutApp) part.**
 
+Team: [Jenna Hakkarainen](https://github.com/jenhakk), [Amanda Karjalainen](https://github.com/amakarj), [Anna-Maria Palm](https://github.com/A-d-f) 
+
 
 <img width="280" alt="home screen" src="https://user-images.githubusercontent.com/75015030/208300717-3047cb44-a8c6-4afa-b753-18b7312ef774.png"> <img width="280" alt="add exercise screen" src="https://user-images.githubusercontent.com/75015030/208300889-3999c3dd-40f0-4772-8c4c-b4315691df2d.png">
 
