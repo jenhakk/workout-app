@@ -2,7 +2,11 @@
 
 **This repository is created for the frontend of our workout app. The project is for Mobile Programming course of Häme University of Applied Sciences. Here you can check [the backend](https://github.com/jenhakk/BE_WorkoutApp) part.**
 
-<img width="200" alt="app" src="https://user-images.githubusercontent.com/75015030/208300290-afd27126-e27d-43a6-9d62-e0795fc99fa0.png">
+![image](https://user-images.githubusercontent.com/75015030/208300542-60c49baa-3554-49bb-ba25-c8f3f9ec11aa.png) ![image](https://user-images.githubusercontent.com/75015030/208300511-c737a6b2-0577-4966-994f-ad437679ba19.png) 
+
+
+
+
 
 
 
