@@ -14,7 +14,7 @@ App is designed to keep track of workouts and personal measurements. It focuses 
 
 The application is clear and simple to use during workouts. There are round shapes and bigger sized texts and buttons and it has space around elements with light and bright colors. Navigation is fluid and logical with minimal effort.
 
-The frontend has been created with **React Native** and the app runs with **Android Studio**. The shown data is fetched from **MySQL database**. It is built using React Native Elements UI library.
+The frontend has been created with **React Native** and the app runs with **Android Studio**. The shown data is fetched from **MySQL database**. It is built using **React Native Elements** UI library.
 
 ## Screens
 
